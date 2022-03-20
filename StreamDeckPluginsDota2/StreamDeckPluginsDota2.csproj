@@ -7,7 +7,7 @@
     <ProjectGuid>{4635D874-69C0-4010-BE46-77EF92EB1553}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>StreamDeckPluginsDota2</RootNamespace>
-    <AssemblyName>StreamDeckPluginsDota2</AssemblyName>
+    <AssemblyName>com.adrian-miasik.sdpdota2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\StreamDeckPluginsDota2.sdPlugin\</OutputPath>
+    <OutputPath>bin\Debug\com.adrian-miasik.sdpdota2.sdPlugin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\StreamDeckPluginsDota2.sdPlugin\</OutputPath>
+    <OutputPath>bin\Release\com.adrian-miasik.sdpdota2.sdPlugin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
