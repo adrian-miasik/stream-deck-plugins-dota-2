@@ -1,11 +1,11 @@
 {
   "Actions": [
     {
-      "Icon": "Images/icon",
+      "Icon": "images/icon",
       "Name": "Dota 2 - Roshan Timer",
       "States": [
         {
-          "Image": "Images/pluginAction",
+          "Image": "images/pluginAction",
           "TitleAlignment": "middle",
           "FontSize": "12"
         }
@@ -19,11 +19,11 @@
   "Name": "Adrian Miasik - Dota 2",
   "Description": "A suite of Stream Deck plugins created for Dota 2.",
   "Author": "Adrian Miasik",
-  "Icon": "Images/pluginIcon",
+  "Icon": "images/pluginIcon",
   "URL": "https://www.adrian-miasik.com",
   "CodePath": "com.adrian-miasik.sdpdota2",
   "Category": "Adrian Miasik",
-  "CategoryIcon": "Images/categoryIcon",
+  "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
   "Version": "0.1",
   "SDKVersion": 2,
