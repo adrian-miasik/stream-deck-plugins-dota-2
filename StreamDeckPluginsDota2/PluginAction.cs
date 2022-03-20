@@ -46,19 +46,9 @@ namespace StreamDeckPluginsDota2
             }
         }
 
-        public override void Dispose()
-        {
-            Logger.Instance.LogMessage(TracingLevel.INFO, $"Destructor called");
-        }
-
-        public override void KeyPressed(KeyPayload payload)
-        {
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Key Pressed");
-        }
+        public override void KeyPressed(KeyPayload payload) { }
 
         public override void KeyReleased(KeyPayload payload) { }
-
-        public override void OnTick() { }
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
@@ -67,6 +57,11 @@ namespace StreamDeckPluginsDota2
         }
 
         public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
+
+        public override void OnTick() { }
+
+        public override void Dispose() { }
+
         private void SaveSettings()
         {
             Connection.SetSettingsAsync(JObject.FromObject(settings));
