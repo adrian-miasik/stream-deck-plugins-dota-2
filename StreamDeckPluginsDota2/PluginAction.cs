@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StreamDeckPluginsDota2
 {
-    [PluginActionId("StreamDeckPluginsDota2.pluginaction")]
+    [PluginActionId("com.adrian-miasik.sdpdota2.roshan-timer")]
     public class PluginAction : PluginBase
     {
         private class PluginSettings
