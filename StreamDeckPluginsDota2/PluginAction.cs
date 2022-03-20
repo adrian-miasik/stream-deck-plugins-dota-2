@@ -12,9 +12,15 @@ namespace StreamDeckPluginsDota2
         {
             public static PluginSettings CreateDefaultSettings()
             {
+                PluginSettings instance = new PluginSettings
+                {
+                    TotalSeconds = 0
+                };
                 return instance;
             }
 
+            [JsonProperty(PropertyName = "totalSeconds")]
+            public int TotalSeconds { get; set; }
         }
         
         private PluginSettings settings;
