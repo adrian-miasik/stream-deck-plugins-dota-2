@@ -30,12 +30,9 @@ namespace StreamDeckPluginsDota2
             [JsonProperty(PropertyName = "inputString")]
             public string InputString { get; set; }
         }
-
-        #region Private Members
-
+        
         private PluginSettings settings;
-
-        #endregion
+        
         public PluginAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
@@ -70,14 +67,10 @@ namespace StreamDeckPluginsDota2
         }
 
         public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
-
-        #region Private Methods
-
+        
         private Task SaveSettings()
         {
             return Connection.SetSettingsAsync(JObject.FromObject(settings));
         }
-
-        #endregion
     }
 }
