@@ -2,7 +2,7 @@
   "Actions": [
     {
       "Icon": "Images/icon",
-      "Name": "TODO_ENTER_NAME_OF_ACTION",
+      "Name": "Dota 2 - Roshan Timer",
       "States": [
         {
           "Image": "Images/pluginAction",
@@ -11,28 +11,29 @@
         }
       ],
       "SupportedInMultiActions": false,
-      "Tooltip": "TODO_ENTER_TOOLTIP",
-      "UUID": "StreamDeckPluginsDota2.pluginaction",
+      "Tooltip": "Keep track of Roshan's respawn time and item drops directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.roshan-timer",
       "PropertyInspectorPath": "PropertyInspector/PluginActionPI.html"
     }
   ],
-  "Author": "TODO_ENTER_YOUR_NAME",
-  "Name": "StreamDeckPluginsDota2",
-  "Description": "TODO_ENTER_PLUGIN_DESCRIPTION",
+  "Name": "Adrian Miasik - Dota 2",
+  "Description": "A suite of Stream Deck plugins created for Dota 2.",
+  "Author": "Adrian Miasik",
   "Icon": "Images/pluginIcon",
-  "URL": "TODO_ENTER_YOUR_HOMEPAGE",
-  "Version": "1.0",
-  "CodePath": "StreamDeckPluginsDota2",
-  "Category": "Custom",
+  "URL": "https://www.adrian-miasik.com",
+  "CodePath": "com.adrian-miasik.sdpdota2",
+  "Category": "Adrian Miasik",
   "CategoryIcon": "Images/categoryIcon",
+  "Disabled":  false,
+  "Version": "0.1",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion":  "4.1"
+  },
   "OS": [
     {
       "Platform": "windows",
       "MinimumVersion": "10"
     }
-  ],
-  "SDKVersion": 2,
-  "Software": {
-    "MinimumVersion": "4.9"
-  }
+  ]
 }
