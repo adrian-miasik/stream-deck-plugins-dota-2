@@ -13,7 +13,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Keep track of Roshan's respawn time and item drops directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.roshan-timer",
-      "PropertyInspectorPath": "PropertyInspector/PluginActionPI.html"
+      "PropertyInspectorPath": "property-inspector/PluginActionPI.html"
     }
   ],
   "Name": "Adrian Miasik - Dota 2",
