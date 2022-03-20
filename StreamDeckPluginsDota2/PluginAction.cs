@@ -12,18 +12,9 @@ namespace StreamDeckPluginsDota2
         {
             public static PluginSettings CreateDefaultSettings()
             {
-                PluginSettings instance = new PluginSettings();
-                instance.OutputFileName = String.Empty;
-                instance.InputString = String.Empty;
                 return instance;
             }
 
-            [FilenameProperty]
-            [JsonProperty(PropertyName = "outputFileName")]
-            public string OutputFileName { get; set; }
-
-            [JsonProperty(PropertyName = "inputString")]
-            public string InputString { get; set; }
         }
         
         private PluginSettings settings;
