@@ -37,12 +37,12 @@ namespace StreamDeckPluginsDota2
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
-                this.settings = PluginSettings.CreateDefaultSettings();
+                settings = PluginSettings.CreateDefaultSettings();
                 SaveSettings();
             }
             else
             {
-                this.settings = payload.Settings.ToObject<PluginSettings>();
+                settings = payload.Settings.ToObject<PluginSettings>();
             }
         }
 
