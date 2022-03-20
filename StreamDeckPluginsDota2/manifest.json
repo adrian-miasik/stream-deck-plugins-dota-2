@@ -6,7 +6,7 @@
       "States": [
         {
           "Image": "images/pluginAction",
-          "TitleAlignment": "middle",
+          "TitleAlignment": "bottom",
           "FontSize": "12"
         }
       ],
