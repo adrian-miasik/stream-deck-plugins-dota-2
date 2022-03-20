@@ -67,10 +67,9 @@ namespace StreamDeckPluginsDota2
         }
 
         public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
-        
-        private Task SaveSettings()
+        private void SaveSettings()
         {
-            return Connection.SetSettingsAsync(JObject.FromObject(settings));
+            Connection.SetSettingsAsync(JObject.FromObject(settings));
         }
     }
 }
