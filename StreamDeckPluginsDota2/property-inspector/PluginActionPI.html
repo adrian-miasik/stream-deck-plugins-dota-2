@@ -12,9 +12,13 @@
 </head>
 <body>
     <div class="sdpi-wrapper">
-        <div class="sdpi-item" id="dvTitlePrefix">
-            <div class="sdpi-item-label">Set Total Seconds</div>
-            <input class="sdpi-item-value sdProperty" type="number" placeholder="" value="" id="totalSeconds" oninput="setSettings()">
+        <div class="sdpi-item">
+            <div class="sdpi-item-label sdProperty sdHTML">Total Seconds</div>
+            <input readonly required pattern=".{1,}" class="sdpi-item-value sdProperty" type="number" placeholder=0 value=0 id="totalSeconds" oninput="setSettings()">
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label sdProperty sdHTML">Death Count</div>
+            <input readonly required pattern=".{1,}" class="sdpi-item-value sdProperty" type="number" placeholder=0 value=0 id="deathCount" oninput="setSettings()">
         </div>
     </div>
 </body>

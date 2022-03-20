@@ -25,7 +25,7 @@
   "Category": "Adrian Miasik",
   "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
-  "Version": "0.1",
+  "Version": "1.0.0",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"

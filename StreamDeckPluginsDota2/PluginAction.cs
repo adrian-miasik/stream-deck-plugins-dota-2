@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace StreamDeckPluginsDota2
@@ -16,18 +17,23 @@ namespace StreamDeckPluginsDota2
             {
                 PluginSettings instance = new PluginSettings
                 {
-                    TotalSeconds = 0
+                    TotalSeconds = 0,
+                    DeathCount = 0
                 };
                 return instance;
             }
 
             [JsonProperty(PropertyName = "totalSeconds")]
             public int TotalSeconds { get; set; }
+            
+            [JsonProperty(PropertyName = "deathCount")]
+            public int DeathCount { get; set; }
         }
         
         private PluginSettings settings;
         
         private Timer applicationTimer; // Used for processing input. Cannot be paused.
+        private bool isInitialized; // I.e. Is tick running
         
         // Hold
         private bool isKeyHeld;
@@ -42,9 +48,7 @@ namespace StreamDeckPluginsDota2
         // Roshan
         private Timer roshanTimer; // Used for keeping track of roshan's respawn time. Can be paused.
         private bool isRoshanTimerPaused;
-        // TODO: Expose deathCount in inspector property field
-        private int deathCount;
-        
+
         public PluginAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
@@ -89,10 +93,11 @@ namespace StreamDeckPluginsDota2
             if (hasDoubleClicked)
             {
                 hasDoubleClicked = false;
-                deathCount++;
+                settings.DeathCount++;
                 settings.TotalSeconds = 0; // Reset timer
                 ResumeRoshanTimer();
-                CalculateRoshanContext(settings.TotalSeconds);
+                CalculateRoshanContext(settings.DeathCount, settings.TotalSeconds);
+                SaveSettings();
                 return;
             }
 
@@ -114,6 +119,8 @@ namespace StreamDeckPluginsDota2
                 applicationTimer.AutoReset = true;
                 applicationTimer.Interval = 100; // 10 ticks per second
                 applicationTimer.Start();
+
+                isInitialized = true;
             }
             
             // First press - Create roshan timer
@@ -151,8 +158,11 @@ namespace StreamDeckPluginsDota2
             {
                 // Restart App
                 ignoreKeyRelease = true;
+                
+                settings.DeathCount = 0;
                 settings.TotalSeconds = 0;
-                deathCount = 0;
+                SaveSettings();
+                
                 numberOfPresses = 0;
                 hasDoubleClicked = false;
                 
@@ -164,6 +174,8 @@ namespace StreamDeckPluginsDota2
                 // Reset action image to Roshan
                 Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
+
+                isInitialized = false;
             }
         }
 
@@ -217,10 +229,12 @@ namespace StreamDeckPluginsDota2
             }
 
             settings.TotalSeconds++;
-            CalculateRoshanContext(settings.TotalSeconds);
+            SaveSettings();
+            
+            CalculateRoshanContext(settings.DeathCount, settings.TotalSeconds);
         }
 
-        private void CalculateRoshanContext(int totalSeconds)
+        private void CalculateRoshanContext(int deathCount = 0, int totalSeconds = 0)
         {
             int totalMinutes = totalSeconds / 60;
 
@@ -262,7 +276,15 @@ namespace StreamDeckPluginsDota2
             SaveSettings();
         }
 
-        public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
+        public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload)
+        {
+            if (!isInitialized)
+            {
+                // Reset action image to Roshan
+                Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
+                Connection.SetTitleAsync(String.Empty);
+            }
+        }
 
         public override void OnTick() { }
 
