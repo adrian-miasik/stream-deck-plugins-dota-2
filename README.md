@@ -4,7 +4,7 @@
 </p>
 
 # About
-A suite of Stream Deck plugins created for Dota 2.
+A suite of Stream Deck plugins created for Dota 2 ⚔️
 
 # Actions
 ## Roshan Timer
