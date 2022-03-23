@@ -98,7 +98,7 @@ Keep track of Roshan's respawn time and loot directly from your Stream Deck!
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
 # Third Parties
-- Plugins created using BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK
+- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
