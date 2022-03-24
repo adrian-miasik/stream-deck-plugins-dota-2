@@ -2,17 +2,16 @@
 <p align="center">
   <img src="StreamDeckPluginsDota2/Images/icon@2x.png" width="40">
 </p>
-
-# About
-A suite of Stream Deck plugins created for Dota 2 ⚔️
+<p align="center">A suite of Stream Deck plugins created for Dota 2 ⚔️</p>
 
 # Actions
-## Roshan Timer
-<img src="StreamDeckPluginsDota2/Images/pluginIcon@2x.png" width="128">
-Keep track of Roshan's respawn time and loot directly from your Stream Deck!
+<h2 align="center">Roshan Timer</h2>
+<p align="center">
+  <img src="StreamDeckPluginsDota2/Images/pluginIcon@2x.png" width="128">
+</p>
+<p align="center"> Keep track of Roshan's respawn time and item drops.</p>
 
 ### How to Use
-
 | Action       | Result                                                      |
 |--------------|-------------------------------------------------------------|
 | Single Press | Start / Pause / Resume timer                                |
