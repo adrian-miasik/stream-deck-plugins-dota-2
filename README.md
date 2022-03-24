@@ -92,13 +92,15 @@
 - Elgato Plugin Store (Recommended)
 - [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
 
+# Author Notes
+- If you're looking to build this yourself, make sure to download [.NET Framework 4.7.2 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472) and make sure to restore/update your NuGet packages as necessary.
+
 # Contact Us / Support Line
 - For inquires related to this specific plugin / repository: `roshan-timer@adrian-miasik.com`
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
 # Third Party
 - Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK</p>
-
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
