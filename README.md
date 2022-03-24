@@ -1,7 +1,7 @@
-<h1 align="center">Stream Deck Plugins - Dota 2</h1>
 <p align="center">
   <img src="StreamDeckPluginsDota2/Images/icon@2x.png" width="40">
 </p>
+<h1 align="center">Stream Deck Plugins - Dota 2</h1>
 <p align="center">A suite of Stream Deck plugins created for Dota 2 ⚔️</p>
 
 # Actions
@@ -96,8 +96,9 @@
 - For inquires related to this specific plugin / repository: `roshan-timer@adrian-miasik.com`
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
-# Third Parties
-- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK
+# Third Party
+- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK</p>
+
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
