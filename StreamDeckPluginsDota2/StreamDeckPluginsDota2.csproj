@@ -37,6 +37,10 @@
       <HintPath>..\packages\CommandLineParser.2.9.0-preview1\lib\net461\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dota2GSI, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Dota2GSI.1.0.4\lib\Dota2GSI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
