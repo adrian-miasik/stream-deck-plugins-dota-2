@@ -28,6 +28,20 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the top rune directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.show-top-rune"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Dota 2 - Show Bot Rune",
+      "States": [
+        {
+          "Image": "Images\\roshan-timer\\pluginAction",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Quickly position the camera to preview the bot rune directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
     }
   ],
   "Name": "Adrian Miasik - Dota 2",
