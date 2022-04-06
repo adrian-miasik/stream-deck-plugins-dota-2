@@ -1,31 +1,28 @@
 ﻿using BarRaider.SdTools;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Drawing;
-using System.Timers;
+using WindowsInput;
 
 namespace StreamDeckPluginsDota2
 {
     [PluginActionId("com.adrian-miasik.sdpdota2.show-top-rune")]
     public class ShowTopRuneAction : PluginBase
     {
+        private InputSimulator m_inputSimulator;
         
-        public ShowTopRuneAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
+        public ShowTopRuneAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
-            // Nothing
+            m_inputSimulator = new InputSimulator();
         }
 
         public override void KeyPressed(KeyPayload payload)
         {
-            
+            // TODO: Pull string from cfg file
+            m_inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.F13);
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
-            
         }
-        
+
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
         }
@@ -34,8 +31,12 @@ namespace StreamDeckPluginsDota2
         {
         }
 
-        public override void OnTick() { }
+        public override void OnTick()
+        {
+        }
 
-        public override void Dispose() { }
+        public override void Dispose()
+        {
+        }
     }
 }
