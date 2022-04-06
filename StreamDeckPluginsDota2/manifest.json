@@ -14,6 +14,20 @@
       "Tooltip": "Keep track of Roshan's respawn time and item drops directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.roshan-timer",
       "PropertyInspectorPath": "property-inspector/PluginActionPI.html"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Dota 2 - Show Top Rune",
+      "States": [
+        {
+          "Image": "Images\\roshan-timer\\pluginAction",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Quickly position the camera to preview the top rune directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.show-top-rune"
     }
   ],
   "Name": "Adrian Miasik - Dota 2",
