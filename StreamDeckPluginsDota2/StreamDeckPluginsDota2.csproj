@@ -94,6 +94,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <!-- General Plugin Assets -->
   <ItemGroup>
     <Content Include="Images\categoryIcon@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -113,6 +114,7 @@
     <Content Include="Images\pluginIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <!-- Roshan Timer -->
     <Content Include="property-inspector\PluginActionPI.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -161,6 +163,25 @@
     <Content Include="Images\roshan-timer\states\alive3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <!-- Top Rune -->
+    <Content Include="Images\show-top-rune\pluginAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\show-top-rune\pluginAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Bot Rune -->
+    <Content Include="Images\show-bot-rune\pluginAction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\show-bot-rune\pluginAction@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\roshan-timer" />
+    <Folder Include="Images\show-bot-rune" />
+    <Folder Include="Images\show-top-rune" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
