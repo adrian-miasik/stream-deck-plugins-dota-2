@@ -8,7 +8,7 @@ using System.Timers;
 namespace StreamDeckPluginsDota2
 {
     [PluginActionId("com.adrian-miasik.sdpdota2.roshan-timer")]
-    public class PluginAction : PluginBase
+    public class RoshanTimerAction : PluginBase
     {
         private class PluginSettings
         {
@@ -31,24 +31,24 @@ namespace StreamDeckPluginsDota2
         
         private PluginSettings settings;
         
-        private Timer applicationTimer; // Used for processing input. Cannot be paused.
-        private bool isInitialized; // I.e. Is tick running
+        private Timer m_applicationTimer; // Used for processing input. Cannot be paused.
+        private bool m_isInitialized; // I.e. Is tick running
         
         // Hold
-        private bool isKeyHeld;
-        private DateTime pressedKeyTime;
-        private bool ignoreKeyRelease;
+        private bool m_isKeyHeld;
+        private DateTime m_pressedKeyTime;
+        private bool m_ignoreKeyRelease;
 
         // Double Click
-        private int numberOfPresses;
-        private DateTime releasedKeyTime;
-        private bool hasDoubleClicked;
+        private int m_numberOfPresses;
+        private DateTime m_releasedKeyTime;
+        private bool m_hasDoubleClicked;
         
         // Roshan
-        private Timer roshanTimer; // Used for keeping track of roshan's respawn time. Can be paused.
-        private bool isRoshanTimerPaused;
+        private Timer m_roshanTimer; // Used for keeping track of roshan's respawn time. Can be paused.
+        private bool m_isRoshanTimerPaused;
 
-        public PluginAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
+        public RoshanTimerAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
@@ -63,14 +63,14 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
-            if (numberOfPresses > 1)
+            if (m_numberOfPresses > 1)
             {
                 // If user last keystroke was less than than 0.4f second ago...
-                if ((DateTime.Now - releasedKeyTime).TotalSeconds < 0.4f)
+                if ((DateTime.Now - m_releasedKeyTime).TotalSeconds < 0.4f)
                 {
                     // User has double clicked!
-                    numberOfPresses = 0;
-                    hasDoubleClicked = true;
+                    m_numberOfPresses = 0;
+                    m_hasDoubleClicked = true;
                     
                     // Debug time between double click keys:
                     // Manager.SetImageAsync(args.context, "images/blank.png");
@@ -78,20 +78,20 @@ namespace StreamDeckPluginsDota2
                 }
             }
             
-            pressedKeyTime = DateTime.Now;
-            isKeyHeld = true;
+            m_pressedKeyTime = DateTime.Now;
+            m_isKeyHeld = true;
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
-            numberOfPresses++;
-            releasedKeyTime = DateTime.Now;
+            m_numberOfPresses++;
+            m_releasedKeyTime = DateTime.Now;
 
-            isKeyHeld = false;
+            m_isKeyHeld = false;
 
-            if (hasDoubleClicked)
+            if (m_hasDoubleClicked)
             {
-                hasDoubleClicked = false;
+                m_hasDoubleClicked = false;
                 settings.DeathCount++;
                 settings.TotalSeconds = 0; // Reset timer
                 ResumeRoshanTimer();
@@ -101,36 +101,36 @@ namespace StreamDeckPluginsDota2
             }
 
             // Ignore re-init when the user was holding to reset the roshan timer/app.
-            if (ignoreKeyRelease)
+            if (m_ignoreKeyRelease)
             {
-                ignoreKeyRelease = false;
+                m_ignoreKeyRelease = false;
                 return;
             }
 
             // First press - Create application timer to poll for inputs such as long presses
-            if (applicationTimer == null)
+            if (m_applicationTimer == null)
             {
-                applicationTimer = new Timer();
-                applicationTimer.Elapsed += (sender, eventArgs) =>
+                m_applicationTimer = new Timer();
+                m_applicationTimer.Elapsed += (sender, eventArgs) =>
                 {
                     ApplicationTimerTick();
                 };
-                applicationTimer.AutoReset = true;
-                applicationTimer.Interval = 100; // 10 ticks per second
-                applicationTimer.Start();
+                m_applicationTimer.AutoReset = true;
+                m_applicationTimer.Interval = 100; // 10 ticks per second
+                m_applicationTimer.Start();
 
-                isInitialized = true;
+                m_isInitialized = true;
             }
             
             // First press - Create roshan timer
-            if (roshanTimer == null)
+            if (m_roshanTimer == null)
             { 
                 CreateRoshanTimer();
                 return;
             }
             
             // Play / Pause
-            if (isRoshanTimerPaused)
+            if (m_isRoshanTimerPaused)
             {
                 ResumeRoshanTimer();
             }
@@ -147,50 +147,50 @@ namespace StreamDeckPluginsDota2
         /// <exception cref="NotImplementedException"></exception>
         private void ApplicationTimerTick()
         {
-            if (!isKeyHeld)
+            if (!m_isKeyHeld)
             {
                 return;
             }
             
             // If user held key for longer than 1 second...
-            if ((DateTime.Now - pressedKeyTime).TotalSeconds > 1)
+            if ((DateTime.Now - m_pressedKeyTime).TotalSeconds > 1)
             {
                 // Restart App
-                ignoreKeyRelease = true;
+                m_ignoreKeyRelease = true;
                 
                 settings.DeathCount = 0;
                 settings.TotalSeconds = 0;
                 SaveSettings();
                 
-                numberOfPresses = 0;
-                hasDoubleClicked = false;
+                m_numberOfPresses = 0;
+                m_hasDoubleClicked = false;
                 
                 // Dispose roshan timer
-                roshanTimer.Stop();
-                roshanTimer.Dispose();
-                roshanTimer = null;
+                m_roshanTimer.Stop();
+                m_roshanTimer.Dispose();
+                m_roshanTimer = null;
 
                 // Reset action image to Roshan
                 Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
 
-                isInitialized = false;
+                m_isInitialized = false;
             }
         }
 
         private void CreateRoshanTimer()
         {
-            roshanTimer = new Timer();
-            roshanTimer.Elapsed += (sender, eventArgs) =>
+            m_roshanTimer = new Timer();
+            m_roshanTimer.Elapsed += (sender, eventArgs) =>
             {
                 RoshanTimerTick();
             };
             
-            roshanTimer.AutoReset = true;
-            roshanTimer.Interval = 1000; // Tick one per second
-            roshanTimer.Start();
+            m_roshanTimer.AutoReset = true;
+            m_roshanTimer.Interval = 1000; // Tick one per second
+            m_roshanTimer.Start();
             
-            isRoshanTimerPaused = false;
+            m_isRoshanTimerPaused = false;
             Connection.SetTitleAsync(GetFormattedString(settings.TotalSeconds));
             Connection.SetImageAsync(Image.FromFile("images/states/dead0.png"));
         }
@@ -198,20 +198,20 @@ namespace StreamDeckPluginsDota2
         private void ResumeRoshanTimer()
         {
             // Start timer again
-            roshanTimer.Start();
+            m_roshanTimer.Start();
             
             // Update state
-            isRoshanTimerPaused = false;
+            m_isRoshanTimerPaused = false;
             Connection.SetTitleAsync(GetFormattedString(settings.TotalSeconds));
         }
 
         private void PauseRoshanTimer()
         {
             // Stop timer
-            roshanTimer.Stop();
+            m_roshanTimer.Stop();
             
             // Update state
-            isRoshanTimerPaused = true;
+            m_isRoshanTimerPaused = true;
             Connection.SetTitleAsync("Paused");
         }
 
@@ -221,7 +221,7 @@ namespace StreamDeckPluginsDota2
         /// </summary>
         private void RoshanTimerTick()
         {
-            if (roshanTimer == null)
+            if (m_roshanTimer == null)
             {
                 // Early exit
                 return;
@@ -277,7 +277,7 @@ namespace StreamDeckPluginsDota2
 
         public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload)
         {
-            if (!isInitialized)
+            if (!m_isInitialized)
             {
                 // Reset action image to Roshan
                 Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
