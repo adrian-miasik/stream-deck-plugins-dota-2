@@ -29,7 +29,7 @@ namespace StreamDeckPluginsDota2
             public int DeathCount { get; set; }
         }
         
-        private PluginSettings settings;
+        private readonly PluginSettings m_settings;
         
         private Timer m_applicationTimer; // Used for processing input. Cannot be paused.
         private bool m_isInitialized; // I.e. Is tick running
@@ -52,12 +52,12 @@ namespace StreamDeckPluginsDota2
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
-                settings = PluginSettings.CreateDefaultSettings();
+                m_settings = PluginSettings.CreateDefaultSettings();
                 SaveSettings();
             }
             else
             {
-                settings = payload.Settings.ToObject<PluginSettings>();
+                m_settings = payload.Settings.ToObject<PluginSettings>();
             }
         }
 
@@ -92,10 +92,10 @@ namespace StreamDeckPluginsDota2
             if (m_hasDoubleClicked)
             {
                 m_hasDoubleClicked = false;
-                settings.DeathCount++;
-                settings.TotalSeconds = 0; // Reset timer
+                m_settings.DeathCount++;
+                m_settings.TotalSeconds = 0; // Reset timer
                 ResumeRoshanTimer();
-                CalculateRoshanContext(settings.DeathCount, settings.TotalSeconds);
+                CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
                 SaveSettings();
                 return;
             }
@@ -158,8 +158,8 @@ namespace StreamDeckPluginsDota2
                 // Restart App
                 m_ignoreKeyRelease = true;
                 
-                settings.DeathCount = 0;
-                settings.TotalSeconds = 0;
+                m_settings.DeathCount = 0;
+                m_settings.TotalSeconds = 0;
                 SaveSettings();
                 
                 m_numberOfPresses = 0;
@@ -171,7 +171,7 @@ namespace StreamDeckPluginsDota2
                 m_roshanTimer = null;
 
                 // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("Images\\roshan-timer\\pluginAction@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
 
                 m_isInitialized = false;
@@ -191,8 +191,8 @@ namespace StreamDeckPluginsDota2
             m_roshanTimer.Start();
             
             m_isRoshanTimerPaused = false;
-            Connection.SetTitleAsync(GetFormattedString(settings.TotalSeconds));
-            Connection.SetImageAsync(Image.FromFile("images/states/dead0.png"));
+            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
+            Connection.SetImageAsync(Image.FromFile("Images\\roshan-timer\\states\\dead0.png"));
         }
 
         private void ResumeRoshanTimer()
@@ -202,7 +202,7 @@ namespace StreamDeckPluginsDota2
             
             // Update state
             m_isRoshanTimerPaused = false;
-            Connection.SetTitleAsync(GetFormattedString(settings.TotalSeconds));
+            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
         }
 
         private void PauseRoshanTimer()
@@ -227,35 +227,35 @@ namespace StreamDeckPluginsDota2
                 return;
             }
 
-            settings.TotalSeconds++;
+            m_settings.TotalSeconds++;
             SaveSettings();
             
-            CalculateRoshanContext(settings.DeathCount, settings.TotalSeconds);
+            CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
         }
 
         private void CalculateRoshanContext(int deathCount = 0, int totalSeconds = 0)
         {
             int totalMinutes = totalSeconds / 60;
 
-            Image defaultContext = Image.FromFile("images/states/dead3.png");
+            Image defaultContext = Image.FromFile("Images\\roshan-timer\\states\\dead3.png");
             
             if (totalMinutes < 8)
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images/states/dead" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("Images\\roshan-timer\\states\\dead" + deathCount + ".png") : defaultContext);
             }
             else if (totalMinutes < 11)
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images/states/maybe" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("Images\\roshan-timer\\states\\maybe" + deathCount + ".png") : defaultContext);
             }
             else
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images/states/alive" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("Images\\roshan-timer\\states\\alive" + deathCount + ".png") : defaultContext);
             } 
             
-            Connection.SetTitleAsync(GetFormattedString(settings.TotalSeconds));
+            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
         }
 
         private string GetFormattedString(int totalSeconds)
@@ -271,7 +271,7 @@ namespace StreamDeckPluginsDota2
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
-            Tools.AutoPopulateSettings(settings, payload.Settings);
+            Tools.AutoPopulateSettings(m_settings, payload.Settings);
             SaveSettings();
         }
 
@@ -280,7 +280,7 @@ namespace StreamDeckPluginsDota2
             if (!m_isInitialized)
             {
                 // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images/pluginAction@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("Images\\roshan-timer\\pluginAction@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
             }
         }
@@ -291,7 +291,7 @@ namespace StreamDeckPluginsDota2
 
         private void SaveSettings()
         {
-            Connection.SetSettingsAsync(JObject.FromObject(settings));
+            Connection.SetSettingsAsync(JObject.FromObject(m_settings));
         }
     }
 }
