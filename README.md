@@ -56,7 +56,7 @@
 #### Default
 > - Timer has not been started. **Press on Roshan's first death to begin the timer.**
 
-<img src="StreamDeckPluginsDota2/Images/pluginAction.png" width="64">
+<img src="StreamDeckPluginsDota2/Images/roshan-timer/pluginAction.png" width="64">
 
 ---
 
