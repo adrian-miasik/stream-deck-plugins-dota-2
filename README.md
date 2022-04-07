@@ -4,6 +4,20 @@
 <h1 align="center">Stream Deck Plugins - Dota 2</h1>
 <p align="center">A suite of Stream Deck plugins created for Dota 2 ⚔️</p>
 
+# Installation
+1. Install the `com.adrian-miasik.sdpdota2.streamDeckPlugin` file to your Stream Deck. Simple double-clicking this file on Windows will prompt an install. Make sure to have the Elgato Stream Deck software installed. 
+2. Copy and paste the `stream_deck_plugins_dota_2.cfg` file into your dota 2 cfg folder. Thi is usually found in the following directory: 
+  - `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota\cfg`
+4. Add the following commands to your Dota 2 launch options: 
+  - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
+
+**Important:** Make sure you have nothing currently bound to F13 or 14. If you do, please edit the stream_deck_plugins_dota_2.cfg to use unassigned keys.
+
+## Launch Options Explained
+- The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
+- The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our rune cameras to certain function keys. Please ensure you have no keybindings on F13 or F14.
+
+
 # Actions
 <h2 align="center">Roshan Timer</h2>
 <p align="center">

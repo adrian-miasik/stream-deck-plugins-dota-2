@@ -1,2 +1,0 @@
-bind "7" "dota_camera_set_lookatpos -1620 950"
-bind "8" "dota_camera_set_lookatpos 1200 -1400"
