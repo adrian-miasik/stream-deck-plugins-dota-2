@@ -130,6 +130,7 @@
   1. Build
   2. Navigate to the distribute folder
   3. Run the appropriate `.bat` script (Debug / Release). This will take our built solution and package the files using Elgato's Distribution Tool to create a plugin file. The output will create a `.streamDeckPlugin` file in the same directory.
+
 If you have any questions, feel free to reach out. :)
 
 # Contact Us / Support Line
