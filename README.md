@@ -138,7 +138,7 @@ If you have any questions, feel free to reach out. :)
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
 # Third Party
-- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK</p> 👍
+- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK 👍
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
