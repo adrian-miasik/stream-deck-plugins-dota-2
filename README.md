@@ -126,13 +126,18 @@
 
 # Author Notes
 - If you're looking to build this yourself, make sure to download [.NET Framework 4.7.2 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472) and make sure to restore/update your NuGet packages as necessary.
+- Distribution Pipeline:
+  1. Build
+  2. Navigate to the distribute folder
+  3. Run the appropriate `.bat` script (Debug / Release). This will take our built solution and package the files using Elgato's Distribution Tool to create a plugin file. The output will create a `.streamDeckPlugin` file in the same directory.
+If you have any questions, feel free to reach out. :)
 
 # Contact Us / Support Line
 - For inquires related to this specific plugin / repository: `roshan-timer@adrian-miasik.com`
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
 # Third Party
-- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK</p>
+- Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK</p> 👍
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
