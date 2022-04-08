@@ -84,6 +84,7 @@
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuneBase.cs" />
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
   </ItemGroup>
