@@ -44,15 +44,6 @@ namespace StreamDeckPluginsDota2
                 Environment.Exit(0);
             }
             Console.WriteLine("Listening for game integration calls...");
-
-            Console.WriteLine("Press ESC to quit");
-            do
-            {
-                while (!Console.KeyAvailable)
-                {
-                    Thread.Sleep(1000);
-                }
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
         
         static void OnNewGameState(GameState gs)
