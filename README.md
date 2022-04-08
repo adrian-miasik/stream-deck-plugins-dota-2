@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="StreamDeckPluginsDota2/Images/icon@2x.png" width="40">
+  <img src="StreamDeckPluginsDota2/Images/pluginIcon@2x.png" width="40">
 </p>
 <h1 align="center">Stream Deck Plugins - Dota 2</h1>
 <p align="center">A suite of Stream Deck plugins created for Dota 2 ⚔️</p>
@@ -134,7 +134,7 @@
 If you have any questions, feel free to reach out. :)
 
 # Contact Us / Support Line
-- For inquires related to this specific plugin / repository: `roshan-timer@adrian-miasik.com`
+- For inquires related to this specific plugin / repository: `sdp-dota-2@adrian-miasik.com`
 - For inquries related to any of my stream deck plugins: `stream-deck-plugins@adrian-miasik.com`
 
 # Third Party
