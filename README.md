@@ -30,7 +30,7 @@
 2. Add the following commands to your Dota 2 launch options: 
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
 
-**Important:** Make sure you have nothing currently bound to F13 or 14. If you do, please edit the stream_deck_plugins_dota_2.cfg to use unassigned keys.
+**Important:** Make sure you have nothing currently bound to F13 or 14. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
 
 # Launch Options Explained
 - The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
