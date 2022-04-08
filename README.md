@@ -39,7 +39,7 @@
 # Actions Explained
 <h2 align="center">Roshan Timer</h2>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/Images/pluginIcon@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/Images/roshan-timer/pluginAction@2x.png" width="128">
 </p>
 <p align="center"> Keep track of Roshan's respawn time and item drops.</p>
 
