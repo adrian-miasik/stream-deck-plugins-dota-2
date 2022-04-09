@@ -94,7 +94,6 @@ namespace StreamDeckPluginsDota2
         /// <param name="regKey"></param>
         private static void CreateGSIFile(RegistryKey regKey)
         {
-            // GSI Directory and File
             string gsiFolder = regKey.GetValue("SteamPath") +
                                @"\steamapps\common\dota 2 beta\game\dota\cfg\gamestate_integration";
             Directory.CreateDirectory(gsiFolder);
