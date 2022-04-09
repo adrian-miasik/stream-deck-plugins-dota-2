@@ -44,8 +44,8 @@
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
     }
   ],
-  "Name": "Adrian Miasik - Dota 2",
-  "Description": "A suite of Stream Deck plugins created for Dota 2.",
+  "Name": "Stream Deck Plugins - Dota 2",
+  "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2",
   "Author": "Adrian Miasik",
   "Icon": "Images/pluginIcon",
   "URL": "https://www.adrian-miasik.com",
