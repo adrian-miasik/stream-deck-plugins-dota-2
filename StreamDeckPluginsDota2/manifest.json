@@ -20,7 +20,7 @@
       "Name": "Dota 2 - Show Top Rune",
       "States": [
         {
-          "Image": "Images\\roshan-timer\\pluginAction",
+          "Image": "Images\\show-top-rune\\pluginAction",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -34,7 +34,7 @@
       "Name": "Dota 2 - Show Bot Rune",
       "States": [
         {
-          "Image": "Images\\roshan-timer\\pluginAction",
+          "Image": "Images\\show-bot-rune\\pluginAction",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
