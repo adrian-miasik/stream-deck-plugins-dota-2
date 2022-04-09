@@ -77,60 +77,75 @@ namespace StreamDeckPluginsDota2
 
             if (regKey != null)
             {
-                // GSI Directory and File
-                string gsiFolder = regKey.GetValue("SteamPath") +
-                                   @"\steamapps\common\dota 2 beta\game\dota\cfg\gamestate_integration";
-                Directory.CreateDirectory(gsiFolder);
-                string gsiFile = gsiFolder + @"\gamestate_integration_stream_deck_plugins_dota_2.cfg";
-                if (!File.Exists(gsiFile))
-                {
-                    string[] contentOfGSIFile =
-                    {
-                        "\"Dota 2 Integration Configuration\"",
-                        "{",
-                        "    \"uri\"           \"http://localhost:4000\"",
-                        "    \"timeout\"       \"5.0\"",
-                        "    \"buffer\"        \"0.1\"",
-                        "    \"throttle\"      \"0.1\"",
-                        "    \"heartbeat\"     \"30.0\"",
-                        "    \"data\"",
-                        "    {",
-                        "        \"provider\"      \"1\"",
-                        "        \"map\"           \"1\"",
-                        "        \"player\"        \"1\"",
-                        "        \"hero\"          \"1\"",
-                        "        \"abilities\"     \"1\"",
-                        "        \"items\"         \"1\"",
-                        "    }",
-                        "}",
-
-                    };
-
-                    File.WriteAllLines(gsiFile, contentOfGSIFile);
-                }
-                
-                // CFG File
-                string cfgFolder = regKey.GetValue("SteamPath") +
-                                   @"\steamapps\common\dota 2 beta\game\dota\cfg";
-    
-                string cfgFile = cfgFolder + @"\stream_deck_plugins_dota_2.cfg";
-                if (!File.Exists(cfgFile))
-                {
-                    string[] contentsOfCFGFile =
-                    {
-                        "bind \"F13\" \"dota_camera_set_lookatpos -1620 950\";",
-                        "bind \"F14\" \"dota_camera_set_lookatpos 1200 -1400\";",
-                        "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"
-                    };
-                    
-                    File.WriteAllLines(cfgFile, contentsOfCFGFile);
-                }
+                CreateGSIFile(regKey);
+                CreateCFGFile(regKey);
             }
             else
             {
-                Console.WriteLine("Registry key for steam not found, cannot create Gamestate Integration file");
+                Console.WriteLine("Registry key for steam not found, cannot create Gamestate Integration / CFG files");
                 Console.ReadLine();
                 Environment.Exit(0);
+            }
+        }
+        
+        /// <summary>
+        /// Creates our Game State Integration folder and configuration file if one doesn't exist.
+        /// </summary>
+        /// <param name="regKey"></param>
+        private static void CreateGSIFile(RegistryKey regKey)
+        {
+            // GSI Directory and File
+            string gsiFolder = regKey.GetValue("SteamPath") +
+                               @"\steamapps\common\dota 2 beta\game\dota\cfg\gamestate_integration";
+            Directory.CreateDirectory(gsiFolder);
+            string gsiFile = gsiFolder + @"\gamestate_integration_stream_deck_plugins_dota_2.cfg";
+            if (!File.Exists(gsiFile))
+            {
+                string[] contentOfGSIFile =
+                {
+                    "\"Dota 2 Integration Configuration\"",
+                    "{",
+                    "    \"uri\"           \"http://localhost:4000\"",
+                    "    \"timeout\"       \"5.0\"",
+                    "    \"buffer\"        \"0.1\"",
+                    "    \"throttle\"      \"0.1\"",
+                    "    \"heartbeat\"     \"30.0\"",
+                    "    \"data\"",
+                    "    {",
+                    "        \"provider\"      \"1\"",
+                    "        \"map\"           \"1\"",
+                    "        \"player\"        \"1\"",
+                    "        \"hero\"          \"1\"",
+                    "        \"abilities\"     \"1\"",
+                    "        \"items\"         \"1\"",
+                    "    }",
+                    "}",
+
+                };
+
+                File.WriteAllLines(gsiFile, contentOfGSIFile);
+            }
+        }
+
+        /// <summary>
+        /// Creates our configuration file for our rune action binds if one doesn't exist.
+        /// </summary>
+        private static void CreateCFGFile(RegistryKey regKey)
+        {
+            string cfgFolder = regKey.GetValue("SteamPath") +
+                               @"\steamapps\common\dota 2 beta\game\dota\cfg";
+    
+            string cfgFile = cfgFolder + @"\stream_deck_plugins_dota_2.cfg";
+            if (!File.Exists(cfgFile))
+            {
+                string[] contentsOfCFGFile =
+                {
+                    "bind \"F13\" \"dota_camera_set_lookatpos -1620 950\";", // Top Rune
+                    "bind \"F14\" \"dota_camera_set_lookatpos 1200 -1400\";", // Bot Rune
+                    "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"
+                };
+                    
+                File.WriteAllLines(cfgFile, contentsOfCFGFile);
             }
         }
     }
