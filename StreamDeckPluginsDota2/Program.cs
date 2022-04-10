@@ -139,8 +139,9 @@ namespace StreamDeckPluginsDota2
             {
                 string[] contentsOfCFGFile =
                 {
-                    "bind \"F13\" \"dota_camera_set_lookatpos -1620 950\";", // Top Rune
-                    "bind \"F14\" \"dota_camera_set_lookatpos 1200 -1400\";", // Bot Rune
+                    "bind \"F13\" \"+dota_camera_center_on_hero\";",
+                    "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";", // Top Rune
+                    "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";", // Bot Rune
                     "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"
                 };
                     
