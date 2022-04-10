@@ -31,11 +31,11 @@
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
 3. Reboot your Elgato Stream Deck software.
 
-**Important:** Make sure you have nothing currently bound to F13 or 14. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
+**Important:** Make sure you have nothing currently bound to F13, F14, and F15. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
 
 # Launch Options Explained
 - The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
-- The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our rune cameras to certain function keys. Please ensure you have no keybindings on F13 or F14.
+- The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our cameras actions to certain function keys. Please ensure you have no keybindings on F13, F14, and F15.
 
 # Actions Explained
 <h2 align="center">Roshan Timer</h2>
