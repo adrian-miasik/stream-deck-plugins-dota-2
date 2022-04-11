@@ -28,7 +28,6 @@ namespace StreamDeckPluginsDota2
             if (!_gsi.Start())
             {
                 Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
-                Console.ReadLine();
             }
 
             // Uncomment this line of code to allow for debugging
