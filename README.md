@@ -29,7 +29,6 @@
     - Simple double-clicking this file on Windows will prompt an install.
 2. Add the following commands to your Dota 2 launch options: 
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
-3. Reboot your Elgato Stream Deck software.
 
 **Important:** Make sure you have nothing currently bound to F13, F14, and F15. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
 
