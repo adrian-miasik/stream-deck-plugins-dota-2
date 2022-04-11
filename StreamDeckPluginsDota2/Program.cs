@@ -14,6 +14,16 @@ namespace StreamDeckPluginsDota2
         
         static void Main(string[] args)
         {
+            InitializeGameStateIntegration();
+            
+            // Uncomment this line of code to allow for debugging
+            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
+            
+            SDWrapper.Run(args);
+        }
+
+        static void InitializeGameStateIntegration()
+        {
             CreateConfigs();
 
             Process[] processName = Process.GetProcessesByName("Dota2");
@@ -29,11 +39,6 @@ namespace StreamDeckPluginsDota2
             {
                 Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
             }
-
-            // Uncomment this line of code to allow for debugging
-            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
-
-            SDWrapper.Run(args);
         }
         
         static void OnNewGameState(GameState gs)
