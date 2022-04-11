@@ -14,11 +14,6 @@ namespace StreamDeckPluginsDota2
         
         static void Main(string[] args)
         {
-            // Uncomment this line of code to allow for debugging
-            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
-
-            SDWrapper.Run(args);
-
             if (args == null)
             {
                 Console.WriteLine();
@@ -44,6 +39,11 @@ namespace StreamDeckPluginsDota2
                 Environment.Exit(0);
             }
             Console.WriteLine("Listening for game integration calls...");
+            
+            // Uncomment this line of code to allow for debugging
+            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
+
+            SDWrapper.Run(args);
         }
         
         static void OnNewGameState(GameState gs)
