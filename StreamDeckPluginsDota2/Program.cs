@@ -14,19 +14,12 @@ namespace StreamDeckPluginsDota2
         
         static void Main(string[] args)
         {
-            if (args == null)
-            {
-                Console.WriteLine();
-            }
-
             CreateConfigs();
 
             Process[] processName = Process.GetProcessesByName("Dota2");
             if (processName.Length == 0)
             {
                 Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
-                Console.ReadLine();
-                Environment.Exit(0);
             }
 
             _gsi = new GameStateListener(4000);
@@ -36,10 +29,8 @@ namespace StreamDeckPluginsDota2
             {
                 Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
                 Console.ReadLine();
-                Environment.Exit(0);
             }
-            Console.WriteLine("Listening for game integration calls...");
-            
+
             // Uncomment this line of code to allow for debugging
             //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
 
@@ -84,7 +75,6 @@ namespace StreamDeckPluginsDota2
             {
                 Console.WriteLine("Registry key for steam not found, cannot create Gamestate Integration / CFG files");
                 Console.ReadLine();
-                Environment.Exit(0);
             }
         }
         
