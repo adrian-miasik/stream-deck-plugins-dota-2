@@ -23,6 +23,10 @@
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
 
+# Downloads
+- [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
+- [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
+
 # Installation
 1. Install `com.adrian-miasik.sdpdota2.streamDeckPlugin` to your Stream Deck. 
     - Make sure to have the Elgato Stream Deck software installed. 
@@ -31,10 +35,6 @@
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
 
 **Important:** Make sure you have nothing currently bound to F13, F14, and F15. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
-
-# Downloads
-- [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
-- [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
 
 # Launch Options Explained
 - The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
