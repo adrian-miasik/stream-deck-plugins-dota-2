@@ -2,7 +2,7 @@
   "Actions": [
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Roshan Timer",
+      "Name": "Roshan Timer",
       "States": [
         {
           "Image": "images\\roshan-timer\\pluginAction",
@@ -17,7 +17,7 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Show Top Rune",
+      "Name": "Show Top Rune",
       "States": [
         {
           "Image": "images\\show-top-rune\\pluginAction",
@@ -31,7 +31,7 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Show Bot Rune",
+      "Name": "Show Bot Rune",
       "States": [
         {
           "Image": "images\\show-bot-rune\\pluginAction",
