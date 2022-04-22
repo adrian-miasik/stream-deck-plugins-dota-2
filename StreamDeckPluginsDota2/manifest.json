@@ -2,10 +2,10 @@
   "Actions": [
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Roshan Timer",
+      "Name": "Roshan Timer",
       "States": [
         {
-          "Image": "Images\\roshan-timer\\pluginAction",
+          "Image": "images\\roshan-timer\\pluginAction",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -17,10 +17,10 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Show Top Rune",
+      "Name": "Show Top Rune",
       "States": [
         {
-          "Image": "Images\\show-top-rune\\pluginAction",
+          "Image": "images\\show-top-rune\\pluginAction",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -31,10 +31,10 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Dota 2 - Show Bot Rune",
+      "Name": "Show Bot Rune",
       "States": [
         {
-          "Image": "Images\\show-bot-rune\\pluginAction",
+          "Image": "images\\show-bot-rune\\pluginAction",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -47,13 +47,13 @@
   "Name": "Stream Deck Plugins - Dota 2",
   "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2",
   "Author": "Adrian Miasik",
-  "Icon": "Images/pluginIcon",
+  "Icon": "images/pluginIcon",
   "URL": "https://www.adrian-miasik.com",
   "CodePath": "com.adrian-miasik.sdpdota2",
-  "Category": "Adrian Miasik",
+  "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"

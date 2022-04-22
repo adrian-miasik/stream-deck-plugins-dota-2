@@ -23,6 +23,10 @@
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
 
+# Downloads
+- [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
+- [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
+
 # Installation
 1. Install `com.adrian-miasik.sdpdota2.streamDeckPlugin` to your Stream Deck. 
     - Make sure to have the Elgato Stream Deck software installed. 
@@ -118,11 +122,6 @@
 
 - Fourth Death
 - Roshan is going to drop: `Aegis of the Immortal` + `Cheese` + `Aghanims Blessing` + `Refresher Shard`
-
-# Downloads
-**IMPORTANT NOTE: Links coming soon!**
-- Elgato Plugin Store (Recommended)
-- [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
 
 # Author Notes
 - If you're looking to build this yourself, make sure to download [.NET Framework 4.7.2 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472) and make sure to restore/update your NuGet packages as necessary.
