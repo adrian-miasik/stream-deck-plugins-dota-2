@@ -1,8 +1,8 @@
 <h1 align="center">Stream Deck Plugins - Dota 2</h1>
-<p align="center">A suite of Stream Deck plugins created for Valve's MOBA: Dota 2 ⚔️</p>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/images/pluginIcon@2x.png">
+  <img src="StreamDeckPluginsDota2/images/pluginIcon@2x.png" width="64">
 </p>
+<p align="center">A suite of Stream Deck plugins created for Valve's MOBA: Dota 2 ⚔️</p>
 
 # Actions
 <h2 align="center">Roshan Timer</h2>
