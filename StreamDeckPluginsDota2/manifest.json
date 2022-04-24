@@ -5,7 +5,7 @@
       "Name": "Roshan Timer",
       "States": [
         {
-          "Image": "images\\roshan-timer\\pluginAction",
+          "Image": "images\\actions\\roshan-timer",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -20,7 +20,7 @@
       "Name": "Show Top Rune",
       "States": [
         {
-          "Image": "images\\show-top-rune\\pluginAction",
+          "Image": "images\\actions\\show-top-rune",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -34,7 +34,7 @@
       "Name": "Show Bot Rune",
       "States": [
         {
-          "Image": "images\\show-bot-rune\\pluginAction",
+          "Image": "images\\actions\\show-bot-rune",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
