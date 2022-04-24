@@ -176,7 +176,7 @@
     <Content Include="images\actions\show-bot-rune.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\show-bot-rune2x.png">
+    <Content Include="images\actions\show-bot-rune@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
