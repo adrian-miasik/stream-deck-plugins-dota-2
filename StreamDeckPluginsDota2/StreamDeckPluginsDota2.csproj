@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuitApplication.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
