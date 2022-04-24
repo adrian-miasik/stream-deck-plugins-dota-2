@@ -7,19 +7,19 @@
 # Actions
 <h2 align="center">Roshan Timer</h2>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/images/roshan-timer/pluginAction@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="128">
 </p>
 <p align="center">Keep track of Roshan's respawn time and item drops.</p>
 
 <h2 align="center">Show Top Rune</h2>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/images/show-top-rune/pluginAction@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/show-top-rune@2x.png" width="128">
 </p>
 <p align="center">Quickly position the in-game camera to the top rune.</p>
 
 <h2 align="center">Show Bot Rune</h2>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/images/show-bot-rune/pluginAction@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="128">
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
 
@@ -43,7 +43,7 @@
 # Actions Explained
 <h2 align="center">Roshan Timer</h2>
 <p align="center">
-  <img src="StreamDeckPluginsDota2/images/roshan-timer/pluginAction@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="128">
 </p>
 <p align="center"> Keep track of Roshan's respawn time and item drops.</p>
 
@@ -60,32 +60,32 @@
 #### Default
 > - Timer has not been started. **Press on Roshan's first death to begin the timer.**
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/pluginAction.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/roshan-timer.png" width="64">
 
 ---
 
 #### Dead
 > - **Dead** when the timer is less than 8 minutes.
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/dead0.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/dead0.png" width="64">
 
 - First Death
 - Roshan has previously dropped: `Aegis of the Immortal`
 <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/dead1.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/dead1.png" width="64">
 
 - Second Death
 - Roshan has previously dropped: `Aegis of the Immortal` + `Aghanims Shard` 
 <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/dead2.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/dead2.png" width="64">
 
 - Third Death
 - Roshan has previously dropped: `Aegis of the Immortal` + `Cheese` + (`Refresher Shard` OR `Aghanims Blessing`)
 <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/dead3.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/dead3.png" width="64">
 
 - Fourth Death
 - Roshan has previously dropped: `Aegis of the Immortal` + `Cheese` + `Aghanims Blessing` + `Refresher Shard`
@@ -96,29 +96,29 @@
 > - **Maybe** when the timer is between 8-11 minutes.
 > - **Alive** when the timer is 11 minutes or more.
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/maybe0.png" width="64">
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/alive0.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/maybe0.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/alive0.png" width="64">
 
 - First Death
 - Roshan is going to drop: `Aegis of the Immortal` + `Aghanims Shard`
   <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/maybe1.png" width="64">
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/alive1.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/maybe1.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/alive1.png" width="64">
 
 - Second Death
 - Roshan is going to drop: `Aegis of the Immortal` + `Cheese` + (`Refresher Shard` OR `Aghanims Blessing`)
   <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/maybe2.png" width="64">
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/alive2.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/maybe2.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/alive2.png" width="64">
 
 - Third Death
 - Roshan is going to drop: `Aegis of the Immortal` + `Cheese` + `Aghanims Blessing` + `Refresher Shard`
   <br>
 
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/maybe3.png" width="64">
-<img src="StreamDeckPluginsDota2/images/roshan-timer/states/alive3.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/maybe3.png" width="64">
+<img src="StreamDeckPluginsDota2/images/actions/alive3.png" width="64">
 
 - Fourth Death
 - Roshan is going to drop: `Aegis of the Immortal` + `Cheese` + `Aghanims Blessing` + `Refresher Shard`
