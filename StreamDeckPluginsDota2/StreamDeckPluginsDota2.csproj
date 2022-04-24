@@ -122,10 +122,10 @@
     <Content Include="property-inspector\PluginActionPI.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer.png">
+    <Content Include="images\actions\roshan-timer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer@2x.png">
+    <Content Include="images\actions\roshan-timer@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\actions\dead0.png">
@@ -165,10 +165,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Top Rune -->
-    <Content Include="images\show-top-rune.png">
+    <Content Include="images\actions\show-top-rune.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\show-top-rune@2x.png">
+    <Content Include="images\actions\show-top-rune@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Bot Rune -->
