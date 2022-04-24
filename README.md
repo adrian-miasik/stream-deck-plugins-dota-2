@@ -23,6 +23,13 @@
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
 
+<h2 align="center">Quit Application</h2>
+<p align="center">
+  <img src="StreamDeckPluginsDota2/images/actions/quit-application@2x.png" width="128">
+</p>
+<p align="center">Quit the Dota 2 application.</p>
+
+
 # Downloads
 - [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
 - [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
