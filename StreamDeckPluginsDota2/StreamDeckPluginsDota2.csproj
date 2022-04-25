@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuitApplication.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
@@ -176,6 +177,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\actions\show-bot-rune@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Quit Application -->
+    <Content Include="images\actions\quit-application.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\quit-application@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

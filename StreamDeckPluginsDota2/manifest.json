@@ -42,6 +42,20 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Quit Application",
+      "States": [
+        {
+          "Image": "images\\actions\\quit-application",
+          "TitleAlignment": "center",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Quit the Dota 2 application directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.quit-application"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",
