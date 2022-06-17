@@ -171,7 +171,7 @@ namespace StreamDeckPluginsDota2
                 m_roshanTimer = null;
 
                 // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images\\roshan-timer\\pluginAction@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
 
                 m_isInitialized = false;
@@ -192,7 +192,7 @@ namespace StreamDeckPluginsDota2
             
             m_isRoshanTimerPaused = false;
             Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
-            Connection.SetImageAsync(Image.FromFile("images\\roshan-timer\\states\\dead0.png"));
+            Connection.SetImageAsync(Image.FromFile("images\\actions\\dead0.png"));
         }
 
         private void ResumeRoshanTimer()
@@ -237,22 +237,22 @@ namespace StreamDeckPluginsDota2
         {
             int totalMinutes = totalSeconds / 60;
 
-            Image defaultContext = Image.FromFile("images\\roshan-timer\\states\\dead3.png");
+            Image defaultContext = Image.FromFile("images\\actions\\dead3.png");
             
             if (totalMinutes < 8)
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images\\roshan-timer\\states\\dead" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("images\\actions\\dead" + deathCount + ".png") : defaultContext);
             }
             else if (totalMinutes < 11)
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images\\roshan-timer\\states\\maybe" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("images\\actions\\maybe" + deathCount + ".png") : defaultContext);
             }
             else
             {
                 Connection.SetImageAsync(deathCount <= 3 
-                    ? Image.FromFile("images\\roshan-timer\\states\\alive" + deathCount + ".png") : defaultContext);
+                    ? Image.FromFile("images\\actions\\alive" + deathCount + ".png") : defaultContext);
             } 
             
             Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
@@ -280,7 +280,7 @@ namespace StreamDeckPluginsDota2
             if (!m_isInitialized)
             {
                 // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images\\roshan-timer\\pluginAction@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
             }
         }
