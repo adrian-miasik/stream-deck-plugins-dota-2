@@ -287,7 +287,11 @@ namespace StreamDeckPluginsDota2
 
         public override void OnTick() { }
 
-        public override void Dispose() { }
+        public override void Dispose()
+        {
+            m_roshanTimer.Stop();
+            m_roshanTimer.Dispose();
+        }
 
         private void SaveSettings()
         {
