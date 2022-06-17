@@ -59,7 +59,7 @@
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",
-  "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2",
+  "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2\n✦ To utilize the rune camera preview actions you'll have to add the following commands to your Dota 2 launch options:\n✦ -gamestateintegration +exec stream_deck_plugins_dota_2.cfg\n✦ For more information on these launch commands, please visit the support page below.",
   "Author": "Adrian Miasik",
   "Icon": "images/pluginIcon",
   "URL": "https://www.adrian-miasik.com",
