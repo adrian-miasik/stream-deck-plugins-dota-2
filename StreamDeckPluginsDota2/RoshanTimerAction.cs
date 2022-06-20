@@ -32,7 +32,6 @@ namespace StreamDeckPluginsDota2
         private readonly PluginSettings m_settings;
         
         private Timer m_applicationTimer; // Used for processing input. Cannot be paused.
-        private bool m_isInitialized; // I.e. Is tick running
         
         // Hold
         private bool m_isKeyHeld;
@@ -118,8 +117,6 @@ namespace StreamDeckPluginsDota2
                 m_applicationTimer.AutoReset = true;
                 m_applicationTimer.Interval = 100; // 10 ticks per second
                 m_applicationTimer.Start();
-
-                m_isInitialized = true;
             }
             
             // First press - Create roshan timer
@@ -173,8 +170,6 @@ namespace StreamDeckPluginsDota2
                 // Reset action image to Roshan
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
-
-                m_isInitialized = false;
             }
         }
 
@@ -275,15 +270,7 @@ namespace StreamDeckPluginsDota2
             SaveSettings();
         }
 
-        public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload)
-        {
-            if (!m_isInitialized)
-            {
-                // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
-                Connection.SetTitleAsync(String.Empty);
-            }
-        }
+        public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
 
         public override void OnTick() { }
 
