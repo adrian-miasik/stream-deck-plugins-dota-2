@@ -17,16 +17,23 @@ namespace StreamDeckPluginsDota2
                 PluginSettings instance = new PluginSettings
                 {
                     TotalSeconds = 0,
-                    DeathCount = 0
+                    DeathCount = 0,
+                    IsPaused = 0
                 };
                 return instance;
             }
 
             [JsonProperty(PropertyName = "totalSeconds")]
             public int TotalSeconds { get; set; }
-            
+
             [JsonProperty(PropertyName = "deathCount")]
             public int DeathCount { get; set; }
+
+            [JsonProperty(PropertyName = "isRunning")]
+            public int IsRunning { get; set; }
+
+            [JsonProperty(PropertyName = "isPaused")]
+            public int IsPaused { get; set; }
         }
         
         private readonly PluginSettings m_settings;
@@ -45,7 +52,6 @@ namespace StreamDeckPluginsDota2
         
         // Roshan
         private Timer m_roshanTimer; // Used for keeping track of roshan's respawn time. Can be paused.
-        private bool m_isRoshanTimerPaused;
 
         public RoshanTimerAction(SDConnection connection, InitialPayload payload) : base(connection, payload)
         {
@@ -58,10 +64,93 @@ namespace StreamDeckPluginsDota2
             {
                 m_settings = payload.Settings.ToObject<PluginSettings>();
             }
+            
+            CreateApplicationTimer();
+            CreateRoshanTimer(); // This timer doesn't get started until user input
+            
+            if (m_settings.IsPaused == 0)
+            {
+                m_roshanTimer.Start();
+            }
+        }
+
+        private void CreateApplicationTimer()
+        {
+            m_applicationTimer = new Timer();
+            m_applicationTimer.Elapsed += ApplicationTimerTick;
+            m_applicationTimer.AutoReset = true;
+            m_applicationTimer.Interval = 100; // 10 ticks per second
+            m_applicationTimer.Start();
+        }
+
+        /// <summary>
+        /// A timer that gets invoked 10 times a second (by default).
+        /// Used for polling user input such as button holds, and double clicks.
+        /// </summary>
+        private void ApplicationTimerTick(object sender, ElapsedEventArgs e)
+        {
+            if (!m_isKeyHeld)
+            {
+                return;
+            }
+            
+            // If user held key for longer than 1 second...
+            if ((DateTime.Now - m_pressedKeyTime).TotalSeconds > 1)
+            {
+                // Restart App
+                m_ignoreKeyRelease = true;
+                
+                m_settings.DeathCount = 0;
+                m_settings.TotalSeconds = 0;
+                m_settings.IsRunning = 0;
+                m_settings.IsPaused = 0;
+                SaveSettings();
+                
+                m_numberOfPresses = 0;
+                m_hasDoubleClicked = false;
+                
+                // Reset action image to Roshan
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
+                Connection.SetTitleAsync(String.Empty);
+                
+                Dispose();
+                
+                CreateApplicationTimer();
+                CreateRoshanTimer();
+                
+                if (m_settings.IsPaused == 0)
+                {
+                    m_roshanTimer.Start();
+                }
+            }
+        }
+
+        private void CreateRoshanTimer()
+        {
+            m_roshanTimer = new Timer();
+            m_roshanTimer.Elapsed += RoshanTimerTick;
+            m_roshanTimer.AutoReset = true;
+            m_roshanTimer.Interval = 1000; // Tick one per second
+        }
+
+        /// <summary>
+        /// A timer that gets invoked 1 times a second (by default).
+        /// Used for updating the timer, and changing the Roshan art depending on the timer.
+        /// </summary>
+        private void RoshanTimerTick(object sender, ElapsedEventArgs e)
+        {
+            if (m_settings.IsRunning == 1)
+            {
+                m_settings.TotalSeconds++;
+                SaveSettings();
+                CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
+            }
         }
 
         public override void KeyPressed(KeyPayload payload)
         {
+            CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
+            
             if (m_numberOfPresses > 1)
             {
                 // If user last keystroke was less than than 0.4f second ago...
@@ -93,7 +182,11 @@ namespace StreamDeckPluginsDota2
                 m_hasDoubleClicked = false;
                 m_settings.DeathCount++;
                 m_settings.TotalSeconds = 0; // Reset timer
-                ResumeRoshanTimer();
+                
+                // Resume
+                m_roshanTimer.Start();
+                Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
+                
                 CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
                 SaveSettings();
                 return;
@@ -106,128 +199,32 @@ namespace StreamDeckPluginsDota2
                 return;
             }
 
-            // First press - Create application timer to poll for inputs such as long presses
-            if (m_applicationTimer == null)
+            if (m_settings.IsRunning == 0)
             {
-                m_applicationTimer = new Timer();
-                m_applicationTimer.Elapsed += (sender, eventArgs) =>
-                {
-                    ApplicationTimerTick();
-                };
-                m_applicationTimer.AutoReset = true;
-                m_applicationTimer.Interval = 100; // 10 ticks per second
-                m_applicationTimer.Start();
-            }
-            
-            // First press - Create roshan timer
-            if (m_roshanTimer == null)
-            { 
-                CreateRoshanTimer();
+                m_settings.IsRunning = 1;
+                SaveSettings();
                 return;
             }
             
             // Play / Pause
-            if (m_isRoshanTimerPaused)
+            if (m_settings.IsPaused == 1)
             {
-                ResumeRoshanTimer();
+                m_settings.IsPaused = 0;
+                SaveSettings();
+                
+                m_roshanTimer.Start();
+                Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
             }
             else
             {
-                PauseRoshanTimer();
-            }
-        }
-
-        /// <summary>
-        /// A timer that gets invoked 10 times a second (by default).
-        /// Used for polling user input such as button holds, and double clicks.
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        private void ApplicationTimerTick()
-        {
-            if (!m_isKeyHeld)
-            {
-                return;
-            }
-            
-            // If user held key for longer than 1 second...
-            if ((DateTime.Now - m_pressedKeyTime).TotalSeconds > 1)
-            {
-                // Restart App
-                m_ignoreKeyRelease = true;
-                
-                m_settings.DeathCount = 0;
-                m_settings.TotalSeconds = 0;
+                m_settings.IsPaused = 1;
                 SaveSettings();
                 
-                m_numberOfPresses = 0;
-                m_hasDoubleClicked = false;
-                
-                // Dispose roshan timer
                 m_roshanTimer.Stop();
-                m_roshanTimer.Dispose();
-                m_roshanTimer = null;
-
-                // Reset action image to Roshan
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
-                Connection.SetTitleAsync(String.Empty);
+                Connection.SetTitleAsync("Paused");
             }
         }
-
-        private void CreateRoshanTimer()
-        {
-            m_roshanTimer = new Timer();
-            m_roshanTimer.Elapsed += (sender, eventArgs) =>
-            {
-                RoshanTimerTick();
-            };
-            
-            m_roshanTimer.AutoReset = true;
-            m_roshanTimer.Interval = 1000; // Tick one per second
-            m_roshanTimer.Start();
-            
-            m_isRoshanTimerPaused = false;
-            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
-            Connection.SetImageAsync(Image.FromFile("images\\actions\\dead0.png"));
-        }
-
-        private void ResumeRoshanTimer()
-        {
-            // Start timer again
-            m_roshanTimer.Start();
-            
-            // Update state
-            m_isRoshanTimerPaused = false;
-            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
-        }
-
-        private void PauseRoshanTimer()
-        {
-            // Stop timer
-            m_roshanTimer.Stop();
-            
-            // Update state
-            m_isRoshanTimerPaused = true;
-            Connection.SetTitleAsync("Paused");
-        }
-
-        /// <summary>
-        /// A timer that gets invoked 1 times a second (by default).
-        /// Used for updating the timer, and changing the Roshan art depending on the timer.
-        /// </summary>
-        private void RoshanTimerTick()
-        {
-            if (m_roshanTimer == null)
-            {
-                // Early exit
-                return;
-            }
-
-            m_settings.TotalSeconds++;
-            SaveSettings();
-            
-            CalculateRoshanContext(m_settings.DeathCount, m_settings.TotalSeconds);
-        }
-
+        
         private void CalculateRoshanContext(int deathCount = 0, int totalSeconds = 0)
         {
             int totalMinutes = totalSeconds / 60;
@@ -274,7 +271,16 @@ namespace StreamDeckPluginsDota2
 
         public override void OnTick() { }
 
-        public override void Dispose() { }
+        public override void Dispose()
+        {
+            // Unsubscribe
+            m_applicationTimer.Elapsed -= ApplicationTimerTick;
+            m_roshanTimer.Elapsed -= RoshanTimerTick;
+            
+            // Dispose
+            m_applicationTimer.Dispose();
+            m_roshanTimer.Dispose();
+        }
 
         private void SaveSettings()
         {
