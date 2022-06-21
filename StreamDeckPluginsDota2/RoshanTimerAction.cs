@@ -87,6 +87,10 @@ namespace StreamDeckPluginsDota2
             }
         }
 
+        /// <summary>
+        /// Creates and plays an application timer. The application timer starts when created, and is
+        /// responsible for keeping track of holds, and double click actions hence the higher poll rate.
+        /// </summary>
         private void CreateApplicationTimer()
         {
             m_applicationTimer = new Timer();
@@ -97,8 +101,7 @@ namespace StreamDeckPluginsDota2
         }
 
         /// <summary>
-        /// A timer that gets invoked 10 times a second (by default).
-        /// Used for polling user input such as button holds, and double clicks.
+        /// An tick method (Invoked 10 times per second by default) for the application timer.
         /// </summary>
         private void ApplicationTimerTick(object sender, ElapsedEventArgs e)
         {
@@ -121,11 +124,13 @@ namespace StreamDeckPluginsDota2
                 m_settings.IsRunning = 0;
                 m_settings.IsPaused = 0;
                 SaveSettings();
+
+                // Reset action context
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\roshan-timer@2x.png"));
                 Connection.SetTitleAsync(String.Empty);
                 
+                // Re-create timers
                 Dispose();
-                
                 CreateApplicationTimer();
                 CreateRoshanTimer();
                 
@@ -136,6 +141,10 @@ namespace StreamDeckPluginsDota2
             }
         }
 
+        /// <summary>
+        /// Creates a Roshan timer in an idle state (Not started until user input).
+        /// The Roshan timer starts on first user input, see KeyReleased() 'isRunning' flag.
+        /// </summary>
         private void CreateRoshanTimer()
         {
             m_roshanTimer = new Timer();
@@ -145,8 +154,8 @@ namespace StreamDeckPluginsDota2
         }
 
         /// <summary>
-        /// A timer that gets invoked 1 times a second (by default).
-        /// Used for updating the timer, and changing the Roshan art depending on the timer.
+        /// An tick method (Invoked 1 times per second by default) for the Roshan timer timer.
+        /// Used for updating the timer, and changing the Roshan art and text depending on the current settings.
         /// </summary>
         private void RoshanTimerTick(object sender, ElapsedEventArgs e)
         {
@@ -205,21 +214,22 @@ namespace StreamDeckPluginsDota2
                 return;
             }
 
-            // Ignore re-init when the user was holding to reset the roshan timer/app.
+            // Ignore affecting the Roshan timer play/pause when restarting the action via long press.
             if (m_ignoreKeyRelease)
             {
                 m_ignoreKeyRelease = false;
                 return;
             }
-
+            
+            // First run
             if (m_settings.IsRunning == 0)
             {
-                m_settings.IsRunning = 1;
+                m_settings.IsRunning = 1; // Start Roshan timer via flag
                 SaveSettings();
                 return;
             }
             
-            // Play / Pause
+            // Play / Pause Roshan Timer
             if (m_settings.IsPaused == 1)
             {
                 m_settings.IsPaused = 0;
@@ -238,6 +248,11 @@ namespace StreamDeckPluginsDota2
             }
         }
         
+        /// <summary>
+        /// Sets the action image and text depending on the provided variables (usually pulled from settings).
+        /// </summary>
+        /// <param name="deathCount"></param>
+        /// <param name="totalSeconds"></param>
         private void CalculateRoshanContext(int deathCount = 0, int totalSeconds = 0)
         {
             int totalMinutes = totalSeconds / 60;
@@ -263,6 +278,11 @@ namespace StreamDeckPluginsDota2
             Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
         }
 
+        /// <summary>
+        /// Returns a formatted time string (such as '0:00') using the provided totalSeconds variable.
+        /// </summary>
+        /// <param name="totalSeconds"></param>
+        /// <returns></returns>
         private string GetFormattedString(int totalSeconds)
         {
             int totalMinutes = totalSeconds / 60;
