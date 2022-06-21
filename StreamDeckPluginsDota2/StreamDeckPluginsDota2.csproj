@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuitApplication.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
@@ -122,67 +123,69 @@
     <Content Include="property-inspector\PluginActionPI.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\pluginAction.png">
+    <Content Include="images\actions\roshan-timer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\pluginAction@2x.png">
+    <Content Include="images\actions\roshan-timer@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\dead0.png">
+    <Content Include="images\actions\dead0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\dead1.png">
+    <Content Include="images\actions\dead1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\dead2.png">
+    <Content Include="images\actions\dead2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\dead3.png">
+    <Content Include="images\actions\dead3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\maybe0.png">
+    <Content Include="images\actions\maybe0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\maybe1.png">
+    <Content Include="images\actions\maybe1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\maybe2.png">
+    <Content Include="images\actions\maybe2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\maybe3.png">
+    <Content Include="images\actions\maybe3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\alive0.png">
+    <Content Include="images\actions\alive0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\alive1.png">
+    <Content Include="images\actions\alive1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\alive2.png">
+    <Content Include="images\actions\alive2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\roshan-timer\states\alive3.png">
+    <Content Include="images\actions\alive3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Top Rune -->
-    <Content Include="images\show-top-rune\pluginAction.png">
+    <Content Include="images\actions\show-top-rune.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\show-top-rune\pluginAction@2x.png">
+    <Content Include="images\actions\show-top-rune@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Bot Rune -->
-    <Content Include="images\show-bot-rune\pluginAction.png">
+    <Content Include="images\actions\show-bot-rune.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\show-bot-rune\pluginAction@2x.png">
+    <Content Include="images\actions\show-bot-rune@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\roshan-timer" />
-    <Folder Include="images\show-bot-rune" />
-    <Folder Include="images\show-top-rune" />
+    <!-- Quit Application -->
+    <Content Include="images\actions\quit-application.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\quit-application@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

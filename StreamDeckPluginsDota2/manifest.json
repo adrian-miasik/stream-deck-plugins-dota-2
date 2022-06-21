@@ -5,7 +5,7 @@
       "Name": "Roshan Timer",
       "States": [
         {
-          "Image": "images\\roshan-timer\\pluginAction",
+          "Image": "images\\actions\\roshan-timer",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -20,7 +20,7 @@
       "Name": "Show Top Rune",
       "States": [
         {
-          "Image": "images\\show-top-rune\\pluginAction",
+          "Image": "images\\actions\\show-top-rune",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -34,7 +34,7 @@
       "Name": "Show Bot Rune",
       "States": [
         {
-          "Image": "images\\show-bot-rune\\pluginAction",
+          "Image": "images\\actions\\show-bot-rune",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -42,10 +42,24 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Quit Application",
+      "States": [
+        {
+          "Image": "images\\actions\\quit-application",
+          "TitleAlignment": "center",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Quit the Dota 2 application directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.quit-application"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",
-  "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2",
+  "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2\n✦ To utilize the rune camera preview actions you'll have to add the following commands to your Dota 2 launch options:\n✦ -gamestateintegration +exec stream_deck_plugins_dota_2.cfg\n✦ For more information on these launch commands, please visit the support page below.",
   "Author": "Adrian Miasik",
   "Icon": "images/pluginIcon",
   "URL": "https://www.adrian-miasik.com",
@@ -53,7 +67,7 @@
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
-  "Version": "1.0.1",
+  "Version": "1.1.0",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"
