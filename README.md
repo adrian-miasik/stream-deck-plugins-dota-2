@@ -139,7 +139,7 @@
 
 If you have any questions, feel free to reach out. :)
 
-Number of installs: `323` on the Elgato Store
+Playerbase: 323 installs on the Elgato Store
 
 # Contact Us / Support Line
 - For inquires related to this specific plugin / repository: `sdp-dota-2@adrian-miasik.com`
