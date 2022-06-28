@@ -23,17 +23,17 @@
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
 
-<h2 align="center">Open Application</h2>
+<h2 align="center">Launch Application</h2>
 <p align="center">
   <img src="StreamDeckPluginsDota2/images/actions/open-application@2x.png" width="128">
 </p>
-<p align="center">Launch the Dota 2 application.</p>
+<p align="center">Opens the Dota 2 application.</p>
 
 <h2 align="center">Quit Application</h2>
 <p align="center">
   <img src="StreamDeckPluginsDota2/images/actions/quit-application@2x.png" width="128">
 </p>
-<p align="center">Quit the Dota 2 application.</p>
+<p align="center">Closes the Dota 2 application.</p>
 
 
 # Downloads
