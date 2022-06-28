@@ -45,6 +45,20 @@
     },
     {
       "Icon": "images/icon",
+      "Name": "Launch Application",
+      "States": [
+        {
+          "Image": "images\\actions\\open-application",
+          "TitleAlignment": "center",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Launch the Dota 2 application directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.launch-application"
+    },
+    {
+      "Icon": "images/icon",
       "Name": "Quit Application",
       "States": [
         {
