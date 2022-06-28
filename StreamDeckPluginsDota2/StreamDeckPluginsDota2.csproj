@@ -89,6 +89,7 @@
     <Compile Include="RuneBase.cs" />
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
+    <Compile Include="ToggleApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
