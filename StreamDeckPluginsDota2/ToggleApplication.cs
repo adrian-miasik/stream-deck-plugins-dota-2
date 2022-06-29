@@ -57,8 +57,8 @@ namespace StreamDeckPluginsDota2
             isDotaRunning = m_dotaProcesses.Length > 0;
 
             Connection.SetImageAsync(isDotaRunning
-                ? Image.FromFile("images\\actions\\quit-application@2x.png")
-                : Image.FromFile("images\\actions\\open-application@2x.png"));
+                ? Image.FromFile("images\\actions\\quit-game@2x.png")
+                : Image.FromFile("images\\actions\\launch-game@2x.png"));
         }
 
         public override void Dispose()

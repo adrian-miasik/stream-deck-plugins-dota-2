@@ -81,8 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LaunchApplication.cs" />
-    <Compile Include="QuitApplication.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
@@ -182,17 +180,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Launch Application -->
-    <Content Include="images\actions\open-application.png">
+    <Content Include="images\actions\launch-game.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\open-application@2x.png">
+    <Content Include="images\actions\launch-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Quit Application -->
-    <Content Include="images\actions\quit-application.png">
+    <Content Include="images\actions\quit-game.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\quit-application@2x.png">
+    <Content Include="images\actions\quit-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
