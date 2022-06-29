@@ -45,7 +45,7 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Toggle Application",
+      "Name": "Toggle Game",
       "States": [
         {
           "Image": "images\\actions\\launch-game",
@@ -55,7 +55,7 @@
       ],
       "SupportedInMultiActions": false,
       "Tooltip": "Launch/Quit the Dota 2 application directly from your Stream Deck!",
-      "UUID": "com.adrian-miasik.sdpdota2.toggle-application"
+      "UUID": "com.adrian-miasik.sdpdota2.toggle-game"
     }
     
   ],

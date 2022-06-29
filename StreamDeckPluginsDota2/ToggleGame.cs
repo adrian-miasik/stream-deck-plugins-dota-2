@@ -4,7 +4,7 @@ using BarRaider.SdTools;
 
 namespace StreamDeckPluginsDota2
 {
-    [PluginActionId("com.adrian-miasik.sdpdota2.toggle-application")]
+    [PluginActionId("com.adrian-miasik.sdpdota2.toggle-game")]
     public class ToggleApplication : PluginBase
     {
         private Process[] m_dotaProcesses;
