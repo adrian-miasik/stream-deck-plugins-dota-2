@@ -2,6 +2,20 @@
   "Actions": [
     {
       "Icon": "images/icon",
+      "Name": "Toggle Game",
+      "States": [
+        {
+          "Image": "images\\actions\\launch-game",
+          "TitleAlignment": "center",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Launch/Quit the Dota 2 application directly from your Stream Deck!",
+      "UUID": "com.adrian-miasik.sdpdota2.toggle-game"
+    },
+    {
+      "Icon": "images/icon",
       "Name": "Roshan Timer",
       "States": [
         {
@@ -42,22 +56,7 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune directly from your Stream Deck!",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
-    },
-    {
-      "Icon": "images/icon",
-      "Name": "Toggle Game",
-      "States": [
-        {
-          "Image": "images\\actions\\launch-game",
-          "TitleAlignment": "center",
-          "FontSize": "12"
-        }
-      ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "Launch/Quit the Dota 2 application directly from your Stream Deck!",
-      "UUID": "com.adrian-miasik.sdpdota2.toggle-game"
     }
-    
   ],
   "Name": "Stream Deck Plugins - Dota 2",
   "Description": "A suite of open source Stream Deck plugins created for Valve's MOBA: Dota 2\n✦ To utilize the rune camera preview actions you'll have to add the following commands to your Dota 2 launch options:\n✦ -gamestateintegration +exec stream_deck_plugins_dota_2.cfg\n✦ For more information on these launch commands, please visit the support page below.",
@@ -68,7 +67,7 @@
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
-  "Version": "1.1.0",
+  "Version": "1.2.0",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"
