@@ -68,7 +68,7 @@
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
   "Disabled":  false,
-  "Version": "1.1.0",
+  "Version": "1.2.0",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"
