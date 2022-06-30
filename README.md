@@ -139,7 +139,8 @@
 
 If you have any questions, feel free to reach out. :)
 
-Playerbase: 323 installs on the Elgato Store
+- Playerbase: 323 installs on the Elgato Store
+- The SVG assets have been created myself and/or sourced from The Noun Project
 
 # Contact Us / Support Line
 - For inquires related to this specific plugin / repository: `sdp-dota-2@adrian-miasik.com`
