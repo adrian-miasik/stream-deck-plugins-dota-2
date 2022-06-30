@@ -81,13 +81,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QuitApplication.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
     <Compile Include="RuneBase.cs" />
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
+    <Compile Include="ToggleGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -179,11 +179,18 @@
     <Content Include="images\actions\show-bot-rune@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <!-- Quit Application -->
-    <Content Include="images\actions\quit-application.png">
+    <!-- Launch Application -->
+    <Content Include="images\actions\launch-game.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\quit-application@2x.png">
+    <Content Include="images\actions\launch-game@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Quit Application -->
+    <Content Include="images\actions\quit-game.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\quit-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

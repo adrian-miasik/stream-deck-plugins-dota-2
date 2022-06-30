@@ -5,6 +5,13 @@
 <p align="center">A suite of Stream Deck plugins created for Valve's MOBA: Dota 2 ⚔️</p>
 
 # Actions
+<h2 align="center">Toggle Game</h2>
+<p align="center">
+  <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/quit-game@2x.png" width="128">
+</p>
+<p align="center">Launch/Quit the 'Dota 2' application.</p>
+
 <h2 align="center">Roshan Timer</h2>
 <p align="center">
   <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="128">
@@ -22,13 +29,6 @@
   <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="128">
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
-
-<h2 align="center">Quit Application</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/quit-application@2x.png" width="128">
-</p>
-<p align="center">Quit the Dota 2 application.</p>
-
 
 # Downloads
 - [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
@@ -138,6 +138,8 @@
   3. Run the appropriate `.bat` script (Debug / Release). This will take our built solution and package the files using Elgato's Distribution Tool to create a plugin file. The output will create a `.streamDeckPlugin` file in the same directory.
 
 If you have any questions, feel free to reach out. :)
+
+Playerbase: 323 installs on the Elgato Store
 
 # Contact Us / Support Line
 - For inquires related to this specific plugin / repository: `sdp-dota-2@adrian-miasik.com`
