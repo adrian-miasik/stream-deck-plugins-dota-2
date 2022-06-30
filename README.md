@@ -5,6 +5,13 @@
 <p align="center">A suite of Stream Deck plugins created for Valve's MOBA: Dota 2 ⚔️</p>
 
 # Actions
+<h2 align="center">Toggle Game</h2>
+<p align="center">
+  <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="128">
+  <img src="StreamDeckPluginsDota2/images/actions/quit-game@2x.png" width="128">
+</p>
+<p align="center">Launch/Quit the 'Dota 2' application.</p>
+
 <h2 align="center">Roshan Timer</h2>
 <p align="center">
   <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="128">
@@ -22,19 +29,6 @@
   <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="128">
 </p>
 <p align="center">Quickly position the in-game camera to the bottom rune.</p>
-
-<h2 align="center">Launch Application</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/open-application@2x.png" width="128">
-</p>
-<p align="center">Opens the Dota 2 application.</p>
-
-<h2 align="center">Quit Application</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/quit-application@2x.png" width="128">
-</p>
-<p align="center">Closes the Dota 2 application.</p>
-
 
 # Downloads
 - [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
