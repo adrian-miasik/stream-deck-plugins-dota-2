@@ -139,7 +139,7 @@
 
 If you have any questions, feel free to reach out. :)
 
-- Playerbase: 323 installs on the Elgato Store
+- Playerbase: 349 installs on the Elgato Store
 - The SVG assets have been created myself and/or sourced from The Noun Project
 
 # Contact Us / Support Line
@@ -148,6 +148,7 @@ If you have any questions, feel free to reach out. :)
 
 # Third Party
 - Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK 👍
+- Utilizes antonpup's [Dota 2 Game State Integration](https://github.com/antonpup/Dota2GSI) interface 👍
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
