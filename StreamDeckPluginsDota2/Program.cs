@@ -130,13 +130,26 @@ namespace StreamDeckPluginsDota2
         /// <returns></returns>
         public static string GetFormattedString(int totalSeconds)
         {
+            string prefix = string.Empty;
+            
+            // If negative...
+            if (totalSeconds < 0)
+            {
+                prefix = "-";
+            }
+
+            // Force positive
+            totalSeconds = Math.Abs(totalSeconds);
             int totalMinutes = totalSeconds / 60;
+
+            // If total seconds is not past a minute...
             if (totalMinutes == 0)
             {
-                return totalMinutes + ":" + totalSeconds.ToString("00");
+                return prefix + totalMinutes + ":" + totalSeconds.ToString("00");
             }
             
-            return totalMinutes + ":" + (totalSeconds - totalMinutes * 60).ToString("00");
+            // Else, total seconds needs minutes removed from itself.
+            return prefix + totalMinutes + ":" + (totalSeconds - totalMinutes * 60).ToString("00");
         }
     }
 }
