@@ -236,7 +236,7 @@ namespace StreamDeckPluginsDota2
                 SaveSettings();
                 
                 m_roshanTimer.Start();
-                Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
+                Connection.SetTitleAsync(Program.GetFormattedString(m_settings.TotalSeconds));
             }
             else
             {
@@ -275,25 +275,9 @@ namespace StreamDeckPluginsDota2
                     ? Image.FromFile("images\\actions\\alive" + deathCount + ".png") : defaultContext);
             } 
             
-            Connection.SetTitleAsync(GetFormattedString(m_settings.TotalSeconds));
+            Connection.SetTitleAsync(Program.GetFormattedString(m_settings.TotalSeconds));
         }
-
-        /// <summary>
-        /// Returns a formatted time string (such as '0:00') using the provided totalSeconds variable.
-        /// </summary>
-        /// <param name="totalSeconds"></param>
-        /// <returns></returns>
-        private string GetFormattedString(int totalSeconds)
-        {
-            int totalMinutes = totalSeconds / 60;
-            if (totalMinutes == 0)
-            {
-                return totalMinutes + ":" + totalSeconds.ToString("00");
-            }
-            
-            return totalMinutes + ":" + (totalSeconds - totalMinutes * 60).ToString("00");
-        }
-
+        
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
             Tools.AutoPopulateSettings(m_settings, payload.Settings);

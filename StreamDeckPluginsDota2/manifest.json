@@ -56,6 +56,20 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune.",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Display Game Time",
+      "States": [
+        {
+          "Image": "images\\actions\\roshan-timer",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Displays the current game time.",
+      "UUID": "com.adrian-miasik.sdpdota2.display-game-time"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",

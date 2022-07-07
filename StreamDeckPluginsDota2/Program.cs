@@ -10,7 +10,7 @@ namespace StreamDeckPluginsDota2
 {
     static class Program
     {
-        private static GameStateListener _gsi;
+        public static GameStateListener _gsi;
         
         static void Main(string[] args)
         {
@@ -121,6 +121,35 @@ namespace StreamDeckPluginsDota2
                     
                 File.WriteAllLines(cfgFile, contentsOfCFGFile);
             }
+        }
+        
+        /// <summary>
+        /// Returns a formatted time string (such as '0:00') using the provided totalSeconds variable.
+        /// </summary>
+        /// <param name="totalSeconds"></param>
+        /// <returns></returns>
+        public static string GetFormattedString(int totalSeconds)
+        {
+            string prefix = string.Empty;
+            
+            // If negative...
+            if (totalSeconds < 0)
+            {
+                prefix = "-";
+            }
+
+            // Force positive
+            totalSeconds = Math.Abs(totalSeconds);
+            int totalMinutes = totalSeconds / 60;
+
+            // If total seconds is not past a minute...
+            if (totalMinutes == 0)
+            {
+                return prefix + totalMinutes + ":" + totalSeconds.ToString("00");
+            }
+            
+            // Else, total seconds needs minutes removed from itself.
+            return prefix + totalMinutes + ":" + (totalSeconds - totalMinutes * 60).ToString("00");
         }
     }
 }
