@@ -149,6 +149,7 @@ If you have any questions, feel free to reach out. :)
 # Third Party
 - Created with BarRaider's [streamdeck-tools](https://github.com/BarRaider/streamdeck-tools) SDK 👍
 - Created with antonpup's [Dota 2 Game State Integration](https://github.com/antonpup/Dota2GSI) interface 👍
+- Utilizes michaelnoonan's [inputsimulator](https://github.com/michaelnoonan/inputsimulator) package 👍
 
 # Legal
 Copyrights and trademarks are the property of their respective owners.
