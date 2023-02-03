@@ -62,7 +62,7 @@
       "Name": "Display Game Time",
       "States": [
         {
-          "Image": "images\\actions\\roshan-timer",
+          "Image": "images\\actions\\display-game-time",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
