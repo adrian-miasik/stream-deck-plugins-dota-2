@@ -10,6 +10,24 @@ namespace StreamDeckPluginsDota2
         {
             Program._gsi.NewGameState += GSIOnNewGameState;
         }
+        
+        private Image GenerateImage(int width, int height, Color color)
+        {
+            // Generate bitmap (image)
+            Bitmap bitmap = new Bitmap(width, height);
+            
+            // Iterate through each pixel...
+            for (int x = 0; x < bitmap.Width; x++)
+            {
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    // Set color
+                    bitmap.SetPixel(x, y, color);
+                }
+            }
+            
+            return new Bitmap(bitmap);
+        }
 
         private void GSIOnNewGameState(GameState gamestate)
         {
