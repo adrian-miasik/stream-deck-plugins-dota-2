@@ -38,7 +38,9 @@ namespace StreamDeckPluginsDota2
             if (!_gsi.Start())
             {
                 Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
+                Environment.Exit(0);
             }
+            Console.WriteLine("Listening for GSI...");
         }
         
         static void OnNewGameState(GameState gs)
@@ -109,6 +111,8 @@ namespace StreamDeckPluginsDota2
                                @"\steamapps\common\dota 2 beta\game\dota\cfg";
     
             string cfgFile = cfgFolder + @"\stream_deck_plugins_dota_2.cfg";
+            
+            // Doesn't overwrite if file exists
             if (!File.Exists(cfgFile))
             {
                 string[] contentsOfCFGFile =
@@ -116,6 +120,7 @@ namespace StreamDeckPluginsDota2
                     "bind \"F13\" \"+dota_camera_center_on_hero\";",
                     "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";", // Top Rune
                     "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";", // Bot Rune
+                    "bind \"F16\" \"dota_pause\";", // Pause Toggle
                     "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"
                 };
                     

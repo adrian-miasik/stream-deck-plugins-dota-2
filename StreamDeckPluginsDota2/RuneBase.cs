@@ -5,9 +5,9 @@ namespace StreamDeckPluginsDota2
 {
     public class RuneBase : PluginBase
     {
-        public InputSimulator InputSimulator;
+        protected InputSimulator InputSimulator;
 
-        public RuneBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        protected RuneBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             InputSimulator = new InputSimulator();
         }
