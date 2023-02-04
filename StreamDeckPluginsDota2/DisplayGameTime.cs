@@ -20,8 +20,6 @@ namespace StreamDeckPluginsDota2
         private Image paused;
 
         private GameState m_gameState;
-        private int lastClockTime;
-        private int currentClockTime;
 
         private InputSimulator InputSimulator;
         
@@ -91,8 +89,6 @@ namespace StreamDeckPluginsDota2
         {
             // m_dotaProcesses = Process.GetProcessesByName("Dota2");
             // isDotaRunning = m_dotaProcesses.Length > 0;
-
-            currentClockTime = m_gameState.Map.ClockTime;
             
             // // If clock is returning nothing...
             // if (gamestate.Map.ClockTime == -1)
@@ -105,29 +101,15 @@ namespace StreamDeckPluginsDota2
             //     return;
             // }
             
-            // If is paused / time is not progressing...
-            if (lastClockTime == currentClockTime)
-            {
-                isPaused = true;
-                Console.WriteLine("Game is paused");
-            }
-            else
-            {
-                isPaused = false;
-                Console.WriteLine("Game is running...");
-            }
+            // if (m_gameState.Previously.Map.ClockTime == -1)
+            // {
+            //     await Connection.SetTitleAsync("Standby");
+            //     await Connection.SetImageAsync(init);
+            //     
+            //     return;
+            // }
             
-            lastClockTime = currentClockTime;
-            
-            if (m_gameState.Map.ClockTime == -1)
-            {
-                await Connection.SetTitleAsync("Standby");
-                await Connection.SetImageAsync(init);
-                
-                return;
-            }
-            
-            if (isPaused)
+            if (m_gameState.Previously.Map.ClockTime == -1)
             {
                 await Connection.SetTitleAsync("Paused");
                 await Connection.SetImageAsync(paused);
