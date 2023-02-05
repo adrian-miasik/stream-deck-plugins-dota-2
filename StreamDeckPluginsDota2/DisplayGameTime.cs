@@ -94,7 +94,9 @@ namespace StreamDeckPluginsDota2
         // Ticks once a second
         public override void OnTick()
         {
-            if (!Program.IsDotaRunning())
+            m_currentClockTime = m_gameState.Map.ClockTime;
+            
+            if (!Program.IsDotaRunning() || m_currentClockTime == -1)
             {
                 // Directly set image + title to starting states
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
@@ -107,9 +109,7 @@ namespace StreamDeckPluginsDota2
             // Text title and Image we are going to render later
             string renderString;
             Image renderImage;
-            
-            m_currentClockTime = m_gameState.Map.ClockTime;
-            
+
             // Determine pause state: (if clock time is progressing)
             bool isPaused = m_currentClockTime == m_lastClockTime;
 
