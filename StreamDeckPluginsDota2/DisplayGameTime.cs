@@ -94,7 +94,7 @@ namespace StreamDeckPluginsDota2
         // Ticks once a second
         public override void OnTick()
         {
-            if (!Program.IsDotaRunning() || m_gameState.Map.GameState != DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS)
+            if (!Program.IsDotaRunning())
             {
                 // Directly set image + title to starting states
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
