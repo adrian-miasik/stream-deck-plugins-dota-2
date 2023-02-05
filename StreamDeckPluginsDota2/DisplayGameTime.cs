@@ -13,35 +13,41 @@ namespace StreamDeckPluginsDota2
     public class DisplayGameTime : PluginBase
     {
         private Process[] m_dotaProcesses;
-        private bool isDotaRunning;
-        
-        private Image init; 
-        private Image unPaused;
-        private Image paused;
+        private bool m_isDotaRunning;
+
+        private readonly Image paused;
+        private readonly Image m_dayImage;
+        private readonly Image m_nightImage;
 
         private GameState m_gameState;
+        private int m_lastClockTime;
+        private int m_currentClockTime;
 
-        private InputSimulator InputSimulator;
+        private readonly InputSimulator m_inputSimulator;
+        private TitleParameters m_titleParameters;
+        private FontFamily heeboBold;
         
-        private TitleParameters titleParameters = new TitleParameters(FontFamily.GenericMonospace, FontStyle.Regular, 8, Color.White, true, TitleVerticalAlignment.Bottom);
-
-        private bool isPaused;
+        // Define colors
+        private readonly Color m_pauseColor = Color.FromArgb(210, 40, 40);
+        private readonly Color m_dayColor = Color.FromArgb(255, 193, 50);
+        private readonly Color m_nightColor = Color.FromArgb(37, 64, 112);
 
         public DisplayGameTime(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
-            // Generate status images and cache
-            init = GenerateImage(144, 144, Color.Orange);
-            unPaused = GenerateImage(144, 144, Color.MediumSeaGreen);
-            paused = GenerateImage(144, 144, Color.Crimson);
+            // TODO: Test font / ship in folder?
+            // Fetch Heebo font
+            heeboBold = new FontFamily("Heebo");
+            m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, 20, Color.White, true, TitleVerticalAlignment.Middle);
             
-            // Set starting image
-            // Connection.SetImageAsync(init);
-            // Connection.SetTitleAsync("Standby"); // Default state
+            // Generate assets and cache images
+            paused = GenerateImage(144, 144, m_pauseColor);
+            m_dayImage = GenerateImage(144, 144, m_dayColor);
+            m_nightImage = GenerateImage(144, 144, m_nightColor);
+
+            // Create input sim for pausing
+            m_inputSimulator = new InputSimulator();
             
-            // Create input sim
-            InputSimulator = new InputSimulator();
-            
-            // Subscribe method to event
+            // Subscribe GSI method
             Program._gsi.NewGameState += GSIOnNewGameState;
         }
         
@@ -64,7 +70,7 @@ namespace StreamDeckPluginsDota2
         }
 
         /// <summary>
-        /// Tick / Updates with new game state
+        /// Tick / Updates with new game state (Once per second it seems)
         /// </summary>
         /// <param name="gamestate"></param>
         private void GSIOnNewGameState(GameState gamestate)
@@ -75,7 +81,7 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
-            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
+            m_inputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
         }
 
         public override void KeyReleased(KeyPayload payload) { }
@@ -85,10 +91,78 @@ namespace StreamDeckPluginsDota2
         public override void ReceivedGlobalSettings(ReceivedGlobalSettingsPayload payload) { }
         
         // Ticks once a second
-        public override async void OnTick()
+        public override void OnTick()
         {
-            // m_dotaProcesses = Process.GetProcessesByName("Dota2");
-            // isDotaRunning = m_dotaProcesses.Length > 0;
+            // if (!Program.IsDotaRunning())
+            // {
+            //     // Directly set image + title to starting states
+            //     Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
+            //     Connection.SetTitleAsync(string.Empty);
+            //     
+            //     // Early exit
+            //     return;
+            // }
+
+            // Text title and Image we are going to render later
+            string renderString;
+            Image renderImage;
+            
+            m_currentClockTime = m_gameState.Map.ClockTime;
+            
+            // Determine pause state: (if clock time is progressing)
+            bool isPaused = m_currentClockTime == m_lastClockTime;
+
+            // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
+            bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
+            
+            int resultTitleFontSize;
+            
+            // If time isn't progressing...
+            if (isPaused)
+            {
+                renderString = "Unpause";
+                renderImage = paused;
+                resultTitleFontSize = 14;
+            }
+            // Not paused
+            else
+            {
+                // Show current game time
+                renderString = Program.GetFormattedString(m_currentClockTime);
+                renderImage = isDayTime ? m_dayImage : m_nightImage;
+                resultTitleFontSize = 20;
+            }
+            
+            // Define render
+            Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics g);
+
+            // Define tools
+            Point point = new Point(0, 0);
+            // Pen pen = new Pen(Color.Yellow);
+            Brush brush = new SolidBrush(Color.Black);
+            
+            // Render image
+            g.DrawImage(renderImage, point);
+            
+            // Define rectangle
+            // Rectangle square = new Rectangle(0, 0, 144, 144); // (Top left expanding down right?)
+            
+            // Draw said filled Rectangle
+            // g.DrawRectangle(pen, square); // Outline
+            g.FillRectangle(brush, new Rectangle(0, 40, 144, 55));
+            
+            // Draw/Render Text to graphic
+            m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
+            Tools.AddTextPathToGraphics(g, m_titleParameters, 120, 144, renderString, 10);
+
+            // Render / Set image
+            Connection.SetImageAsync(renderResult);
+
+            // Dispose
+            g.Dispose();
+
+            // Cache for next tick
+            m_lastClockTime = m_currentClockTime;
             
             // // If clock is returning nothing...
             // if (gamestate.Map.ClockTime == -1)
@@ -108,19 +182,7 @@ namespace StreamDeckPluginsDota2
             //     
             //     return;
             // }
-            
-            if (m_gameState.Previously.Map.ClockTime == -1)
-            {
-                await Connection.SetTitleAsync("Paused");
-                await Connection.SetImageAsync(paused);
-                    
-                return;
-            }
 
-            // Not paused
-            await Connection.SetTitleAsync(Program.GetFormattedString(m_gameState.Map.ClockTime));
-            await Connection.SetImageAsync(unPaused);
-            
             // await Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
 
             // await Connection.SetTitleAsync(
@@ -132,6 +194,8 @@ namespace StreamDeckPluginsDota2
         public override void Dispose()
         {
             Program._gsi.NewGameState -= GSIOnNewGameState;
+            
+            Logger.Instance.LogMessage(TracingLevel.INFO, "Disposed of the DisplayGameTime action.");
         }
     }
 }

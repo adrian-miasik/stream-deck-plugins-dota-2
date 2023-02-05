@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
+using System.Timers;
 using BarRaider.SdTools;
 using Dota2GSI;
 using Microsoft.Win32;
+using Timer = System.Timers.Timer;
 
 namespace StreamDeckPluginsDota2
 {
     static class Program
     {
         public static GameStateListener _gsi;
-        
+
+        private static Timer m_applicationTimer; // Used for checking if dota process is active.
+        private static Process[] m_dotaProcesses;
+        private static bool isDotaRunning;
+
         static void Main(string[] args)
         {
             InitializeGameStateIntegration();
@@ -33,21 +38,36 @@ namespace StreamDeckPluginsDota2
             }
 
             _gsi = new GameStateListener(4000);
-            _gsi.NewGameState += OnNewGameState;
-            
+
             if (!_gsi.Start())
             {
                 Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
                 Environment.Exit(0);
             }
             Console.WriteLine("Listening for GSI...");
-        }
-        
-        static void OnNewGameState(GameState gs)
-        {
-            // TODO: Implement GameStateIntegration
+            
+            // Create and start application timer to track dota active process for GSI
+            m_applicationTimer = new Timer();
+            m_applicationTimer.Elapsed += Tick;
+            m_applicationTimer.AutoReset = true;
+            m_applicationTimer.Interval = 1000; // 1 tick per second
+            m_applicationTimer.Start();
         }
 
+        /// <summary>
+        /// Update method that ticks once per second.
+        /// </summary>
+        private static void Tick(object sender, ElapsedEventArgs e)
+        {
+            m_dotaProcesses = Process.GetProcessesByName("Dota2");
+            isDotaRunning = m_dotaProcesses.Length > 0;
+        }
+
+        public static bool IsDotaRunning()
+        {
+            return isDotaRunning;
+        }
+        
         private static void CreateConfigs()
         {
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam");
@@ -63,7 +83,7 @@ namespace StreamDeckPluginsDota2
                 Console.ReadLine();
             }
         }
-        
+
         /// <summary>
         /// Creates our Game State Integration folder and configuration file if one doesn't exist.
         /// </summary>
