@@ -164,32 +164,6 @@ namespace StreamDeckPluginsDota2
 
             // Cache for next tick
             m_lastClockTime = m_currentClockTime;
-            
-            // // If clock is returning nothing...
-            // if (gamestate.Map.ClockTime == -1)
-            // {
-            //     // Set starting image
-            //     Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
-            //     Connection.SetTitleAsync("Standby"); // Default state
-            //     
-            //     Console.WriteLine("Clock isn't ready.");
-            //     return;
-            // }
-            
-            // if (m_gameState.Previously.Map.ClockTime == -1)
-            // {
-            //     await Connection.SetTitleAsync("Standby");
-            //     await Connection.SetImageAsync(init);
-            //     
-            //     return;
-            // }
-
-            // await Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
-
-            // await Connection.SetTitleAsync(
-            // GraphicsTools.WrapStringToFitImage(m_gameState.Map.GameState.ToString(), titleParameters));
-                
-            // await Connection.SetTitleAsync(isPaused.ToString());
         }
 
         public override void Dispose()
