@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
@@ -96,7 +95,7 @@ namespace StreamDeckPluginsDota2
         {
             m_currentClockTime = m_gameState.Map.ClockTime;
             
-            if (!Program.IsDotaRunning() || m_currentClockTime == -1)
+            if (!Program.IsDotaRunning() || m_gameState.Map.GameState == DOTA_GameState.Undefined || m_currentClockTime == -1)
             {
                 // Directly set image + title to starting states
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
