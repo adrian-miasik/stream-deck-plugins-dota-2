@@ -61,6 +61,16 @@ namespace StreamDeckPluginsDota2
         {
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
+
+            if (!isDotaRunning)
+            {
+                Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
+            }
+            else
+            {
+                Console.WriteLine("Dota 2 is running! Listening to GSI...");
+                Console.WriteLine(m_gameState.Map.GameState.ToString());
+            }
         }
 
         public static bool IsDotaRunning()
