@@ -12,6 +12,7 @@ namespace StreamDeckPluginsDota2
     static class Program
     {
         public static GameStateListener _gsi;
+        private static GameState m_gameState;
 
         private static Timer m_applicationTimer; // Used for checking if dota process is active.
         private static Process[] m_dotaProcesses;
@@ -38,13 +39,14 @@ namespace StreamDeckPluginsDota2
             }
 
             _gsi = new GameStateListener(4000);
+            _gsi.NewGameState += OnNewGameState;
 
             if (!_gsi.Start())
             {
-                Console.WriteLine("GameStateListener could not start. Try running this program as Administrator. Exiting.");
-                Environment.Exit(0);
+                Console.WriteLine("GameStateListener could not start. Try running this program as Administrator.");
             }
-            Console.WriteLine("Listening for GSI...");
+            
+            Console.WriteLine("GSI Integration Completed.");
             
             // Create and start application timer to track dota active process for GSI
             m_applicationTimer = new Timer();
@@ -52,6 +54,23 @@ namespace StreamDeckPluginsDota2
             m_applicationTimer.AutoReset = true;
             m_applicationTimer.Interval = 1000; // 1 tick per second
             m_applicationTimer.Start();
+
+            Process debugProcess = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/K echo 'StreamDeckPlugins - Dota 2': Live Debugger is Ready.",
+            };
+            debugProcess.StartInfo = startInfo;
+            debugProcess.Start();
+
+            Console.ReadLine();
+        }
+
+        private static void OnNewGameState(GameState gamestate)
+        {
+            Console.WriteLine("New Game State Received");
+            m_gameState = gamestate;
         }
 
         /// <summary>
