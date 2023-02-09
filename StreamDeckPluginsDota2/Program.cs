@@ -55,14 +55,14 @@ namespace StreamDeckPluginsDota2
             m_applicationTimer.Interval = 1000; // 1 tick per second
             m_applicationTimer.Start();
 
-            Process debugProcess = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                Arguments = "/K echo 'StreamDeckPlugins - Dota 2': Live Debugger is Ready.",
-            };
-            debugProcess.StartInfo = startInfo;
-            debugProcess.Start();
+            // Process debugProcess = new Process();
+            // ProcessStartInfo startInfo = new ProcessStartInfo
+            // {
+            //     FileName = "cmd.exe",
+            //     Arguments = "/K echo 'StreamDeckPlugins - Dota 2': Live Debugger is Ready.",
+            // };
+            // debugProcess.StartInfo = startInfo;
+            // debugProcess.Start();
 
             Console.ReadLine();
         }
