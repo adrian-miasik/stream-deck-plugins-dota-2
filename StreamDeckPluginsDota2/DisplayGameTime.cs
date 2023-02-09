@@ -12,9 +12,6 @@ namespace StreamDeckPluginsDota2
     [PluginActionId("com.adrian-miasik.sdpdota2.display-game-time")]
     public class DisplayGameTime : PluginBase
     {
-        private Process[] m_dotaProcesses;
-        private bool m_isDotaRunning;
-
         private readonly Image paused;
         private readonly Image m_dayImage;
         private readonly Image m_nightImage;
