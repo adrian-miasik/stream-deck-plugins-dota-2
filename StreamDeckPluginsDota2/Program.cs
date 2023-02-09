@@ -76,6 +76,7 @@ namespace StreamDeckPluginsDota2
             // debugProcess.Start();
 
             // IMPORTANT: TOGGLE THE LINE BELOW FOR DEBUGGING
+            // COMMENTED FOR RELEASE, UNCOMMENTED FOR DEBUGGING.
             // Console.ReadLine();
         }
 
