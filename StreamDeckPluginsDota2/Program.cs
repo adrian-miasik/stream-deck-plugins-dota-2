@@ -48,7 +48,15 @@ namespace StreamDeckPluginsDota2
                     InitializeGSI();
                 }
                 
-                Console.WriteLine(m_gameState.Map.GameState.ToString());
+                // Sanity check
+                if (m_gameState == null)
+                {
+                    Console.WriteLine("Null game state.");
+                }
+                else
+                {
+                    Console.WriteLine(m_gameState.Map.GameState.ToString());
+                }
             }
             
             // Create and start application timer to track dota active process for GSI
@@ -115,6 +123,13 @@ namespace StreamDeckPluginsDota2
                 if (!m_hasGSIStarted)
                 {
                     InitializeGSI();
+                }
+
+                // Sanity check
+                if (m_gameState == null)
+                {
+                    Console.WriteLine("Null game state.");
+                    return;
                 }
                 
                 Console.WriteLine(m_gameState.Map.GameState.ToString());
