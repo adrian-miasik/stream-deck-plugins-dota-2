@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
@@ -41,11 +40,13 @@ namespace StreamDeckPluginsDota2
             paused = GenerateImage(144, 144, m_pauseColor);
             m_dayImage = GenerateImage(144, 144, m_dayColor);
             m_nightImage = GenerateImage(144, 144, m_nightColor);
-
+            
             // Create input sim for pausing
             m_inputSimulator = new InputSimulator();
             
             // TODO: Subscribe to OnNewGameState when GSI is initialized in Program;
+            
+            Connection.SetImageAsync(paused);
         }
         
         private Image GenerateImage(int width, int height, Color color)
@@ -90,76 +91,93 @@ namespace StreamDeckPluginsDota2
         // Ticks once a second
         public override void OnTick()
         {
-            m_currentClockTime = m_gameState.Map.ClockTime;
-            
-            if (!Program.IsDotaRunning() || m_gameState.Map.GameState == DOTA_GameState.Undefined || m_currentClockTime == -1)
+            if (!Program.m_hasGSIStarted)
+            {
+                if (Program.InitializeGSI())
+                {
+                    Program.m_gameStateListener.NewGameState += OnNewGameState;
+                    Connection.SetImageAsync(m_dayImage);
+                }
+            }
+
+            if (m_gameState == null)
             {
                 // Directly set image + title to starting states
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
                 Connection.SetTitleAsync(string.Empty);
-                
-                // Early exit
-                return;
             }
 
-            // Text title and Image we are going to render later
-            string renderString;
-            Image renderImage;
-
-            // Determine pause state: (if clock time is progressing)
-            bool isPaused = m_currentClockTime == m_lastClockTime;
-
-            // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
-            bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-            
-            int resultTitleFontSize;
-            
-            // If time isn't progressing...
-            if (isPaused)
-            {
-                renderString = "Unpause";
-                renderImage = paused;
-                resultTitleFontSize = 14;
-            }
-            // Not paused
-            else
-            {
-                // Show current game time
-                renderString = Program.GetFormattedString(m_currentClockTime);
-                renderImage = isDayTime ? m_dayImage : m_nightImage;
-                resultTitleFontSize = 20;
-            }
-            
-            // Define render
-            Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics g);
-
-            // Define tools
-            Point point = new Point(0, 0);
-            // Pen pen = new Pen(Color.Yellow);
-            Brush brush = new SolidBrush(Color.Black);
-            
-            // Render image
-            g.DrawImage(renderImage, point);
-            
-            // Define rectangle
-            // Rectangle square = new Rectangle(0, 0, 144, 144); // (Top left expanding down right?)
-            
-            // Draw said filled Rectangle
-            // g.DrawRectangle(pen, square); // Outline
-            g.FillRectangle(brush, new Rectangle(0, 40, 144, 55));
-            
-            // Draw/Render Text to graphic
-            m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
-            Tools.AddTextPathToGraphics(g, m_titleParameters, 120, 144, renderString, 10);
-
-            // Render / Set image
-            Connection.SetImageAsync(renderResult);
-
-            // Dispose
-            g.Dispose();
-
-            // Cache for next tick
-            m_lastClockTime = m_currentClockTime;
+            // // Sanity check
+            // if (!Program.IsDotaRunning() || m_gameState != null || m_gameState.Map.GameState == DOTA_GameState.Undefined || m_currentClockTime == -1)
+            // {
+            //     // Directly set image + title to starting states
+            //     Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
+            //     Connection.SetTitleAsync(string.Empty);
+            //     
+            //     // Early exit
+            //     return;
+            // }
+            //
+            // m_currentClockTime = m_gameState.Map.ClockTime;
+            //
+            // // Text title and Image we are going to render later
+            // string renderString;
+            // Image renderImage;
+            //
+            // // Determine pause state: (if clock time is progressing)
+            // bool isPaused = m_currentClockTime == m_lastClockTime;
+            //
+            // // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
+            // bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
+            //
+            // int resultTitleFontSize;
+            //
+            // // If time isn't progressing...
+            // if (isPaused)
+            // {
+            //     renderString = "Unpause";
+            //     renderImage = paused;
+            //     resultTitleFontSize = 14;
+            // }
+            // // Not paused
+            // else
+            // {
+            //     // Show current game time
+            //     renderString = Program.GetFormattedString(m_currentClockTime);
+            //     renderImage = isDayTime ? m_dayImage : m_nightImage;
+            //     resultTitleFontSize = 20;
+            // }
+            //
+            // // Define render
+            // Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics g);
+            //
+            // // Define tools
+            // Point point = new Point(0, 0);
+            // // Pen pen = new Pen(Color.Yellow);
+            // Brush brush = new SolidBrush(Color.Black);
+            //
+            // // Render image
+            // g.DrawImage(renderImage, point);
+            //
+            // // Define rectangle
+            // // Rectangle square = new Rectangle(0, 0, 144, 144); // (Top left expanding down right?)
+            //
+            // // Draw said filled Rectangle
+            // // g.DrawRectangle(pen, square); // Outline
+            // g.FillRectangle(brush, new Rectangle(0, 40, 144, 55));
+            //
+            // // Draw/Render Text to graphic
+            // m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
+            // Tools.AddTextPathToGraphics(g, m_titleParameters, 120, 144, renderString, 10);
+            //
+            // // Render / Set image
+            // Connection.SetImageAsync(renderResult);
+            //
+            // // Dispose
+            // g.Dispose();
+            //
+            // // Cache for next tick
+            // m_lastClockTime = m_currentClockTime;
         }
 
         public override void Dispose()

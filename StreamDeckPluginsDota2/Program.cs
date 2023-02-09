@@ -79,7 +79,7 @@ namespace StreamDeckPluginsDota2
             // Console.ReadLine();
         }
 
-        private static void InitializeGSI()
+        public static bool InitializeGSI()
         {
             // Init GSI
             m_gameStateListener = new GameStateListener(4000);
@@ -91,11 +91,11 @@ namespace StreamDeckPluginsDota2
                 m_hasGSIStarted = true;
                 
                 Console.WriteLine("GSI has started successfully.");
+                return true;
             }
-            else
-            {
-                Console.WriteLine("GSI was unable to start.");
-            }
+
+            Console.WriteLine("GSI was unable to start.");
+            return false;
         }
 
         private static void OnNewGameState(GameState gamestate)
