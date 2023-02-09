@@ -75,7 +75,8 @@ namespace StreamDeckPluginsDota2
             // debugProcess.StartInfo = startInfo;
             // debugProcess.Start();
 
-            Console.ReadLine();
+            // IMPORTANT: TOGGLE THE LINE BELOW FOR DEBUGGING
+            // Console.ReadLine();
         }
 
         private static void InitializeGSI()
@@ -118,7 +119,7 @@ namespace StreamDeckPluginsDota2
             // Otherwise dota is running...
             else
             {
-                Console.WriteLine("Dota 2 is running!");
+                // Console.WriteLine("Dota 2 is running!");
                 
                 if (!m_hasGSIStarted)
                 {
