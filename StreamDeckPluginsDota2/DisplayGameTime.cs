@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
@@ -44,8 +45,7 @@ namespace StreamDeckPluginsDota2
             // Create input sim for pausing
             m_inputSimulator = new InputSimulator();
             
-            // Subscribe GSI method
-            Program._gsi.NewGameState += GSIOnNewGameState;
+            // TODO: Subscribe to OnNewGameState when GSI is initialized in Program;
         }
         
         private Image GenerateImage(int width, int height, Color color)
@@ -70,7 +70,7 @@ namespace StreamDeckPluginsDota2
         /// Tick / Updates with new game state (Once per second it seems)
         /// </summary>
         /// <param name="gamestate"></param>
-        private void GSIOnNewGameState(GameState gamestate)
+        private void OnNewGameState(GameState gamestate)
         {
             // Cache for tick check
             m_gameState = gamestate;
@@ -164,7 +164,7 @@ namespace StreamDeckPluginsDota2
 
         public override void Dispose()
         {
-            Program._gsi.NewGameState -= GSIOnNewGameState;
+            Program.m_gameStateListener.NewGameState -= OnNewGameState;
             
             Logger.Instance.LogMessage(TracingLevel.INFO, "Disposed of the DisplayGameTime action.");
         }

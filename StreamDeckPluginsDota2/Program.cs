@@ -11,7 +11,8 @@ namespace StreamDeckPluginsDota2
 {
     static class Program
     {
-        public static GameStateListener _gsi;
+        public static GameStateListener m_gameStateListener;
+        public static bool m_hasGSIStarted;
         private static GameState m_gameState;
 
         private static Timer m_applicationTimer; // Used for checking if dota process is active.
@@ -20,7 +21,7 @@ namespace StreamDeckPluginsDota2
 
         static void Main(string[] args)
         {
-            InitializeGameStateIntegration();
+            Setup();
             
             // Uncomment this line of code to allow for debugging
             //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
@@ -28,7 +29,7 @@ namespace StreamDeckPluginsDota2
             SDWrapper.Run(args);
         }
 
-        static void InitializeGameStateIntegration()
+        static void Setup()
         {
             CreateConfigs();
 
@@ -37,16 +38,18 @@ namespace StreamDeckPluginsDota2
             {
                 Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
             }
-
-            _gsi = new GameStateListener(4000);
-            _gsi.NewGameState += OnNewGameState;
-
-            if (!_gsi.Start())
+            // Otherwise dota is running...
+            else
             {
-                Console.WriteLine("GameStateListener could not start. Try running this program as Administrator.");
+                Console.WriteLine("Dota 2 is running!");
+                
+                if (!m_hasGSIStarted)
+                {
+                    InitializeGSI();
+                }
+                
+                Console.WriteLine(m_gameState.Map.GameState.ToString());
             }
-            
-            Console.WriteLine("GSI Integration Completed.");
             
             // Create and start application timer to track dota active process for GSI
             m_applicationTimer = new Timer();
@@ -67,6 +70,25 @@ namespace StreamDeckPluginsDota2
             Console.ReadLine();
         }
 
+        private static void InitializeGSI()
+        {
+            // Init GSI
+            m_gameStateListener = new GameStateListener(4000);
+            m_gameStateListener.NewGameState += OnNewGameState;
+
+            if (m_gameStateListener.Start())
+            {
+                // Mark init flag
+                m_hasGSIStarted = true;
+                
+                Console.WriteLine("GSI has started successfully.");
+            }
+            else
+            {
+                Console.WriteLine("GSI was unable to start.");
+            }
+        }
+
         private static void OnNewGameState(GameState gamestate)
         {
             Console.WriteLine("New Game State Received");
@@ -85,9 +107,16 @@ namespace StreamDeckPluginsDota2
             {
                 Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
             }
+            // Otherwise dota is running...
             else
             {
-                Console.WriteLine("Dota 2 is running! Listening to GSI...");
+                Console.WriteLine("Dota 2 is running!");
+                
+                if (!m_hasGSIStarted)
+                {
+                    InitializeGSI();
+                }
+                
                 Console.WriteLine(m_gameState.Map.GameState.ToString());
             }
         }
