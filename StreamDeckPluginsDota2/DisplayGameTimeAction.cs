@@ -30,14 +30,13 @@ namespace StreamDeckPluginsDota2
         
         // Graphics
         private TitleParameters m_titleParameters;
-        private FontFamily heeboBold;
+        private FontFamily heeboFont;
 
         public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             // TODO: Test font / ship in folder?
             // Fetch Heebo font
-            heeboBold = new FontFamily("Heebo");
-            m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, 20, Color.White, true, TitleVerticalAlignment.Middle);
+            heeboFont = new FontFamily("Heebo");
             
             // Generate assets and cache images
             m_paused = GenerateImage(144, 144, m_pauseColor);
@@ -147,73 +146,15 @@ namespace StreamDeckPluginsDota2
                 }
                 
                 m_currentClockTime = m_gameState.Map.ClockTime;
-            
-                // Text title and Image we are going to render later
-                string renderString;
-                Image renderImage;
                 
                 // Determine pause state: (if clock time is progressing)
                 bool isPaused = m_currentClockTime == m_lastClockTime;
                 
                 // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
                 bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-                
-                int resultTitleFontSize;
-                
-                // If time isn't progressing...
-                if (isPaused)
-                {
-                    renderString = "Unpause";
-                    renderImage = m_paused;
-                    resultTitleFontSize = 14;
-                }
-                // Not paused
-                else
-                {
-                    // Show current game time
-                    renderString = Program.GetFormattedString(m_currentClockTime);
-                    renderImage = isDayTime ? m_dayImage : m_nightImage;
-                    resultTitleFontSize = 20;
-                }
 
-                Connection.SetImageAsync(renderImage);
-                Connection.SetTitleAsync(renderString);
-                
-                // Define render
-                // Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
-                
-                // Draw/Render Text to graphic
-                // m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
-                // Tools.AddTextPathToGraphics(graphics, m_titleParameters, 120, 144, renderString, 10);
-                
-                // Dispose
-                // graphics.Dispose();
-                
-                //
-                // // Define tools
-                // Point point = new Point(0, 0);
-                // // Pen pen = new Pen(Color.Yellow);
-                // Brush brush = new SolidBrush(Color.Black);
-                //
-                // // Render image
-                // graphics.DrawImage(renderImage, point);
-                //
-                // // Define rectangle
-                // // Rectangle square = new Rectangle(0, 0, 144, 144); // (Top left expanding down right?)
-                //
-                // // Draw said filled Rectangle
-                // // g.DrawRectangle(pen, square); // Outline
-                // graphics.FillRectangle(brush, new Rectangle(0, 40, 144, 55));
-                //
-                // // Draw/Render Text to graphic
-                // m_titleParameters = new TitleParameters(heeboBold, FontStyle.Bold, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
-                // Tools.AddTextPathToGraphics(graphics, m_titleParameters, 120, 144, renderString, 10);
-                //
-                // // Render / Set image
-                // Connection.SetImageAsync();
-                //
-                // // Dispose
-                // graphics.Dispose();
+                // Render/Determine action image
+                Render(isPaused, isDayTime);
                 
                 // Cache for next tick
                 m_lastClockTime = m_currentClockTime;
@@ -224,6 +165,53 @@ namespace StreamDeckPluginsDota2
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
                 Connection.SetTitleAsync(string.Empty);
             }
+        }
+
+        private void Render(bool isPaused, bool isDayTime)
+        {
+            // Declare
+            string renderString;
+            Image renderImage;
+            int resultTitleFontSize;
+                
+            // If time isn't progressing...
+            if (isPaused)
+            {
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\game-paused.png"));
+                Connection.SetTitleAsync(string.Empty);
+            }
+            // Otherwise: Running...
+            else
+            {
+                // Show current game time
+                renderString = Program.GetFormattedString(m_currentClockTime);
+                renderImage = isDayTime ? m_dayImage : m_nightImage;
+                resultTitleFontSize = 20;
+            }
+
+            // Define render
+            Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
+                
+            // Define tools
+            Point point = new Point(0, 0); 
+            Brush brush = new SolidBrush(Color.Black);
+                
+            // Render image
+            graphics.DrawImage(renderImage, point);
+                
+            // Draw said filled Rectangle
+            // g.DrawRectangle(pen, square); // Outline
+            graphics.FillRectangle(brush, new Rectangle(0, 36, 144, 72));
+                
+            // Draw/Render Text to graphic
+            m_titleParameters = new TitleParameters(heeboFont, FontStyle.Regular, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
+            graphics.AddTextPath(m_titleParameters, (int)132.5, 144, renderString, (int)22.5);
+                
+            // Render graphic/Set image
+            Connection.SetImageAsync(renderResult);
+                
+            // Dispose
+            graphics.Dispose();
         }
 
         public override void Dispose()
