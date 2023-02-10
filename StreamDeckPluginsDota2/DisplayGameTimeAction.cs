@@ -14,7 +14,7 @@ namespace StreamDeckPluginsDota2
         private readonly Color m_pauseColor = Color.FromArgb(210, 40, 40);
         private readonly Color m_runningColor = Color.FromArgb(42, 168, 67);
         private readonly Color m_dayColor = Color.FromArgb(255, 193, 50);
-        private readonly Color m_nightColor = Color.FromArgb(37, 64, 112);
+        private readonly Color m_nightColor = Color.FromArgb(61, 148, 238);
         
         // Images
         private readonly Image m_paused;
@@ -34,10 +34,10 @@ namespace StreamDeckPluginsDota2
 
         public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
-            // TODO: Test font / ship in folder?
+            // TODO: Use heebo font if found...
             // Fetch Heebo font
-            heeboFont = new FontFamily("Heebo");
-            
+            // heeboFont = new FontFamily("Heebo");
+
             // Generate assets and cache images
             m_paused = GenerateImage(144, 144, m_pauseColor);
             m_running = GenerateImage(144, 144, m_runningColor);
@@ -162,50 +162,49 @@ namespace StreamDeckPluginsDota2
             else
             {
                 // Set to default state
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
                 Connection.SetTitleAsync(string.Empty);
             }
         }
 
         private void Render(bool isPaused, bool isDayTime)
         {
-            // Declare
-            string renderString;
             Image renderImage;
-            int resultTitleFontSize;
-                
+            int resultTitleFontSize = 16;
+            string renderString = Program.GetFormattedString(m_currentClockTime);
+            Color renderColor = isDayTime ? m_dayColor : m_nightColor;
+
             // If time isn't progressing...
             if (isPaused)
             {
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\game-paused.png"));
-                Connection.SetTitleAsync(string.Empty);
+                renderImage = Image.FromFile("images\\actions\\resume-match@2x.png");
             }
             // Otherwise: Running...
             else
             {
                 // Show current game time
-                renderString = Program.GetFormattedString(m_currentClockTime);
-                renderImage = isDayTime ? m_dayImage : m_nightImage;
-                resultTitleFontSize = 20;
+                renderImage = Image.FromFile("images\\actions\\pause-match@2x.png");
             }
 
             // Define render
             Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
                 
             // Define tools
-            Point point = new Point(0, 0); 
-            Brush brush = new SolidBrush(Color.Black);
-                
+            Brush darkBrush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
+            // Brush lightBrush = new SolidBrush(Color.FromArgb(216, 255, 255, 255)); // 85% opacity
+            // Brush dynamicBrush = isPaused ? lightBrush : darkBrush; 
+
             // Render image
-            graphics.DrawImage(renderImage, point);
+            RectangleF imageRect = new RectangleF(0, 0, 144, 144);
+            graphics.DrawImage(renderImage, imageRect);
                 
             // Draw said filled Rectangle
-            // g.DrawRectangle(pen, square); // Outline
-            graphics.FillRectangle(brush, new Rectangle(0, 36, 144, 72));
+            graphics.FillRectangle(darkBrush, new Rectangle(0, 54 + 6, 144, 36));
                 
             // Draw/Render Text to graphic
-            m_titleParameters = new TitleParameters(heeboFont, FontStyle.Regular, resultTitleFontSize, Color.White, true, TitleVerticalAlignment.Middle);
-            graphics.AddTextPath(m_titleParameters, (int)132.5, 144, renderString, (int)22.5);
+            m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
+                renderColor, false, TitleVerticalAlignment.Middle);
+            graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
                 
             // Render graphic/Set image
             Connection.SetImageAsync(renderResult);
