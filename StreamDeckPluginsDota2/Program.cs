@@ -12,7 +12,8 @@ namespace StreamDeckPluginsDota2
     static class Program
     {
         public static GameStateListener m_gameStateListener;
-        public static bool m_hasGSIStarted;
+
+        private static bool m_hasGSIStarted;
         private static GameState m_gameState;
 
         private static Timer m_applicationTimer; // Used for checking if dota process is active.
@@ -88,20 +89,28 @@ namespace StreamDeckPluginsDota2
 
             if (m_gameStateListener.Start())
             {
-                // Mark init flag
+                // Dirty flag
                 m_hasGSIStarted = true;
                 
                 Console.WriteLine("GSI has started successfully.");
                 return true;
             }
 
+            // Clean flag
+            m_hasGSIStarted = false;
+            
             Console.WriteLine("GSI was unable to start.");
             return false;
         }
 
+        public static bool isGSIInitialized()
+        {
+            return m_hasGSIStarted;
+        }
+
         private static void OnNewGameState(GameState gamestate)
         {
-            Console.WriteLine("New Game State Received");
+            Console.WriteLine("Program: New Game State Received");
             m_gameState = gamestate;
         }
 
@@ -131,6 +140,8 @@ namespace StreamDeckPluginsDota2
                 if (m_gameState == null)
                 {
                     Console.WriteLine("Null game state.");
+                    
+                    // Early exit
                     return;
                 }
                 

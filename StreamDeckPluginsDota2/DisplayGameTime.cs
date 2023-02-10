@@ -24,6 +24,7 @@ namespace StreamDeckPluginsDota2
         private readonly Image m_nightImage;
 
         // Game state (Clock)
+        private bool m_isSubscribedToGSIEvents;
         private GameState m_gameState;
         private int m_lastClockTime;
         private int m_currentClockTime;
@@ -51,17 +52,35 @@ namespace StreamDeckPluginsDota2
             // Create input sim for pausing
             m_inputSimulator = new InputSimulator();
             
-            // TODO: Subscribe to OnNewGameState when GSI is initialized in Program;
-            // Sanity checks
-            if (!Program.m_hasGSIStarted)
+            CheckGSI();
+        }
+
+        private void CheckGSI()
+        {
+            // Initialize GSI / Subscribe to GSI event
+            if (!m_isSubscribedToGSIEvents)
             {
-                if (Program.InitializeGSI())
+                // If GSI hasn't been started...
+                if(!Program.isGSIInitialized())
                 {
+                    // Attempt to start GSI...
+                    if (Program.InitializeGSI())
+                    {
+                        // On success...
+                        
+                        // Subscribe to GSI event
+                        Program.m_gameStateListener.NewGameState += OnNewGameState;
+                        m_isSubscribedToGSIEvents = true;
+                    }
+                }
+                // Otherwise, GSI is ready...
+                else
+                {
+                    // Subscribe to GSI event
                     Program.m_gameStateListener.NewGameState += OnNewGameState;
+                    m_isSubscribedToGSIEvents = true;
                 }
             }
-
-            // Connection.SetImageAsync(paused);
         }
         
         private Image GenerateImage(int width, int height, Color color)
@@ -107,37 +126,32 @@ namespace StreamDeckPluginsDota2
         // Ticks once a second
         public override void OnTick()
         {
-            // Early exit
             if (!Program.IsDotaRunning())
             {
+                // Set to default state
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
                 Connection.SetTitleAsync(string.Empty);
                 
+                // Early exit
                 return;
             }
             
-            // Sanity checks
-            if (!Program.m_hasGSIStarted)
-            {
-                if (Program.InitializeGSI())
-                {
-                    Program.m_gameStateListener.NewGameState += OnNewGameState;
-                }
-            }
-
+            // Otherwise, Dota is running...
+            CheckGSI();
+            
+            // Sanity check
             if (m_gameState != null)
             {
-                // GSI connected and safe to use
+                // GSI connected and (gamestate) is safe to use.
                 
                 // We are not in-game...
                 if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
                 {
                     Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
                     Connection.SetTitleAsync(string.Empty);
+                    
                     return;
                 }
-                
-                // Connection.SetImageAsync(m_running);
                 
                 m_currentClockTime = m_gameState.Map.ClockTime;
             
@@ -213,6 +227,7 @@ namespace StreamDeckPluginsDota2
             }
             else
             {
+                // Set to default state
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
                 Connection.SetTitleAsync(string.Empty);
             }
@@ -220,9 +235,11 @@ namespace StreamDeckPluginsDota2
 
         public override void Dispose()
         {
-            Program.m_gameStateListener.NewGameState -= OnNewGameState;
-            
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Disposed of the DisplayGameTime action.");
+            if (Program.isGSIInitialized())
+            {
+                Program.m_gameStateListener.NewGameState -= OnNewGameState;
+                m_isSubscribedToGSIEvents = false;
+            }
         }
     }
 }
