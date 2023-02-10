@@ -3,14 +3,12 @@ using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
 using Dota2GSI.Nodes;
-using WindowsInput;
 using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
-    // TODO: Use RuneBase but rename
     [PluginActionId("com.adrian-miasik.sdpdota2.display-game-time")]
-    public class DisplayGameTime : PluginBase
+    public class DisplayGameTimeAction : InputSimBase
     {
         // Define colors
         private readonly Color m_pauseColor = Color.FromArgb(210, 40, 40);
@@ -29,15 +27,12 @@ namespace StreamDeckPluginsDota2
         private GameState m_gameState;
         private int m_lastClockTime;
         private int m_currentClockTime;
-
-        // Keyboard Interaction
-        private readonly InputSimulator m_inputSimulator;
         
         // Graphics
         private TitleParameters m_titleParameters;
         private FontFamily heeboBold;
 
-        public DisplayGameTime(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             // TODO: Test font / ship in folder?
             // Fetch Heebo font
@@ -49,9 +44,6 @@ namespace StreamDeckPluginsDota2
             m_running = GenerateImage(144, 144, m_runningColor);
             m_dayImage = GenerateImage(144, 144, m_dayColor);
             m_nightImage = GenerateImage(144, 144, m_nightColor);
-            
-            // Create input sim for pausing
-            m_inputSimulator = new InputSimulator();
             
             CheckGSI();
         }
@@ -114,7 +106,7 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
-            m_inputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
+            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
             Connection.SetImageAsync(m_paused);
         }
 

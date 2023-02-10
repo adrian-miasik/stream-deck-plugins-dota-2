@@ -3,13 +3,12 @@ using WindowsInput;
 
 namespace StreamDeckPluginsDota2
 {
-    // TODO: Rename to InputSimBase
     // TODO: Create a base class w/ GSI integration
-    public class RuneBase : PluginBase
+    public class InputSimBase : PluginBase
     {
         protected InputSimulator InputSimulator;
 
-        protected RuneBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        protected InputSimBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             InputSimulator = new InputSimulator();
         }

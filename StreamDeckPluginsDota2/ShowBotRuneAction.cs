@@ -4,7 +4,7 @@ using WindowsInput.Native;
 namespace StreamDeckPluginsDota2
 {
     [PluginActionId("com.adrian-miasik.sdpdota2.show-bot-rune")]
-    public class ShowBotRuneAction : RuneBase
+    public class ShowBotRuneAction : InputSimBase
     {
         public ShowBotRuneAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {

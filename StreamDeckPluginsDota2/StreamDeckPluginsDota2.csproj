@@ -84,14 +84,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayGameTime.cs" />
+    <Compile Include="DisplayGameTimeAction.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
-    <Compile Include="RuneBase.cs" />
+    <Compile Include="InputSimBase.cs" />
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
-    <Compile Include="ToggleGame.cs" />
+    <Compile Include="ToggleGameAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

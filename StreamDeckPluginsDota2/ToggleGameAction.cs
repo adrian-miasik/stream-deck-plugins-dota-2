@@ -7,12 +7,12 @@ namespace StreamDeckPluginsDota2
     // TODO: Rename to include word 'Action'
     // TODO: Refactor to utilize OnApplicationTerminated event instead of checking processes?
     [PluginActionId("com.adrian-miasik.sdpdota2.toggle-game")]
-    public class ToggleApplication : PluginBase
+    public class ToggleApplicationAction : PluginBase
     {
         private Process[] m_dotaProcesses;
         private bool isDotaRunning;
         
-        public ToggleApplication(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        public ToggleApplicationAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             
         }

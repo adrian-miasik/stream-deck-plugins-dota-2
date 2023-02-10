@@ -4,7 +4,7 @@ using WindowsInput.Native;
 namespace StreamDeckPluginsDota2
 {
     [PluginActionId("com.adrian-miasik.sdpdota2.show-top-rune")]
-    public class ShowTopRuneAction : RuneBase
+    public class ShowTopRuneAction : InputSimBase
     {
         public ShowTopRuneAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
