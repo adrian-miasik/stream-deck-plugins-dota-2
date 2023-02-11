@@ -219,8 +219,8 @@ namespace StreamDeckPluginsDota2
         {
             Image renderImage;
             int resultTitleFontSize = 16;
-            string renderString = Program.GetFormattedString(m_currentClockTime);
-            Color renderColor = isDayTime ? m_dayColor : m_nightColor;
+            // string renderString = Program.GetFormattedString(m_currentClockTime);
+            // Color renderColor = isDayTime ? m_dayColor : m_nightColor;
 
             // If time isn't progressing...
             if (isPaused)
@@ -238,19 +238,19 @@ namespace StreamDeckPluginsDota2
             Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
                 
             // Define tools
-            Brush darkBrush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
+            // Brush darkBrush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
 
             // Render image
             RectangleF imageRect = new RectangleF(0, 0, 144, 144);
             graphics.DrawImage(renderImage, imageRect);
                 
             // Draw said filled Rectangle
-            graphics.FillRectangle(darkBrush, new Rectangle(0, 54 + 6, 144, 36));
+            // graphics.FillRectangle(darkBrush, new Rectangle(0, 54 + 6, 144, 36));
                 
             // Draw/Render Text to graphic
-            m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
-                renderColor, false, TitleVerticalAlignment.Middle);
-            graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
+            // m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
+                // renderColor, false, TitleVerticalAlignment.Middle);
+            // graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
                 
             // Render graphic/Set image
             Connection.SetImageAsync(renderResult);
