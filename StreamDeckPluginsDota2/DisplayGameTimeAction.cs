@@ -105,11 +105,36 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
-            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
-            Connection.SetImageAsync(m_paused);
+            if (!Program.IsDotaRunning())
+            {
+                // Dota not running
+                Connection.SetImageAsync(m_paused);
+                return;
+            }
+
+            if (m_gameState == null)
+            {
+                Connection.SetImageAsync(m_dayImage);
+            }
+            else
+            {
+                Connection.SetImageAsync(m_running);
+            }
+            
+            // If dota is not currently in focus...
+            if (!Program.IsDotaFocused())
+            {
+                InputSimulator.Keyboard.KeyPress(VirtualKeyCode.MENU);
+                // Focus dota
+                Program.FocusDota();
+            }
         }
 
-        public override void KeyReleased(KeyPayload payload) { }
+        public override void KeyReleased(KeyPayload payload)
+        {
+            // Press pause toggle hotkey
+            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
+        }
         
         public override void ReceivedSettings(ReceivedSettingsPayload payload) { }
 

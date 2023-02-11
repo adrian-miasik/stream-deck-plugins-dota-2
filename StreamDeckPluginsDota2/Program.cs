@@ -11,18 +11,50 @@ namespace StreamDeckPluginsDota2
 {
     static class Program
     {
+        // Dota 2 - Game State Integration
         public static GameStateListener m_gameStateListener;
-
         private static bool m_hasGSIStarted;
         private static GameState m_gameState;
 
-        private static Timer m_applicationTimer; // Used for checking if dota process is active.
+        // Used to check 'Dota 2' process
+        private static Timer m_applicationTimer;
         private static Process[] m_dotaProcesses;
         private static bool isDotaRunning;
+        
+        // Used to check the currently focused window
+        /// <summary>
+        /// Retrieves a handle to the foreground window (the window with which the user is currently working).
+        /// Note: The foreground can be NULL in certain instances, such as when a window is losing activation.
+        /// </summary>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        /// <summary>
+        /// Retrieves the identifier of the thread that created the specified window and, optionally,
+        /// the identifier of the process that created the window.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <param name="lpdwProcessId">A pointer to the process identifier.*</param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern Int32 GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         static void Main(string[] args)
         {
-            Setup();
+            bool isDebugging = false;
+            
+            foreach (string s in args)
+            {
+                if (s == "-debug")
+                {
+                    isDebugging = true;
+                }
+            }
+            
+            Setup(isDebugging);
             
             // Uncomment this line of code to allow for debugging
             //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
@@ -30,8 +62,13 @@ namespace StreamDeckPluginsDota2
             SDWrapper.Run(args);
         }
 
-        static void Setup()
+        static void Setup(bool debugMode = false)
         {
+            if (debugMode)
+            {
+                Console.WriteLine("DEBUG MODE ENABLED.");
+            }
+
             CreateConfigs();
 
             Process[] processName = Process.GetProcessesByName("Dota2");
@@ -67,18 +104,10 @@ namespace StreamDeckPluginsDota2
             m_applicationTimer.Interval = 1000; // 1 tick per second
             m_applicationTimer.Start();
 
-            // Process debugProcess = new Process();
-            // ProcessStartInfo startInfo = new ProcessStartInfo
-            // {
-            //     FileName = "cmd.exe",
-            //     Arguments = "/K echo 'StreamDeckPlugins - Dota 2': Live Debugger is Ready.",
-            // };
-            // debugProcess.StartInfo = startInfo;
-            // debugProcess.Start();
-
-            // IMPORTANT: TOGGLE THE LINE BELOW FOR DEBUGGING
-            // COMMENTED FOR RELEASE, UNCOMMENTED FOR DEBUGGING.
-            // Console.ReadLine();
+            if (debugMode)
+            {
+                Console.ReadLine();
+            }
         }
 
         public static bool InitializeGSI()
@@ -110,7 +139,7 @@ namespace StreamDeckPluginsDota2
 
         private static void OnNewGameState(GameState gamestate)
         {
-            Console.WriteLine("Program: New Game State Received");
+            // Console.WriteLine("Program: New Game State Received");
             m_gameState = gamestate;
         }
 
@@ -122,15 +151,18 @@ namespace StreamDeckPluginsDota2
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
 
-            if (!isDotaRunning)
-            {
-                Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
-            }
-            // Otherwise dota is running...
-            else
-            {
-                // Console.WriteLine("Dota 2 is running!");
+            // Console.WriteLine("Dota process count: " + m_dotaProcesses.Length);
+            // foreach (Process p in m_dotaProcesses)
+            // {
                 
+            // }
+            
+            // Console.WriteLine("Is Dota Running: " + IsDotaRunning());
+            // Console.WriteLine("Is Dota Focused: " + IsDotaFocused());
+
+            // Init GSI if it hasn't been initialized
+            if (isDotaRunning)
+            {
                 if (!m_hasGSIStarted)
                 {
                     InitializeGSI();
@@ -153,7 +185,46 @@ namespace StreamDeckPluginsDota2
         {
             return isDotaRunning;
         }
-        
+
+        public static bool IsDotaFocused()
+        {
+            if (!IsDotaRunning())
+            {
+                return false;
+            }
+
+            IntPtr focusedWindow = GetForegroundWindow();
+            if (focusedWindow == null)
+            {
+                // Nothing is currently focused.
+                return false;
+            }
+
+            uint focusedWindowProcessID;
+            GetWindowThreadProcessId(focusedWindow, out focusedWindowProcessID);
+
+            foreach (Process dotaProcess in m_dotaProcesses)
+            {
+                // If the current focused ID matches any of our cached dota processes...
+                if (focusedWindowProcessID == dotaProcess.Id)
+                {
+                    // Current focused window is Dota.
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static void FocusDota()
+        {
+            if (m_dotaProcesses.Length > 0)
+            {
+                Process dotaProcess = m_dotaProcesses[0];
+                SetForegroundWindow(dotaProcess.MainWindowHandle);
+            }
+        }
+
         private static void CreateConfigs()
         {
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam");
@@ -233,7 +304,7 @@ namespace StreamDeckPluginsDota2
                 File.WriteAllLines(cfgFile, contentsOfCFGFile);
             }
         }
-        
+
         /// <summary>
         /// Returns a formatted time string (such as '0:00') using the provided totalSeconds variable.
         /// </summary>
