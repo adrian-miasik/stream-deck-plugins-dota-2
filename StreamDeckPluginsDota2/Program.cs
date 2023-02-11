@@ -17,7 +17,7 @@ namespace StreamDeckPluginsDota2
         private static GameState m_gameState;
 
         // Used to check 'Dota 2' process
-        private static Timer m_applicationTimer;
+        private static Timer m_applicationTimer; // Update method
         private static Process[] m_dotaProcesses;
         private static bool isDotaRunning;
         
@@ -44,8 +44,8 @@ namespace StreamDeckPluginsDota2
 
         static void Main(string[] args)
         {
+            // Parse launch arguments
             bool isDebugging = false;
-            
             foreach (string s in args)
             {
                 if (s == "-debug")
@@ -54,15 +54,25 @@ namespace StreamDeckPluginsDota2
                 }
             }
             
-            Setup(isDebugging);
+            // Initialize Application:
+            // - Dota GSI config
+            // - Dota Hotkey config
+            // - Check dota process
+            // - Initialize GSI
+            // - Create App update method timer
+            Initialize(isDebugging);
             
-            // Uncomment this line of code to allow for debugging
-            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
-            
+            // Initialize: Barraider StreamDeck C# wrapper
             SDWrapper.Run(args);
         }
 
-        static void Setup(bool debugMode = false)
+        /// <summary>
+        /// Creates the appropriate config files (GSI config and CFG hotkey config), checks the state of any active
+        /// dota processes, initializes our GSI to be ready for listening, creates our application tick/update method,
+        /// 
+        /// </summary>
+        /// <param name="debugMode"></param>
+        static void Initialize(bool debugMode = false)
         {
             if (debugMode)
             {
@@ -71,8 +81,10 @@ namespace StreamDeckPluginsDota2
 
             CreateConfigs();
 
-            Process[] processName = Process.GetProcessesByName("Dota2");
-            if (processName.Length == 0)
+            m_dotaProcesses = Process.GetProcessesByName("Dota2");
+            isDotaRunning = m_dotaProcesses.Length > 0;
+            
+            if (!isDotaRunning)
             {
                 Console.WriteLine("Dota 2 is not running. Please start Dota 2.");
             }
@@ -99,7 +111,7 @@ namespace StreamDeckPluginsDota2
             
             // Create and start application timer to track dota active process for GSI
             m_applicationTimer = new Timer();
-            m_applicationTimer.Elapsed += Tick;
+            m_applicationTimer.Elapsed += ApplicationTick;
             m_applicationTimer.AutoReset = true;
             m_applicationTimer.Interval = 1000; // 1 tick per second
             m_applicationTimer.Start();
@@ -145,20 +157,12 @@ namespace StreamDeckPluginsDota2
 
         /// <summary>
         /// Update method that ticks once per second.
+        /// Checks the current state of any active dota processes, initializes GSI when appropriate, 
         /// </summary>
-        private static void Tick(object sender, ElapsedEventArgs e)
+        private static void ApplicationTick(object sender, ElapsedEventArgs e)
         {
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
-
-            // Console.WriteLine("Dota process count: " + m_dotaProcesses.Length);
-            // foreach (Process p in m_dotaProcesses)
-            // {
-                
-            // }
-            
-            // Console.WriteLine("Is Dota Running: " + IsDotaRunning());
-            // Console.WriteLine("Is Dota Focused: " + IsDotaFocused());
 
             // Init GSI if it hasn't been initialized
             if (isDotaRunning)
@@ -227,6 +231,8 @@ namespace StreamDeckPluginsDota2
 
         private static void CreateConfigs()
         {
+            // TODO: Create popup dialogs showing where config files were saved...
+            
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam");
 
             if (regKey != null)

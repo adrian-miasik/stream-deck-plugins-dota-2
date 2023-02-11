@@ -7,6 +7,7 @@ namespace StreamDeckPluginsDota2
     public class InputSimBase : PluginBase
     {
         protected InputSimulator InputSimulator;
+        protected bool isKeyPressed;
 
         protected InputSimBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
@@ -15,10 +16,12 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
+            isKeyPressed = true;
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
+            isKeyPressed = false;
         }
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)

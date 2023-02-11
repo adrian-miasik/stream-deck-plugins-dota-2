@@ -80,7 +80,7 @@
   "CodePath": "com.adrian-miasik.sdpdota2",
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
-  "Version": "1.2.321",
+  "Version": "1.2.329",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"

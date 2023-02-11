@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
@@ -34,19 +35,19 @@ namespace StreamDeckPluginsDota2
 
         public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
-            // TODO: Use heebo font if found...
-            // Fetch Heebo font
-            // heeboFont = new FontFamily("Heebo");
-
             // Generate assets and cache images
-            m_paused = GenerateImage(144, 144, m_pauseColor);
-            m_running = GenerateImage(144, 144, m_runningColor);
-            m_dayImage = GenerateImage(144, 144, m_dayColor);
-            m_nightImage = GenerateImage(144, 144, m_nightColor);
+            m_paused = GenerateSolidColorImage(144, 144, m_pauseColor);
+            m_running = GenerateSolidColorImage(144, 144, m_runningColor);
+            m_dayImage = GenerateSolidColorImage(144, 144, m_dayColor);
+            m_nightImage = GenerateSolidColorImage(144, 144, m_nightColor);
             
+            // Attempt to subscribe to GSI events
             CheckGSI();
         }
 
+        /// <summary>
+        /// Subscribes this class to GSI event callback (OnNewGameState) if possible.
+        /// </summary>
         private void CheckGSI()
         {
             // Initialize GSI / Subscribe to GSI event
@@ -63,6 +64,8 @@ namespace StreamDeckPluginsDota2
                         // Subscribe to GSI event
                         Program.m_gameStateListener.NewGameState += OnNewGameState;
                         m_isSubscribedToGSIEvents = true;
+                        
+                        Console.WriteLine("DisplayGameTimeAction has subscribed to GSI.");
                     }
                 }
                 // Otherwise, GSI is ready...
@@ -71,11 +74,20 @@ namespace StreamDeckPluginsDota2
                     // Subscribe to GSI event
                     Program.m_gameStateListener.NewGameState += OnNewGameState;
                     m_isSubscribedToGSIEvents = true;
+                    
+                    Console.WriteLine("DisplayGameTimeAction has subscribed to GSI.");
                 }
             }
         }
         
-        private Image GenerateImage(int width, int height, Color color)
+        /// <summary>
+        /// Generates and returns an Image component using the provided dimensions and solid color.
+        /// </summary>
+        /// <param name="width">What width (in pixels) should the image be?</param>
+        /// <param name="height">What height (in pixels) should the image be?</param>
+        /// <param name="color">What color should this image be?</param>
+        /// <returns></returns>
+        private Image GenerateSolidColorImage(int width, int height, Color color)
         {
             // Generate bitmap (image)
             Bitmap bitmap = new Bitmap(width, height);
@@ -105,33 +117,33 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload)
         {
+            base.KeyPressed(payload); // Dirty key press flag
+            
+            // Visualize Dota and GSI states
             if (!Program.IsDotaRunning())
             {
-                // Dota not running
                 Connection.SetImageAsync(m_paused);
-                return;
-            }
-
-            if (m_gameState == null)
-            {
-                Connection.SetImageAsync(m_dayImage);
             }
             else
             {
-                Connection.SetImageAsync(m_running);
-            }
-            
-            // If dota is not currently in focus...
-            if (!Program.IsDotaFocused())
-            {
-                InputSimulator.Keyboard.KeyPress(VirtualKeyCode.MENU);
-                // Focus dota
-                Program.FocusDota();
+                Connection.SetImageAsync(m_gameState == null ? m_dayImage : m_running);
+                
+                // If dota is not currently in focus...
+                if (!Program.IsDotaFocused())
+                {
+                    // Focus dota:
+                    // Invoking method 'SetForegroundWindow' doesn't seem to always work.
+                    // To make the method more responsive, we simply press the alt key which fixes the unresponsiveness.
+                    InputSimulator.Keyboard.KeyPress(VirtualKeyCode.MENU); // Workaround for 'SetForegroundWindow'.
+                    Program.FocusDota();
+                }
             }
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
+            base.KeyReleased(payload); // Clean key press flag
+            
             // Press pause toggle hotkey
             InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
         }
@@ -143,55 +155,66 @@ namespace StreamDeckPluginsDota2
         // Ticks once a second
         public override void OnTick()
         {
-            if (!Program.IsDotaRunning())
+            // Prevent tick updates when the action is being interacted with...
+            if (isKeyPressed)
             {
-                // Set to default state
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
-                Connection.SetTitleAsync(string.Empty);
-                
-                // Early exit
                 return;
             }
             
-            // Otherwise, Dota is running...
-            CheckGSI();
-            
-            // Sanity check
-            if (m_gameState != null)
-            {
-                // GSI connected and (gamestate) is safe to use.
-                
-                // We are not in-game...
-                if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
-                {
-                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time.png"));
-                    Connection.SetTitleAsync(string.Empty);
-                    
-                    return;
-                }
-                
-                m_currentClockTime = m_gameState.Map.ClockTime;
-                
-                // Determine pause state: (if clock time is progressing)
-                bool isPaused = m_currentClockTime == m_lastClockTime;
-                
-                // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
-                bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-
-                // Render/Determine action image
-                Render(isPaused, isDayTime);
-                
-                // Cache for next tick
-                m_lastClockTime = m_currentClockTime;
-            }
-            else
+            if (!Program.IsDotaRunning())
             {
                 // Set to default state
                 Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
                 Connection.SetTitleAsync(string.Empty);
+                
+                // Dispose of GSI since it won't be needed when Dota isn't running.
+                Dispose();
+            }
+            else
+            {
+                // Otherwise, Dota is running...
+                
+                // Initialize GSI since we'll need it.
+                CheckGSI();
+                
+                // Sanity check GSI
+                if (m_gameState != null)
+                {
+                    // We are not in-game...
+                    if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
+                    {
+                        // Show default state
+                        Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                        Connection.SetTitleAsync(string.Empty);
+                    
+                        return;
+                    }
+                
+                    m_currentClockTime = m_gameState.Map.ClockTime;
+                
+                    // Determine pause state: (if clock time is progressing)
+                    bool isPaused = m_currentClockTime == m_lastClockTime;
+                
+                    // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
+                    bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
+
+                    // Calculate and render the current state of the game
+                    Render(isPaused, isDayTime);
+                
+                    // Cache for next tick calculation
+                    m_lastClockTime = m_currentClockTime;
+                }
+                else
+                {
+                    // Otherwise: GSI is not found.
+                    
+                    // Set to default state
+                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                    Connection.SetTitleAsync(string.Empty);
+                }
             }
         }
-
+        
         private void Render(bool isPaused, bool isDayTime)
         {
             Image renderImage;
@@ -216,8 +239,6 @@ namespace StreamDeckPluginsDota2
                 
             // Define tools
             Brush darkBrush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
-            // Brush lightBrush = new SolidBrush(Color.FromArgb(216, 255, 255, 255)); // 85% opacity
-            // Brush dynamicBrush = isPaused ? lightBrush : darkBrush; 
 
             // Render image
             RectangleF imageRect = new RectangleF(0, 0, 144, 144);
@@ -240,10 +261,14 @@ namespace StreamDeckPluginsDota2
 
         public override void Dispose()
         {
-            if (Program.isGSIInitialized())
+            if (Program.isGSIInitialized() && m_isSubscribedToGSIEvents)
             {
+                // Unsub
                 Program.m_gameStateListener.NewGameState -= OnNewGameState;
+                m_gameState = null;
                 m_isSubscribedToGSIEvents = false;
+
+                Console.WriteLine("DisplayGameTimeAction has unsubscribed from GSI.");
             }
         }
     }
