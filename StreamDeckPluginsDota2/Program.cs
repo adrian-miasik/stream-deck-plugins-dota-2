@@ -68,8 +68,8 @@ namespace StreamDeckPluginsDota2
 
         /// <summary>
         /// Creates the appropriate config files (GSI config and CFG hotkey config), checks the state of any active
-        /// dota processes, initializes our GSI to be ready for listening, creates our application tick/update method,
-        /// 
+        /// dota processes, initializes our GSI to be ready for listening, console log the game state, and finally
+        /// creates and starts our application tick/update method so we can re-check GSI state.
         /// </summary>
         /// <param name="debugMode"></param>
         static void Initialize(bool debugMode = false)
@@ -122,6 +122,11 @@ namespace StreamDeckPluginsDota2
             }
         }
 
+        /// <summary>
+        /// Attempts to start the 'Dota 2 Game State Listener'.
+        /// Returns a boolean indicating if the start was successful or not.
+        /// </summary>
+        /// <returns>Was initialization successful?</returns>
         public static bool InitializeGSI()
         {
             // Init GSI
@@ -144,11 +149,19 @@ namespace StreamDeckPluginsDota2
             return false;
         }
 
+        /// <summary>
+        /// Has the 'Game State Listener' been able to start/initialize?
+        /// </summary>
+        /// <returns></returns>
         public static bool isGSIInitialized()
         {
             return m_hasGSIStarted;
         }
 
+        /// <summary>
+        /// Invoked when the GSI listener receives a new GameState.
+        /// </summary>
+        /// <param name="gamestate"></param>
         private static void OnNewGameState(GameState gamestate)
         {
             // Console.WriteLine("Program: New Game State Received");
@@ -157,14 +170,14 @@ namespace StreamDeckPluginsDota2
 
         /// <summary>
         /// Update method that ticks once per second.
-        /// Checks the current state of any active dota processes, initializes GSI when appropriate, 
+        /// Intended for checking the Dota process and checking/verifying/initializing GSI.
         /// </summary>
         private static void ApplicationTick(object sender, ElapsedEventArgs e)
         {
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
 
-            // Init GSI if it hasn't been initialized
+            // Init GSI if it hasn't been initialized...
             if (isDotaRunning)
             {
                 if (!m_hasGSIStarted)
@@ -185,11 +198,23 @@ namespace StreamDeckPluginsDota2
             }
         }
 
+        /// <summary>
+        /// If a Dota 2 process is running, this will return True. Otherwise, this will return False.
+        /// </summary>
+        /// <returns></returns>
         public static bool IsDotaRunning()
         {
             return isDotaRunning;
         }
 
+        /// <summary>
+        /// Is Dota running and is the currently focused window?
+        /// </summary>
+        /// <returns>
+        /// If a Dota 2 process is not running, this will return False.
+        /// If a Dota 2 process is running but is not focused, this will return False.
+        /// If a Dota 2 process is running and is focused, this will return True.
+        /// </returns>
         public static bool IsDotaFocused()
         {
             if (!IsDotaRunning())
@@ -220,6 +245,9 @@ namespace StreamDeckPluginsDota2
             return false;
         }
 
+        /// <summary>
+        /// Set's the current user's foreground window to be Dota 2.
+        /// </summary>
         public static void FocusDota()
         {
             if (m_dotaProcesses.Length > 0)
@@ -229,6 +257,10 @@ namespace StreamDeckPluginsDota2
             }
         }
 
+        /// <summary>
+        /// Creates the appropriate GSI and CFG files for this plugin. (GSI for reading game state, CFG for setting
+        /// hotkeys)
+        /// </summary>
         private static void CreateConfigs()
         {
             // TODO: Create popup dialogs showing where config files were saved...
@@ -300,11 +332,11 @@ namespace StreamDeckPluginsDota2
             {
                 string[] contentsOfCFGFile =
                 {
-                    "bind \"F13\" \"+dota_camera_center_on_hero\";",
-                    "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";", // Top Rune
-                    "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";", // Bot Rune
-                    "bind \"F16\" \"dota_pause\";", // Pause Toggle
-                    "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"
+                    "bind \"F13\" \"+dota_camera_center_on_hero\";",                // Rune Key Release
+                    "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";",        // Top Rune
+                    "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";",       // Bot Rune
+                    "bind \"F16\" \"dota_pause\";",                                 // Pause Toggle
+                    "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"  // Source Console Log
                 };
                     
                 File.WriteAllLines(cfgFile, contentsOfCFGFile);
@@ -312,8 +344,9 @@ namespace StreamDeckPluginsDota2
         }
 
         /// <summary>
-        /// Returns a formatted time string (such as '0:00') using the provided totalSeconds variable.
+        /// Returns a formatted time string (such as '0:00') using the provided totalSeconds int.
         /// </summary>
+        /// <example>Input: 62 | Output: '1:02'</example>
         /// <param name="totalSeconds"></param>
         /// <returns></returns>
         public static string GetFormattedString(int totalSeconds)
