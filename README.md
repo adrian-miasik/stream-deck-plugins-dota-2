@@ -41,8 +41,6 @@
 2. Add the following commands to your Dota 2 launch options: 
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
 
-**Important:** Make sure you have nothing currently bound to F13, F14, and F15. If you do, please edit the `stream_deck_plugins_dota_2.cfg` to use unassigned keys.
-
 # Launch Options Explained
 - The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
 - The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our cameras actions to certain function keys. Please ensure you have no keybindings on F13, F14, and F15.
