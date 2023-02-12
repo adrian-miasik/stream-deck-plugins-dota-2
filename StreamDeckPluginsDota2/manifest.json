@@ -56,6 +56,20 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune.",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Display Game Clock",
+      "States": [
+        {
+          "Image": "images\\actions\\display-game-clock",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Displays the current game clock time.",
+      "UUID": "com.adrian-miasik.sdpdota2.display-game-clock"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",
@@ -66,8 +80,7 @@
   "CodePath": "com.adrian-miasik.sdpdota2",
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
-  "Disabled":  false,
-  "Version": "1.2.0",
+  "Version": "1.2.405",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"
