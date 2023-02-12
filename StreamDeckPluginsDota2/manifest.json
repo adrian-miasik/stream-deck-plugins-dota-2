@@ -62,7 +62,7 @@
       "Name": "Pause/Resume Match",
       "States": [
         {
-          "Image": "images\\actions\\display-game-time",
+          "Image": "images\\actions\\pause-resume-match",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
@@ -80,7 +80,7 @@
   "CodePath": "com.adrian-miasik.sdpdota2",
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
-  "Version": "1.2.339",
+  "Version": "1.2.501",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"

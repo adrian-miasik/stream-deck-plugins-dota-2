@@ -47,6 +47,7 @@ namespace StreamDeckPluginsDota2
         public static Image m_red;
         public static Image m_yellow;
         public static Image m_green;
+        public static Image m_grey;
 
         static void Main(string[] args)
         {
@@ -290,6 +291,7 @@ namespace StreamDeckPluginsDota2
             m_red = GenerateSolidColorImage(144, 144, Color.FromArgb(210, 40, 40));
             m_yellow = GenerateSolidColorImage(144, 144, Color.FromArgb(255, 193, 50));
             m_green = GenerateSolidColorImage(144, 144, Color.FromArgb(42, 168, 67));
+            m_grey = GenerateSolidColorImage(144, 144, Color.FromArgb(83, 83, 83));
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace StreamDeckPluginsDota2
                         Program.m_gameStateListener.NewGameState += OnNewGameState;
                         m_isSubscribedToGSIEvents = true;
                         
-                        Console.WriteLine("DisplayGameTimeAction has subscribed to GSI.");
+                        Console.WriteLine("TogglePauseAction has subscribed to GSI.");
                     }
                 }
                 // Otherwise, GSI is ready...
@@ -54,7 +54,7 @@ namespace StreamDeckPluginsDota2
                     Program.m_gameStateListener.NewGameState += OnNewGameState;
                     m_isSubscribedToGSIEvents = true;
                     
-                    Console.WriteLine("DisplayGameTimeAction has subscribed to GSI.");
+                    Console.WriteLine("TogglePauseAction has subscribed to GSI.");
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace StreamDeckPluginsDota2
             // Visualize Dota and GSI states
             if (!Program.IsDotaRunning())
             {
-                Connection.SetImageAsync(Program.m_red);
+                Connection.SetImageAsync(Program.m_grey);
             }
             else
             {
@@ -118,7 +118,7 @@ namespace StreamDeckPluginsDota2
             if (!Program.IsDotaRunning())
             {
                 // Set to default state
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                 Connection.SetTitleAsync(string.Empty);
                 
                 // Dispose of GSI since it won't be needed when Dota isn't running.
@@ -138,7 +138,7 @@ namespace StreamDeckPluginsDota2
                     if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
                     {
                         // Show default state
-                        Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                        Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                         Connection.SetTitleAsync(string.Empty);
                     
                         return;
@@ -164,7 +164,7 @@ namespace StreamDeckPluginsDota2
                     // Otherwise: GSI is not found.
                     
                     // Set to default state
-                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                    Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                     Connection.SetTitleAsync(string.Empty);
                 }
             }
