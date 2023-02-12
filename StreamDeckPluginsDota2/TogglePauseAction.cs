@@ -8,24 +8,10 @@ using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
-    // TODO: Clean up
-    // TODO: Use Program methods instead
-    [PluginActionId("com.adrian-miasik.sdpdota2.display-game-clock")]
-    public class DisplayGameClockAction : InputSimBase
+    [PluginActionId("com.adrian-miasik.sdpdota2.pause-match-toggle")]
+    public class TogglePauseAction : InputSimBase
     {
-        // Define colors
-        private readonly Color m_pauseColor = Color.FromArgb(83, 83, 83);
-        private readonly Color m_runningColor = Color.FromArgb(42, 168, 67);
-        private readonly Color m_dayColor = Color.FromArgb(255, 193, 50);
-        private readonly Color m_nightColor = Color.FromArgb(61, 148, 238);
-        
-        // Images
-        private readonly Image m_paused;
-        private readonly Image m_running;
-        private readonly Image m_dayImage;
-        private readonly Image m_nightImage;
-
-        // Game state (Clock)
+        // Game state integration
         private bool m_isSubscribedToGSIEvents;
         private GameState m_gameState;
         
@@ -36,8 +22,8 @@ namespace StreamDeckPluginsDota2
         // Graphics
         private TitleParameters m_titleParameters;
         private FontFamily heeboFont;
-
-        public DisplayGameClockAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        
+        public TogglePauseAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             // Attempt to subscribe to GSI events
             CheckGSI();
@@ -137,7 +123,7 @@ namespace StreamDeckPluginsDota2
             if (!Program.IsDotaRunning())
             {
                 // Set to default state
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                 Connection.SetTitleAsync(string.Empty);
                 
                 // Dispose of GSI since it won't be needed when Dota isn't running.
@@ -157,7 +143,7 @@ namespace StreamDeckPluginsDota2
                     if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
                     {
                         // Show default state
-                        Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
+                        Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                         Connection.SetTitleAsync(string.Empty);
                     
                         return;
@@ -170,9 +156,10 @@ namespace StreamDeckPluginsDota2
                 
                     // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
                     bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-
-                    // Calculate and render the current state of the game
-                    Render(isPaused, isDayTime);
+                    
+                    Connection.SetImageAsync(isPaused
+                        ? Image.FromFile("images\\actions\\resume-match@2x.png")
+                        : Image.FromFile("images\\actions\\pause-match@2x.png"));
                 
                     // Cache for next tick calculation
                     m_lastClockTime = m_currentClockTime;
@@ -182,7 +169,7 @@ namespace StreamDeckPluginsDota2
                     // Otherwise: GSI is not found.
                     
                     // Set to default state
-                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
+                    Connection.SetImageAsync(Image.FromFile("images\\actions\\pause-resume-match@2x.png"));
                     Connection.SetTitleAsync(string.Empty);
                 }
             }
@@ -192,19 +179,18 @@ namespace StreamDeckPluginsDota2
         {
             Image renderImage;
             int resultTitleFontSize = 16;
-            string renderString = Program.GetFormattedString(m_currentClockTime);
-            Color renderColor = isDayTime ? m_dayColor : m_nightColor;
+            // string renderString = Program.GetFormattedString(m_currentClockTime);
+            // Color renderColor = isDayTime ? m_dayColor : m_nightColor;
 
             // If time isn't progressing...
             if (isPaused)
             {
-                renderImage = m_paused;
+                renderImage = Image.FromFile("images\\actions\\resume-match@2x.png");
             }
             // Otherwise: Running...
             else
             {
-                // Show current game time
-                renderImage = m_running;
+                renderImage = Image.FromFile("images\\actions\\pause-match@2x.png");
             }
 
             // Define render
@@ -219,9 +205,9 @@ namespace StreamDeckPluginsDota2
             graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
                 
             // Draw/Render Text to graphic
-            m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
-                renderColor, false, TitleVerticalAlignment.Middle);
-            graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
+            // m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
+                // renderColor, false, TitleVerticalAlignment.Middle);
+            // graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
                 
             // Render graphic/Set image
             Connection.SetImageAsync(renderResult);
@@ -239,7 +225,7 @@ namespace StreamDeckPluginsDota2
                 m_gameState = null;
                 m_isSubscribedToGSIEvents = false;
                 
-                Console.WriteLine("DisplayGameClockAction has unsubscribed from GSI.");
+                Console.WriteLine("TogglePauseAction has unsubscribed from GSI.");
             }
         }
     }

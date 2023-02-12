@@ -92,6 +92,7 @@
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
     <Compile Include="ToggleGameAction.cs" />
+    <Compile Include="TogglePauseAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -202,6 +203,25 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\actions\display-game-clock@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Pause/Resume Match -->
+    <Content Include="images\actions\pause-resume-match.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\pause-resume-match@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\resume-match.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\resume-match@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\pause-match.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\pause-match@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

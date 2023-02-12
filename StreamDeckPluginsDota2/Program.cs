@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Timers;
 using BarRaider.SdTools;
@@ -41,6 +42,12 @@ namespace StreamDeckPluginsDota2
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
+        
+        // Generic State Images
+        public static Image m_red;
+        public static Image m_yellow;
+        public static Image m_green;
+        public static Image m_grey;
 
         static void Main(string[] args)
         {
@@ -53,16 +60,11 @@ namespace StreamDeckPluginsDota2
                     isDebugging = true;
                 }
             }
-            
-            // Initialize Application:
-            // - Dota GSI config
-            // - Dota Hotkey config
-            // - Check dota process
-            // - Initialize GSI
-            // - Create App update method timer
+
+            // Initialize our logic
             Initialize(isDebugging);
             
-            // Initialize: Barraider StreamDeck C# wrapper
+            // Initialize the Stream Deck wrapper logic
             SDWrapper.Run(args);
         }
 
@@ -80,6 +82,7 @@ namespace StreamDeckPluginsDota2
             }
 
             CreateConfigs();
+            CreateImages();
 
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
@@ -280,6 +283,18 @@ namespace StreamDeckPluginsDota2
         }
 
         /// <summary>
+        /// Generates our generic state images that can be used throughout the app.
+        /// </summary>
+        private static void CreateImages()
+        {
+            // Generate assets and cache images
+            m_red = GenerateSolidColorImage(144, 144, Color.FromArgb(210, 40, 40));
+            m_yellow = GenerateSolidColorImage(144, 144, Color.FromArgb(255, 193, 50));
+            m_green = GenerateSolidColorImage(144, 144, Color.FromArgb(42, 168, 67));
+            m_grey = GenerateSolidColorImage(144, 144, Color.FromArgb(83, 83, 83));
+        }
+
+        /// <summary>
         /// Creates our Game State Integration folder and configuration file if one doesn't exist.
         /// </summary>
         /// <param name="regKey"></param>
@@ -341,6 +356,31 @@ namespace StreamDeckPluginsDota2
                     
                 File.WriteAllLines(cfgFile, contentsOfCFGFile);
             }
+        }
+        
+        /// <summary>
+        /// Generates and returns an Image component using the provided dimensions and solid color.
+        /// </summary>
+        /// <param name="width">What width (in pixels) should the image be?</param>
+        /// <param name="height">What height (in pixels) should the image be?</param>
+        /// <param name="color">What color should this image be?</param>
+        /// <returns></returns>
+        private static Image GenerateSolidColorImage(int width, int height, Color color)
+        {
+            // Generate bitmap (image)
+            Bitmap bitmap = new Bitmap(width, height);
+            
+            // Iterate through each pixel...
+            for (int x = 0; x < bitmap.Width; x++)
+            {
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    // Set color
+                    bitmap.SetPixel(x, y, color);
+                }
+            }
+            
+            return new Bitmap(bitmap);
         }
 
         /// <summary>
