@@ -1,9 +1,10 @@
 ﻿using BarRaider.SdTools;
+using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
     [PluginActionId("com.adrian-miasik.sdpdota2.show-bot-rune")]
-    public class ShowBotRuneAction : RuneBase
+    public class ShowBotRuneAction : InputSimBase
     {
         public ShowBotRuneAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
@@ -12,12 +13,12 @@ namespace StreamDeckPluginsDota2
         public override void KeyPressed(KeyPayload payload)
         {
             // TODO: Pull string from cfg file
-            InputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.F15);
+            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F15);
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
-            InputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.F13);
+            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F13);
         }
     }
 }

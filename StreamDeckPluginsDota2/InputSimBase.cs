@@ -3,21 +3,25 @@ using WindowsInput;
 
 namespace StreamDeckPluginsDota2
 {
-    public class RuneBase : PluginBase
+    // TODO: Create a base class w/ GSI integration
+    public class InputSimBase : PluginBase
     {
-        public InputSimulator InputSimulator;
+        protected InputSimulator InputSimulator;
+        protected bool isKeyPressed;
 
-        public RuneBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        protected InputSimBase(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             InputSimulator = new InputSimulator();
         }
 
         public override void KeyPressed(KeyPayload payload)
         {
+            isKeyPressed = true;
         }
 
         public override void KeyReleased(KeyPayload payload)
         {
+            isKeyPressed = false;
         }
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
