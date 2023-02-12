@@ -197,7 +197,7 @@
     <Content Include="images\actions\quit-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <!-- Display Game Time -->
+    <!-- Display Game Clock -->
     <Content Include="images\actions\display-game-clock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
