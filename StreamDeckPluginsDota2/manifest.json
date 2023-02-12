@@ -59,17 +59,17 @@
     },
     {
       "Icon": "images/icon",
-      "Name": "Display Game Time",
+      "Name": "Display Game Clock",
       "States": [
         {
-          "Image": "images\\actions\\display-game-time",
+          "Image": "images\\actions\\display-game-clock",
           "TitleAlignment": "bottom",
           "FontSize": "12"
         }
       ],
       "SupportedInMultiActions": false,
-      "Tooltip": "Displays the current game time.",
-      "UUID": "com.adrian-miasik.sdpdota2.display-game-time"
+      "Tooltip": "Displays the current game clock time.",
+      "UUID": "com.adrian-miasik.sdpdota2.display-game-clock"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",

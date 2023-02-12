@@ -8,8 +8,10 @@ using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
-    [PluginActionId("com.adrian-miasik.sdpdota2.display-game-time")]
-    public class DisplayGameTimeAction : InputSimBase
+    // TODO: Clean up
+    // TODO: Use Program methods instead
+    [PluginActionId("com.adrian-miasik.sdpdota2.display-game-clock")]
+    public class DisplayGameClockAction : InputSimBase
     {
         // Define colors
         private readonly Color m_pauseColor = Color.FromArgb(210, 40, 40);
@@ -33,7 +35,7 @@ namespace StreamDeckPluginsDota2
         private TitleParameters m_titleParameters;
         private FontFamily heeboFont;
 
-        public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        public DisplayGameClockAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             // Generate assets and cache images
             m_paused = GenerateSolidColorImage(144, 144, m_pauseColor);
@@ -164,7 +166,7 @@ namespace StreamDeckPluginsDota2
             if (!Program.IsDotaRunning())
             {
                 // Set to default state
-                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
                 Connection.SetTitleAsync(string.Empty);
                 
                 // Dispose of GSI since it won't be needed when Dota isn't running.
@@ -184,7 +186,7 @@ namespace StreamDeckPluginsDota2
                     if (m_gameState.Map.GameState == DOTA_GameState.Undefined)
                     {
                         // Show default state
-                        Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                        Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
                         Connection.SetTitleAsync(string.Empty);
                     
                         return;
@@ -209,7 +211,7 @@ namespace StreamDeckPluginsDota2
                     // Otherwise: GSI is not found.
                     
                     // Set to default state
-                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-time@2x.png"));
+                    Connection.SetImageAsync(Image.FromFile("images\\actions\\display-game-clock@2x.png"));
                     Connection.SetTitleAsync(string.Empty);
                 }
             }
@@ -268,7 +270,7 @@ namespace StreamDeckPluginsDota2
                 m_gameState = null;
                 m_isSubscribedToGSIEvents = false;
 
-                Console.WriteLine("DisplayGameTimeAction has unsubscribed from GSI.");
+                Console.WriteLine("DisplayGameClockAction has unsubscribed from GSI.");
             }
         }
     }

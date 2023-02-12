@@ -84,7 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayGameTimeAction.cs" />
+    <Compile Include="DisplayGameClockAction.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
@@ -198,10 +198,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- Display Game Time -->
-    <Content Include="images\actions\display-game-time.png">
+    <Content Include="images\actions\display-game-clock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\display-game-time@2x.png">
+    <Content Include="images\actions\display-game-clock@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\actions\resume-match.png">
