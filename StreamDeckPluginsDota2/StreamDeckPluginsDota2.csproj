@@ -84,7 +84,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayGameTimeAction.cs" />
     <Compile Include="RoshanTimerAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="ShowBotRuneAction.cs" />
     <Compile Include="ShowTopRuneAction.cs" />
     <Compile Include="ToggleGameAction.cs" />
+    <Compile Include="TogglePauseAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -204,6 +204,7 @@
     <Content Include="images\actions\display-game-time@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <!-- Play Pause Match -->
     <Content Include="images\actions\resume-match.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

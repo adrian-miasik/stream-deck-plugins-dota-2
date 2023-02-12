@@ -1,46 +1,25 @@
 ﻿using System;
 using System.Drawing;
 using BarRaider.SdTools;
-using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
 using Dota2GSI.Nodes;
 using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
-    [PluginActionId("com.adrian-miasik.sdpdota2.display-game-time")]
-    public class DisplayGameTimeAction : InputSimBase
+    [PluginActionId("com.adrian-miasik.sdpdota2.pause-match-toggle")]
+    public class TogglePauseAction : InputSimBase
     {
-        // Define colors
-        private readonly Color m_pauseColor = Color.FromArgb(210, 40, 40);
-        private readonly Color m_runningColor = Color.FromArgb(42, 168, 67);
-        private readonly Color m_dayColor = Color.FromArgb(255, 193, 50);
-        private readonly Color m_nightColor = Color.FromArgb(61, 148, 238);
-        
-        // Images
-        private readonly Image m_paused;
-        private readonly Image m_running;
-        private readonly Image m_dayImage;
-        private readonly Image m_nightImage;
-
-        // Game state (Clock)
+        // Game state integration
         private bool m_isSubscribedToGSIEvents;
         private GameState m_gameState;
+        
+        // Clock logic
         private int m_lastClockTime;
         private int m_currentClockTime;
         
-        // Graphics
-        private TitleParameters m_titleParameters;
-        private FontFamily heeboFont;
-
-        public DisplayGameTimeAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
+        public TogglePauseAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
-            // Generate assets and cache images
-            m_paused = GenerateSolidColorImage(144, 144, m_pauseColor);
-            m_running = GenerateSolidColorImage(144, 144, m_runningColor);
-            m_dayImage = GenerateSolidColorImage(144, 144, m_dayColor);
-            m_nightImage = GenerateSolidColorImage(144, 144, m_nightColor);
-            
             // Attempt to subscribe to GSI events
             CheckGSI();
         }
@@ -79,31 +58,6 @@ namespace StreamDeckPluginsDota2
                 }
             }
         }
-        
-        /// <summary>
-        /// Generates and returns an Image component using the provided dimensions and solid color.
-        /// </summary>
-        /// <param name="width">What width (in pixels) should the image be?</param>
-        /// <param name="height">What height (in pixels) should the image be?</param>
-        /// <param name="color">What color should this image be?</param>
-        /// <returns></returns>
-        private Image GenerateSolidColorImage(int width, int height, Color color)
-        {
-            // Generate bitmap (image)
-            Bitmap bitmap = new Bitmap(width, height);
-            
-            // Iterate through each pixel...
-            for (int x = 0; x < bitmap.Width; x++)
-            {
-                for (int y = 0; y < bitmap.Height; y++)
-                {
-                    // Set color
-                    bitmap.SetPixel(x, y, color);
-                }
-            }
-            
-            return new Bitmap(bitmap);
-        }
 
         /// <summary>
         /// Tick / Updates with new game state (Once per second it seems)
@@ -122,11 +76,11 @@ namespace StreamDeckPluginsDota2
             // Visualize Dota and GSI states
             if (!Program.IsDotaRunning())
             {
-                Connection.SetImageAsync(m_paused);
+                Connection.SetImageAsync(Program.m_red);
             }
             else
             {
-                Connection.SetImageAsync(m_gameState == null ? m_dayImage : m_running);
+                Connection.SetImageAsync(m_gameState == null ? Program.m_yellow : Program.m_green);
                 
                 // If dota is not currently in focus...
                 if (!Program.IsDotaFocused())
@@ -197,9 +151,10 @@ namespace StreamDeckPluginsDota2
                 
                     // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
                     bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-
-                    // Calculate and render the current state of the game
-                    Render(isPaused, isDayTime);
+                    
+                    Connection.SetImageAsync(isPaused
+                        ? Image.FromFile("images\\actions\\resume-match@2x.png")
+                        : Image.FromFile("images\\actions\\pause-match@2x.png"));
                 
                     // Cache for next tick calculation
                     m_lastClockTime = m_currentClockTime;
@@ -215,50 +170,6 @@ namespace StreamDeckPluginsDota2
             }
         }
         
-        private void Render(bool isPaused, bool isDayTime)
-        {
-            Image renderImage;
-            int resultTitleFontSize = 16;
-            // string renderString = Program.GetFormattedString(m_currentClockTime);
-            // Color renderColor = isDayTime ? m_dayColor : m_nightColor;
-
-            // If time isn't progressing...
-            if (isPaused)
-            {
-                renderImage = Image.FromFile("images\\actions\\resume-match@2x.png");
-            }
-            // Otherwise: Running...
-            else
-            {
-                // Show current game time
-                renderImage = Image.FromFile("images\\actions\\pause-match@2x.png");
-            }
-
-            // Define render
-            Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
-                
-            // Define tools
-            // Brush darkBrush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
-
-            // Render image
-            RectangleF imageRect = new RectangleF(0, 0, 144, 144);
-            graphics.DrawImage(renderImage, imageRect);
-                
-            // Draw said filled Rectangle
-            // graphics.FillRectangle(darkBrush, new Rectangle(0, 54 + 6, 144, 36));
-                
-            // Draw/Render Text to graphic
-            // m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
-                // renderColor, false, TitleVerticalAlignment.Middle);
-            // graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
-                
-            // Render graphic/Set image
-            Connection.SetImageAsync(renderResult);
-                
-            // Dispose
-            graphics.Dispose();
-        }
-
         public override void Dispose()
         {
             if (Program.isGSIInitialized() && m_isSubscribedToGSIEvents)
@@ -268,7 +179,7 @@ namespace StreamDeckPluginsDota2
                 m_gameState = null;
                 m_isSubscribedToGSIEvents = false;
 
-                Console.WriteLine("DisplayGameTimeAction has unsubscribed from GSI.");
+                Console.WriteLine("TogglePauseAction has unsubscribed from GSI.");
             }
         }
     }
