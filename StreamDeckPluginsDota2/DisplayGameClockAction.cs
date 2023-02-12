@@ -14,16 +14,8 @@ namespace StreamDeckPluginsDota2
     public class DisplayGameClockAction : InputSimBase
     {
         // Define colors
-        private readonly Color m_pauseColor = Color.FromArgb(83, 83, 83);
-        private readonly Color m_runningColor = Color.FromArgb(42, 168, 67);
         private readonly Color m_dayColor = Color.FromArgb(255, 193, 50);
         private readonly Color m_nightColor = Color.FromArgb(61, 148, 238);
-        
-        // Images
-        private readonly Image m_paused;
-        private readonly Image m_running;
-        private readonly Image m_dayImage;
-        private readonly Image m_nightImage;
 
         // Game state (Clock)
         private bool m_isSubscribedToGSIEvents;
@@ -35,7 +27,6 @@ namespace StreamDeckPluginsDota2
         
         // Graphics
         private TitleParameters m_titleParameters;
-        private FontFamily heeboFont;
 
         public DisplayGameClockAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
@@ -198,13 +189,13 @@ namespace StreamDeckPluginsDota2
             // If time isn't progressing...
             if (isPaused)
             {
-                renderImage = m_paused;
+                renderImage = Program.m_grey;
             }
             // Otherwise: Running...
             else
             {
                 // Show current game time
-                renderImage = m_running;
+                renderImage = Program.m_green;
             }
 
             // Define render

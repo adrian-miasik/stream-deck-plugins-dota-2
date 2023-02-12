@@ -18,11 +18,7 @@ namespace StreamDeckPluginsDota2
         // Clock logic
         private int m_lastClockTime;
         private int m_currentClockTime;
-        
-        // Graphics
-        private TitleParameters m_titleParameters;
-        private FontFamily heeboFont;
-        
+
         public TogglePauseAction(ISDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             // Attempt to subscribe to GSI events
@@ -173,47 +169,6 @@ namespace StreamDeckPluginsDota2
                     Connection.SetTitleAsync(string.Empty);
                 }
             }
-        }
-        
-        private void Render(bool isPaused, bool isDayTime)
-        {
-            Image renderImage;
-            int resultTitleFontSize = 16;
-            // string renderString = Program.GetFormattedString(m_currentClockTime);
-            // Color renderColor = isDayTime ? m_dayColor : m_nightColor;
-
-            // If time isn't progressing...
-            if (isPaused)
-            {
-                renderImage = Image.FromFile("images\\actions\\resume-match@2x.png");
-            }
-            // Otherwise: Running...
-            else
-            {
-                renderImage = Image.FromFile("images\\actions\\pause-match@2x.png");
-            }
-
-            // Define render
-            Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
-            
-            // Render image
-            RectangleF imageRect = new RectangleF(0, 0, 144, 144);
-            graphics.DrawImage(renderImage, imageRect);
-                
-            // Draw said filled Rectangle
-            Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
-            graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
-                
-            // Draw/Render Text to graphic
-            // m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
-                // renderColor, false, TitleVerticalAlignment.Middle);
-            // graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
-                
-            // Render graphic/Set image
-            Connection.SetImageAsync(renderResult);
-                
-            // Dispose
-            graphics.Dispose();
         }
         
         public override void Dispose()
