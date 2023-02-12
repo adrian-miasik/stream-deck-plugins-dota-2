@@ -197,14 +197,13 @@
     <Content Include="images\actions\quit-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <!-- Display Game Time -->
-    <Content Include="images\actions\display-game-time.png">
+    <!-- Pause/Resume Match -->
+    <Content Include="images\actions\pause-resume-match.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\actions\display-game-time@2x.png">
+    <Content Include="images\actions\pause-resume-match@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <!-- Play Pause Match -->
     <Content Include="images\actions\resume-match.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
