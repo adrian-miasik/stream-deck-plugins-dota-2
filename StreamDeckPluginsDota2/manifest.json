@@ -2,7 +2,7 @@
   "Actions": [
     {
       "Icon": "images/icon",
-      "Name": "Toggle Game",
+      "Name": "Launch/Quit Game",
       "States": [
         {
           "Image": "images\\actions\\launch-game",
