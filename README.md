@@ -23,7 +23,7 @@ Want to help? If you're interested in contributing to the project, please feel f
 | Launch/Quit Game   | Launch/Quit the 'Dota 2' application.                   | <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="144">        | <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="72"> <img src="StreamDeckPluginsDota2/images/actions/quit-game@2x.png" width="72">    |      |
 | Pause/Resume Match | Pause/Resume the currently running Dota 2 match.        | <img src="StreamDeckPluginsDota2/images/actions/pause-resume-match@2x.png" width="144"> | <img src="StreamDeckPluginsDota2/images/actions/pause-match@2x.png" width="72"> <img src="StreamDeckPluginsDota2/images/actions/resume-match@2x.png" width="72"> |      |
 | Display Game Clock | Displays the current game clock time.                   | <img src="StreamDeckPluginsDota2/images/actions/display-game-clock@2x.png" width="144"> | Generated and composed based on game state.                                                                                                                        |      |
-| Roshan Timer       | Keep track of Roshan's respawn time and item drops.     | <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="144">       | <img src="StreamDeckPluginsDota2/images/actions/dead0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive3.png" width="64"> |      |
+| Roshan Timer       | Keep track of Roshan's respawn time and item drops.     | <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="144">       | <img src="StreamDeckPluginsDota2/images/actions/dead0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive3.png" width="64"> | [URL](https://github.com/adrian-miasik/stream-deck-plugins-dota-2/wiki/Roshan-Timer-Explained)     |
 | Show Top Rune      | Quickly position the in-game camera to the top rune.    | <img src="StreamDeckPluginsDota2/images/actions/show-top-rune@2x.png" width="144">      | Single State                                                                                                                                                       |      |
 | Show Bot Rune      | Quickly position the in-game camera to the bottom rune. | <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="144">      | Single State                                                                                                                                                       |      |
 
@@ -40,10 +40,7 @@ Want to help? If you're interested in contributing to the project, please feel f
 
 # Launch Options Explained
 - The `-gamestateintegration` line is required to enable this plugin to read the contents of the Dota game state as of [2022 March 11th.](https://dota2.fandom.com/wiki/March_11,_2022_Patch)
-- The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our cameras actions to certain function keys. Please ensure you have no keybindings on F13, F14, and F15.
-
-# Actions Explained
-- [Roshan Timer](https://github.com/adrian-miasik/stream-deck-plugins-dota-2/wiki/Roshan-Timer-Explained)
+- The `+exec stream_deck_plugins_dota_2.cfg` line is required to bind our cameras actions to certain function keys. Please ensure you have no keybindings on F13, F14, F15, F16.
 
 # Author Notes
 - If you're looking to build this yourself, make sure to download [.NET Framework 4.7.2 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472) and make sure to restore/update your NuGet packages as necessary.
@@ -54,7 +51,7 @@ Want to help? If you're interested in contributing to the project, please feel f
 
 If you have any questions, feel free to reach out. :)
 
-- Playerbase: 831 installs on the Elgato Store
+- Playerbase: 1.1k installs on the Elgato Store
 - The SVG assets have been created myself and/or sourced from The Noun Project
 
 # Contact Us / Support Line
