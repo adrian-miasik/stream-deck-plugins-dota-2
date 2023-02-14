@@ -4,7 +4,6 @@ using BarRaider.SdTools;
 
 namespace StreamDeckPluginsDota2
 {
-    // TODO: Rename to include word 'Action'
     // TODO: Refactor to utilize OnApplicationTerminated event instead of checking processes?
     [PluginActionId("com.adrian-miasik.sdpdota2.toggle-game")]
     public class ToggleApplicationAction : PluginBase

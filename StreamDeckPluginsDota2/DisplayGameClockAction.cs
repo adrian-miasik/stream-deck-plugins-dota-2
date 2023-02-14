@@ -8,8 +8,6 @@ using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
-    // TODO: Clean up
-    // TODO: Use Program methods instead
     [PluginActionId("com.adrian-miasik.sdpdota2.display-game-clock")]
     public class DisplayGameClockAction : InputSimBase
     {
