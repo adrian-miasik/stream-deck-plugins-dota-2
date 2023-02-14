@@ -14,7 +14,7 @@ SDP-D2 is a suite of Elgato Stream Deck plugins created for Valve's MOBA: Dota 2
 **Author**:  **[`Adrian Miasik`](https://adrian-miasik.com)**
 
 **Contributor(s)**: `-`  
-Want to help? If you're interested in contributing to the project, please feel free to reach out!
+Want to help? If you're interested in contributing to the project, please feel free to reach out! `sdp-dota-2@adrian-miasik.com`
 
 # Actions
 ## Actions
