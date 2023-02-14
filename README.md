@@ -13,46 +13,29 @@ SDP-D2 is a suite of Elgato Stream Deck plugins created for Valve's MOBA: Dota 2
 
 **Author**:  **[`Adrian Miasik`](https://adrian-miasik.com)**
 
-**License**: TBA
-
 **Contributor(s)**: `-`  
 Want to help? If you're interested in contributing to the project, please feel free to reach out!
 
 # Actions
-<h2 align="center">Toggle Game</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="128">
-  <img src="StreamDeckPluginsDota2/images/actions/quit-game@2x.png" width="128">
-</p>
-<p align="center">Launch/Quit the 'Dota 2' application.</p>
-
-<h2 align="center">Roshan Timer</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="128">
-</p>
-<p align="center">Keep track of Roshan's respawn time and item drops.</p>
-
-<h2 align="center">Show Top Rune</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/show-top-rune@2x.png" width="128">
-</p>
-<p align="center">Quickly position the in-game camera to the top rune.</p>
-
-<h2 align="center">Show Bot Rune</h2>
-<p align="center">
-  <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="128">
-</p>
-<p align="center">Quickly position the in-game camera to the bottom rune.</p>
+## Actions
+| Name               | Description                                             | Icon                                                                                    | States                                                                                                                                                             | Wiki |
+| ------------------ | ------------------------------------------------------- |-----------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- |
+| Launch/Quit Game   | Launch/Quit the 'Dota 2' application.                   | <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="144">        | <img src="StreamDeckPluginsDota2/images/actions/launch-game@2x.png" width="144"> <img src="StreamDeckPluginsDota2/images/actions/quit-game@2x.png" width="144">    |      |
+| Pause/Resume Match | Pause/Resume the currently running Dota 2 match.        | <img src="StreamDeckPluginsDota2/images/actions/pause-resume-match@2x.png" width="144"> | <img src="StreamDeckPluginsDota2/images/actions/pause-match@2x.png" width="144"> <img src="StreamDeckPluginsDota2/images/actions/resume-match@2x.png" width="144"> |      |
+| Display Game Clock | Displays the current game clock time.                   | <img src="StreamDeckPluginsDota2/images/actions/display-game-clock@2x.png" width="144"> | Generated and composed based on game state.                                                                                                                        |      |
+| Roshan Timer       | Keep track of Roshan's respawn time and item drops.     | <img src="StreamDeckPluginsDota2/images/actions/roshan-timer@2x.png" width="144">       | <img src="StreamDeckPluginsDota2/images/actions/dead0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/dead3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive0.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive1.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive2.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/maybe3.png" width="64"><img src="StreamDeckPluginsDota2/images/actions/alive3.png" width="64"> |      |
+| Show Top Rune      | Quickly position the in-game camera to the top rune.    | <img src="StreamDeckPluginsDota2/images/actions/show-top-rune@2x.png" width="144">      | Single State                                                                                                                                                       |      |
+| Show Bot Rune      | Quickly position the in-game camera to the bottom rune. | <img src="StreamDeckPluginsDota2/images/actions/show-bot-rune@2x.png" width="144">      | Single State                                                                                                                                                       |      |
 
 # Downloads
 - [Elgato Plugin Store (Recommended)](https://apps.elgato.com/plugins/com.adrian-miasik.sdpdota2)
 - [Direct Download](StreamDeckPluginsDota2/distribute/com.adrian-miasik.sdpdota2.streamDeckPlugin)
 
 # Installation
-1. Install `com.adrian-miasik.sdpdota2.streamDeckPlugin` to your Stream Deck. 
-    - Make sure to have the Elgato Stream Deck software installed. 
+1. Install `com.adrian-miasik.sdpdota2.streamDeckPlugin` to your Stream Deck.
+    - Make sure to have the Elgato Stream Deck software installed.
     - Simple double-clicking this file on Windows will prompt an install.
-2. Add the following commands to your Dota 2 launch options: 
+2. Add the following commands to your Dota 2 launch options:
     - `-gamestateintegration +exec stream_deck_plugins_dota_2.cfg`
 
 # Launch Options Explained
@@ -65,9 +48,9 @@ Want to help? If you're interested in contributing to the project, please feel f
 # Author Notes
 - If you're looking to build this yourself, make sure to download [.NET Framework 4.7.2 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net472) and make sure to restore/update your NuGet packages as necessary.
 - Distribution Pipeline:
-  1. Build
-  2. Navigate to the distribute folder
-  3. Run the appropriate `.bat` script (Debug / Release). This will take our built solution and package the files using Elgato's Distribution Tool to create a plugin file. The output will create a `.streamDeckPlugin` file in the same directory.
+    1. Build
+    2. Navigate to the distribute folder
+    3. Run the appropriate `.bat` script (Debug / Release). This will take our built solution and package the files using Elgato's Distribution Tool to create a plugin file. The output will create a `.streamDeckPlugin` file in the same directory.
 
 If you have any questions, feel free to reach out. :)
 
@@ -94,3 +77,4 @@ Copyrights and trademarks are the property of their respective owners.
 - Aghanim's Blessing (Item Art)
 - Refresher Shard (Item Art)
 - Water Rune (Gameplay Update Art)
+- Nightstalker: Dark Ascension (Skill Art)
