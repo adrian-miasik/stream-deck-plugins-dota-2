@@ -4,7 +4,6 @@ using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
 using Dota2GSI.Nodes;
-using WindowsInput.Native;
 
 namespace StreamDeckPluginsDota2
 {
@@ -79,7 +78,18 @@ namespace StreamDeckPluginsDota2
 
         public override void KeyPressed(KeyPayload payload) { }
 
-        public override void KeyReleased(KeyPayload payload) { }
+        public override void KeyReleased(KeyPayload payload)
+        {
+            // GSI visuals
+            if (!Program.IsDotaRunning())
+            {
+                Connection.SetImageAsync(Program.m_grey);
+            }
+            else
+            {
+                Connection.SetImageAsync(m_gameState == null ? Program.m_yellow : Program.m_green);
+            }
+        }
         
         public override void ReceivedSettings(ReceivedSettingsPayload payload) { }
 
