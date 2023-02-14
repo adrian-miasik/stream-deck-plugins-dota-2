@@ -365,7 +365,7 @@ namespace StreamDeckPluginsDota2
         /// <param name="height">What height (in pixels) should the image be?</param>
         /// <param name="color">What color should this image be?</param>
         /// <returns></returns>
-        private static Image GenerateSolidColorImage(int width, int height, Color color)
+        public static Image GenerateSolidColorImage(int width, int height, Color color)
         {
             // Generate bitmap (image)
             Bitmap bitmap = new Bitmap(width, height);

@@ -77,3 +77,4 @@ Copyrights and trademarks are the property of their respective owners.
 - Aghanim's Blessing (Item Art)
 - Refresher Shard (Item Art)
 - Water Rune (Gameplay Update Art)
+- Nightstalker: Dark Ascension (Skill Art)

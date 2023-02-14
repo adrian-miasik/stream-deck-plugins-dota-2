@@ -124,15 +124,8 @@ namespace StreamDeckPluginsDota2
                     }
                 
                     m_currentClockTime = m_gameState.Map.ClockTime;
-                
-                    // Determine pause state: (if clock time is progressing)
-                    bool isPaused = m_currentClockTime == m_lastClockTime;
-                
-                    // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
-                    bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
-
-                    // Calculate and render the current state of the game
-                    Render(null, isDayTime);
+                    
+                    Render();
                 
                     // Cache for next tick calculation
                     m_lastClockTime = m_currentClockTime;
@@ -148,32 +141,53 @@ namespace StreamDeckPluginsDota2
             }
         }
         
-        private void Render(Image centerImage, bool isDayTime)
+        private void Render()
         {
-            Image renderImage = Image.FromFile("images\\actions\\game-clock-base@2x.png");
-            int resultTitleFontSize = 18;
-            string renderString = Program.GetFormattedString(m_currentClockTime);
-            Color renderColor = isDayTime ? m_dayColor : m_nightColor;
+            // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
+            bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
             
-            // Define render
+            // Create graphics
             Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
             
-            // Render background image
+            // Render image -> background icon
             RectangleF actionBounds = new RectangleF(0, 0, 144, 144);
+            Image renderImage = Image.FromFile("images\\actions\\game-clock-base@2x.png");
             graphics.DrawImage(renderImage, actionBounds);
-            
-            // TODO: Utilize centerImage 
-            // RectangleF imageCenterBounds = new RectangleF(4, 4, 136, 92);
-            // graphics.DrawImage(centerImage, imageCenterBounds);
 
-            // Render game clock banner
+            // Render image -> Center image
+            Image centerImage;
+            // If night stalker ult...
+            if (m_gameState.Map.IsNightstalker_Night)
+            {
+                // Night time - Nightstalker ult
+                centerImage = Image.FromFile("images\\actions\\night-stalker-ultimate.png");
+            }
+            // Otherwise...regular clock
+            else
+            {
+                if (m_gameState.Map.IsDaytime)
+                {
+                    // Day time
+                    centerImage = Program.GenerateSolidColorImage(144, 144, m_dayColor);
+                }
+                else
+                {
+                    // Night time
+                    centerImage = Program.GenerateSolidColorImage(144, 144, m_nightColor);
+                }
+            }
+            RectangleF imageCenterBounds = new RectangleF(4, 4, 136, 92);
+            graphics.DrawImage(centerImage, imageCenterBounds);
+
+            // Render text -> Clock time
             Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
             graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
-            m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
-                renderColor, false, TitleVerticalAlignment.Middle);
-            graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
+            m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
+                isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
+            graphics.AddTextPath(m_titleParameters, 150, 144, 
+                Program.GetFormattedString(m_currentClockTime));
                 
-            // Render graphic/Set image
+            // Set/Render graphics
             Connection.SetImageAsync(renderResult);
                 
             // Dispose
