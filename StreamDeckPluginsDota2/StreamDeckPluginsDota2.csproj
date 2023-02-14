@@ -204,6 +204,12 @@
     <Content Include="images\actions\display-game-clock@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\actions\game-clock-base.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\actions\game-clock-base@2x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <!-- Pause/Resume Match -->
     <Content Include="images\actions\pause-resume-match.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

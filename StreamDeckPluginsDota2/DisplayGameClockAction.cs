@@ -77,38 +77,9 @@ namespace StreamDeckPluginsDota2
             m_gameState = gamestate;
         }
 
-        public override void KeyPressed(KeyPayload payload)
-        {
-            base.KeyPressed(payload); // Dirty key press flag
-            
-            // Visualize Dota and GSI states
-            if (!Program.IsDotaRunning())
-            {
-                Connection.SetImageAsync(Program.m_grey);
-            }
-            else
-            {
-                Connection.SetImageAsync(m_gameState == null ? Program.m_yellow : Program.m_green);
-                
-                // If dota is not currently in focus...
-                if (!Program.IsDotaFocused())
-                {
-                    // Focus dota:
-                    // Invoking method 'SetForegroundWindow' doesn't seem to always work.
-                    // To make the method more responsive, we simply press the alt key which fixes the unresponsiveness.
-                    InputSimulator.Keyboard.KeyPress(VirtualKeyCode.MENU); // Workaround for 'SetForegroundWindow'.
-                    Program.FocusDota();
-                }
-            }
-        }
+        public override void KeyPressed(KeyPayload payload) { }
 
-        public override void KeyReleased(KeyPayload payload)
-        {
-            base.KeyReleased(payload); // Clean key press flag
-            
-            // Press pause toggle hotkey
-            InputSimulator.Keyboard.KeyPress(VirtualKeyCode.F16);
-        }
+        public override void KeyReleased(KeyPayload payload) { }
         
         public override void ReceivedSettings(ReceivedSettingsPayload payload) { }
 
@@ -161,7 +132,7 @@ namespace StreamDeckPluginsDota2
                     bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
 
                     // Calculate and render the current state of the game
-                    Render(isPaused, isDayTime);
+                    Render(null, isDayTime);
                 
                     // Cache for next tick calculation
                     m_lastClockTime = m_currentClockTime;
@@ -177,37 +148,27 @@ namespace StreamDeckPluginsDota2
             }
         }
         
-        private void Render(bool isPaused, bool isDayTime)
+        private void Render(Image centerImage, bool isDayTime)
         {
-            Image renderImage;
-            int resultTitleFontSize = 16;
+            Image renderImage = Image.FromFile("images\\actions\\game-clock-base@2x.png");
+            int resultTitleFontSize = 18;
             string renderString = Program.GetFormattedString(m_currentClockTime);
             Color renderColor = isDayTime ? m_dayColor : m_nightColor;
-
-            // If time isn't progressing...
-            if (isPaused)
-            {
-                renderImage = Program.m_grey;
-            }
-            // Otherwise: Running...
-            else
-            {
-                // Show current game time
-                renderImage = Program.m_green;
-            }
-
+            
             // Define render
             Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
             
-            // Render image
-            RectangleF imageRect = new RectangleF(0, 0, 144, 144);
-            graphics.DrawImage(renderImage, imageRect);
-                
-            // Draw said filled Rectangle
+            // Render background image
+            RectangleF actionBounds = new RectangleF(0, 0, 144, 144);
+            graphics.DrawImage(renderImage, actionBounds);
+            
+            // TODO: Utilize centerImage 
+            // RectangleF imageCenterBounds = new RectangleF(4, 4, 136, 92);
+            // graphics.DrawImage(centerImage, imageCenterBounds);
+
+            // Render game clock banner
             Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
             graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
-                
-            // Draw/Render Text to graphic
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, resultTitleFontSize, 
                 renderColor, false, TitleVerticalAlignment.Middle);
             graphics.AddTextPath(m_titleParameters, 150, 144, renderString);
