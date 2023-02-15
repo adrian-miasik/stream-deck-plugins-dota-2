@@ -354,20 +354,17 @@ namespace StreamDeckPluginsDota2
     
             string cfgFile = cfgFolder + @"\stream_deck_plugins_dota_2.cfg";
             
-            // Doesn't overwrite if file exists
-            if (!File.Exists(cfgFile))
+            string[] contentsOfCFGFile =
             {
-                string[] contentsOfCFGFile =
-                {
-                    "bind \"F13\" \"+dota_camera_center_on_hero\";",                // Rune Key Release
-                    "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";",        // Top Rune
-                    "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";",       // Bot Rune
-                    "bind \"F16\" \"dota_pause\";",                                 // Pause Toggle
-                    "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"  // Source Console Log
-                };
+                "bind \"F13\" \"+dota_camera_center_on_hero\";",                // Rune Key Release
+                "bind \"F14\" \"dota_camera_set_lookatpos -1620 950\";",        // Top Rune
+                "bind \"F15\" \"dota_camera_set_lookatpos 1200 -1400\";",       // Bot Rune
+                "bind \"F16\" \"dota_pause\";",                                 // Pause Toggle
+                "echo \"Dota 2 - Stream Deck Keybindings Loaded Successfully!"  // Source Console Log
+            };
                     
-                File.WriteAllLines(cfgFile, contentsOfCFGFile);
-            }
+            // Overwrite contents
+            File.WriteAllLines(cfgFile, contentsOfCFGFile);
         }
         
         /// <summary>
