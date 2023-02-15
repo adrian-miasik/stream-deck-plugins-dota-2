@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
@@ -196,12 +197,26 @@ namespace StreamDeckPluginsDota2
                 clockTimeXOffset = 8;
             }
             Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
-            graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
+            graphics.FillRectangle(brush, new Rectangle(0, 56, 144, 40));
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
                 isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
-            // TODO: Modify/tweak to support custom x and y positions.
-            graphics.AddTextPath(m_titleParameters, 150, 144, 
-                Program.GetFormattedString(m_currentClockTime));
+
+            // Render clock
+            string text = Program.GetFormattedString(m_currentClockTime);
+            int pixelsAlignment = 15;
+            int imageWidth = 144;
+            int imageHeight = 144;
+            Font font = new Font(m_titleParameters.FontFamily, (float)m_titleParameters.
+                FontSizeInPixelsScaledToDefaultImage, m_titleParameters.FontStyle, GraphicsUnit.Pixel);
+            Color titleColor = m_titleParameters.TitleColor;
+            graphics.PageUnit = GraphicsUnit.Pixel;
+            Pen pen = new Pen(Color.Black, 1);
+            GraphicsPath path = new GraphicsPath();
+            path.AddString(text, font.FontFamily, (int) font.Style, graphics.DpiY *
+                font.SizeInPoints / imageWidth, new Point(m_gameState.Map.IsNightstalker_Night ? 44 : 29, 58), 
+                new StringFormat());
+            graphics.DrawPath(pen, path);
+            graphics.FillPath(new SolidBrush(titleColor), path);
             
             // Render image -> Night stalker ult (front)
             if (m_gameState.Map.IsNightstalker_Night)
