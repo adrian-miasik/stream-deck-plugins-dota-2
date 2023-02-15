@@ -154,18 +154,18 @@ namespace StreamDeckPluginsDota2
         
         private void Render()
         {
-            // Determine day/night cycle: (If it's not night stalker ult time AND is day time. Otherwise, night time.)
+            // Determine day/night cycle
             bool isDayTime = !m_gameState.Map.IsNightstalker_Night && m_gameState.Map.IsDaytime;
             
             // Create graphics
             Bitmap renderResult = Tools.GenerateGenericKeyImage(out Graphics graphics);
             
-            // Render image -> background icon
+            // Render empty background image
             RectangleF actionBounds = new RectangleF(0, 0, 144, 144);
             Image renderImage = Image.FromFile("images\\actions\\game-clock-base@2x.png");
             graphics.DrawImage(renderImage, actionBounds);
 
-            // Render image -> Center image
+            // Render center image
             Image centerImage;
             // If night stalker ult...
             if (m_gameState.Map.IsNightstalker_Night)
@@ -190,18 +190,13 @@ namespace StreamDeckPluginsDota2
             RectangleF imageCenterBounds = new RectangleF(4, 4, 136, 92);
             graphics.DrawImage(centerImage, imageCenterBounds);
 
-            // Render text -> Clock time
-            int clockTimeXOffset = 0;
-            if (m_gameState.Map.IsNightstalker_Night)
-            {
-                clockTimeXOffset = 8;
-            }
+            // Render clock time background banner
             Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
             graphics.FillRectangle(brush, new Rectangle(0, 56, 144, 40));
+            
+            // Render clock time
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
                 isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
-
-            // Render clock
             string text = Program.GetFormattedString(m_currentClockTime);
             int pixelsAlignment = 15;
             int imageWidth = 144;
@@ -212,13 +207,14 @@ namespace StreamDeckPluginsDota2
             graphics.PageUnit = GraphicsUnit.Pixel;
             Pen pen = new Pen(Color.Black, 1);
             GraphicsPath path = new GraphicsPath();
+            // Position with the favicon in mind...
             path.AddString(text, font.FontFamily, (int) font.Style, graphics.DpiY *
                 font.SizeInPoints / imageWidth, new Point(m_gameState.Map.IsNightstalker_Night ? 44 : 29, 58), 
                 new StringFormat());
             graphics.DrawPath(pen, path);
             graphics.FillPath(new SolidBrush(titleColor), path);
             
-            // Render image -> Night stalker ult (front)
+            // Render favicon
             if (m_gameState.Map.IsNightstalker_Night)
             {
                 RectangleF faviconBounds = new RectangleF(4, 56, 40, 40);
