@@ -84,11 +84,11 @@ namespace StreamDeckPluginsDota2
             // GSI visuals
             if (!Program.IsDotaRunning())
             {
-                Connection.SetImageAsync(Program.m_grey);
+                Connection.SetImageAsync(Program.m_notFound);
             }
-            else
+            else if(m_gameState == null)
             {
-                Connection.SetImageAsync(m_gameState == null ? Program.m_yellow : Program.m_green);
+                Connection.SetImageAsync(Program.m_standby);
             }
         }
         

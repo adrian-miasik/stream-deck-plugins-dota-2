@@ -197,6 +197,16 @@
     <Content Include="images\actions\quit-game@2x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <!-- GSI state assets -->
+    <Content Include="images\gsi\not-found.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\gsi\standby.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\gsi\confirm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <!-- Display Game Clock -->
     <Content Include="images\actions\display-game-clock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

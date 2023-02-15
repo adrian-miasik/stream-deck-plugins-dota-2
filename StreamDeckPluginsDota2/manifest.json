@@ -16,6 +16,34 @@
     },
     {
       "Icon": "images/icon",
+      "Name": "Pause/Resume Match",
+      "States": [
+        {
+          "Image": "images\\actions\\pause-resume-match",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Pause/Resume the currently running Dota 2 match.",
+      "UUID": "com.adrian-miasik.sdpdota2.pause-match-toggle"
+    },
+    {
+      "Icon": "images/icon",
+      "Name": "Display Game Clock",
+      "States": [
+        {
+          "Image": "images\\actions\\display-game-clock",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Displays the current game clock time.",
+      "UUID": "com.adrian-miasik.sdpdota2.display-game-clock"
+    },
+    {
+      "Icon": "images/icon",
       "Name": "Roshan Timer",
       "States": [
         {
@@ -56,34 +84,6 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Quickly position the camera to preview the bot rune.",
       "UUID": "com.adrian-miasik.sdpdota2.show-bot-rune"
-    },
-    {
-      "Icon": "images/icon",
-      "Name": "Display Game Clock",
-      "States": [
-        {
-          "Image": "images\\actions\\display-game-clock",
-          "TitleAlignment": "bottom",
-          "FontSize": "12"
-        }
-      ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "Displays the current game clock time.",
-      "UUID": "com.adrian-miasik.sdpdota2.display-game-clock"
-    },
-    {
-      "Icon": "images/icon",
-      "Name": "Pause/Resume Match",
-      "States": [
-        {
-          "Image": "images\\actions\\pause-resume-match",
-          "TitleAlignment": "bottom",
-          "FontSize": "12"
-        }
-      ],
-      "SupportedInMultiActions": false,
-      "Tooltip": "Pause/Resume the currently running Dota 2 match.",
-      "UUID": "com.adrian-miasik.sdpdota2.pause-match-toggle"
     }
   ],
   "Name": "Stream Deck Plugins - Dota 2",
@@ -94,7 +94,7 @@
   "CodePath": "com.adrian-miasik.sdpdota2",
   "Category": "Dota 2",
   "CategoryIcon": "images/categoryIcon",
-  "Version": "1.2.619",
+  "Version": "1.2.627",
   "SDKVersion": 2,
   "Software": {
     "MinimumVersion":  "4.1"

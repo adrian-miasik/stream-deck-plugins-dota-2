@@ -44,10 +44,15 @@ namespace StreamDeckPluginsDota2
         private static extern bool SetForegroundWindow(IntPtr hWnd);
         
         // Generic State Images
-        public static Image m_red;
-        public static Image m_yellow;
-        public static Image m_green;
-        public static Image m_grey;
+        // public static Image m_red;
+        // public static Image m_yellow;
+        // public static Image m_green;
+        // public static Image m_grey;
+        
+        // GSI states
+        public static Image m_notFound;
+        public static Image m_standby;
+        public static Image m_confirm;
 
         static void Main(string[] args)
         {
@@ -84,7 +89,7 @@ namespace StreamDeckPluginsDota2
             CreateConfigs();
             
             // TODO: Create something that will only load images when needed instead of front loading it ('Lazyloading')
-            CreateImages();
+            LoadImages();
 
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
             isDotaRunning = m_dotaProcesses.Length > 0;
@@ -287,13 +292,18 @@ namespace StreamDeckPluginsDota2
         /// <summary>
         /// Generates our generic state images that can be used throughout the app.
         /// </summary>
-        private static void CreateImages()
+        private static void LoadImages()
         {
             // Generate assets and cache images
-            m_red = GenerateSolidColorImage(144, 144, Color.FromArgb(210, 40, 40));
-            m_yellow = GenerateSolidColorImage(144, 144, Color.FromArgb(255, 193, 50));
-            m_green = GenerateSolidColorImage(144, 144, Color.FromArgb(42, 168, 67));
-            m_grey = GenerateSolidColorImage(144, 144, Color.FromArgb(83, 83, 83));
+            // m_red = GenerateSolidColorImage(144, 144, Color.FromArgb(210, 40, 40));
+            // m_yellow = GenerateSolidColorImage(144, 144, Color.FromArgb(255, 193, 50));
+            // m_green = GenerateSolidColorImage(144, 144, Color.FromArgb(42, 168, 67));
+            // m_grey = GenerateSolidColorImage(144, 144, Color.FromArgb(83, 83, 83));
+            
+            // Load GSI assets and cache images
+            m_notFound = Image.FromFile("images\\gsi\\not-found.png");
+            m_standby = Image.FromFile("images\\gsi\\standby.png");
+            m_confirm = Image.FromFile("images\\gsi\\confirm.png");
         }
 
         /// <summary>

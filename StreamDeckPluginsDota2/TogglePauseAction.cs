@@ -77,11 +77,11 @@ namespace StreamDeckPluginsDota2
             // Visualize Dota and GSI states
             if (!Program.IsDotaRunning())
             {
-                Connection.SetImageAsync(Program.m_grey);
+                Connection.SetImageAsync(Program.m_notFound);
             }
             else
             {
-                Connection.SetImageAsync(m_gameState == null ? Program.m_yellow : Program.m_green);
+                Connection.SetImageAsync(m_gameState == null ? Program.m_standby : Program.m_confirm);                
                 
                 // If dota is not currently in focus...
                 if (!Program.IsDotaFocused())
