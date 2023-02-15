@@ -198,9 +198,7 @@ namespace StreamDeckPluginsDota2
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
                 isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
             string text = Program.GetFormattedString(m_currentClockTime);
-            int pixelsAlignment = 15;
             int imageWidth = 144;
-            int imageHeight = 144;
             Font font = new Font(m_titleParameters.FontFamily, (float)m_titleParameters.
                 FontSizeInPixelsScaledToDefaultImage, m_titleParameters.FontStyle, GraphicsUnit.Pixel);
             Color titleColor = m_titleParameters.TitleColor;
