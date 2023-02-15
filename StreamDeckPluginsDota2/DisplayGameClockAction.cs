@@ -190,12 +190,25 @@ namespace StreamDeckPluginsDota2
             graphics.DrawImage(centerImage, imageCenterBounds);
 
             // Render text -> Clock time
+            int clockTimeXOffset = 0;
+            if (m_gameState.Map.IsNightstalker_Night)
+            {
+                clockTimeXOffset = 8;
+            }
             Brush brush = new SolidBrush(Color.FromArgb(175, 0, 0, 0));
             graphics.FillRectangle(brush, new Rectangle(0, 54 + 6, 144, 36));
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
                 isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
+            // TODO: Modify/tweak to support custom x and y positions.
             graphics.AddTextPath(m_titleParameters, 150, 144, 
                 Program.GetFormattedString(m_currentClockTime));
+            
+            // Render image -> Night stalker ult (front)
+            if (m_gameState.Map.IsNightstalker_Night)
+            {
+                RectangleF faviconBounds = new RectangleF(4, 56, 40, 40);
+                graphics.DrawImage(Image.FromFile("images\\actions\\night-stalker-favicon.png"), faviconBounds);
+            }
                 
             // Set/Render graphics
             Connection.SetImageAsync(renderResult);
