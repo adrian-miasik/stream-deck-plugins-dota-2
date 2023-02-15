@@ -82,6 +82,8 @@ namespace StreamDeckPluginsDota2
             }
 
             CreateConfigs();
+            
+            // TODO: Create something that will only load images when needed instead of front loading it ('Lazyloading')
             CreateImages();
 
             m_dotaProcesses = Process.GetProcessesByName("Dota2");
