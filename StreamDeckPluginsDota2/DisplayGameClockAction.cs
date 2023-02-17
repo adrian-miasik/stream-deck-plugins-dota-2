@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using BarRaider.SdTools;
 using BarRaider.SdTools.Wrappers;
 using Dota2GSI;
@@ -197,25 +196,13 @@ namespace StreamDeckPluginsDota2
             // Render clock time
             m_titleParameters = new TitleParameters(FontFamily.GenericSansSerif, FontStyle.Bold, 18, 
                 isDayTime ? m_dayColor : m_nightColor, false, TitleVerticalAlignment.Middle);
-            string text = Program.GetFormattedString(m_currentClockTime);
-            int imageWidth = 144;
-            Font font = new Font(m_titleParameters.FontFamily, (float)m_titleParameters.
-                FontSizeInPixelsScaledToDefaultImage, m_titleParameters.FontStyle, GraphicsUnit.Pixel);
-            Color titleColor = m_titleParameters.TitleColor;
-            graphics.PageUnit = GraphicsUnit.Pixel;
-            Pen pen = new Pen(Color.Black, 1);
-            GraphicsPath path = new GraphicsPath();
-            // Position with the favicon in mind...
-            path.AddString(text, font.FontFamily, (int) font.Style, graphics.DpiY *
-                font.SizeInPoints / imageWidth, new Point(m_gameState.Map.IsNightstalker_Night ? 44 : 29, 58), 
-                new StringFormat());
-            graphics.DrawPath(pen, path);
-            graphics.FillPath(new SolidBrush(titleColor), path);
+            graphics.AddTextPath(m_titleParameters, 144, 150, 
+                Program.GetFormattedString(m_currentClockTime));
             
             // Render favicon
             if (m_gameState.Map.IsNightstalker_Night)
             {
-                RectangleF faviconBounds = new RectangleF(4, 56, 40, 40);
+                RectangleF faviconBounds = new RectangleF(46, 4, 52, 52);
                 graphics.DrawImage(Image.FromFile("images\\actions\\night-stalker-favicon.png"), faviconBounds);
             }
                 
