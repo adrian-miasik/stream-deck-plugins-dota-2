@@ -4,12 +4,12 @@
 </p>
 
 ## About
-SDP-D2 is a suite of Elgato Stream Deck plugins created for Valve's MOBA: Dota 2 ⚔️. Capable of reading the Dota 2 game state via Valve's Game State Integration (GSI). Streamlining your Dota experience with helpful tools and widgets.
+SDP-D2 is a suite of Elgato Stream Deck plugins/actions created for Valve's MOBA: Dota 2 ⚔️. Capable of reading the Dota 2 game state via Valve's Game State Integration (GSI). Streamlining your Dota experience with helpful tools and widgets.
 
 
 **Platforms**: Windows
 
-**Version**:  1.2.0
+**Version**:  1.3.0
 
 **Author**:  **[`Adrian Miasik`](https://adrian-miasik.com)**
 
