@@ -52,7 +52,7 @@ Want to help? If you're interested in contributing to the project, please feel f
 
 If you have any questions, feel free to reach out. :)
 
-- Playerbase: 1.1k installs on the Elgato Store
+- Playerbase: 1.7k installs on the Elgato Store
 - The SVG assets have been created myself and/or sourced from The Noun Project
 
 # Contact Us / Support Line
